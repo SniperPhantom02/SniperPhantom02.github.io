@@ -191,3 +191,30 @@ body {
 @keyframes blink {
   50% { opacity: 0; }
 }
+/* GLITCH OVERLAY */
+#glitch-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,255,159,0.05);
+  pointer-events: none;
+  opacity: 0;
+  animation: none;
+}
+
+.glitch-active {
+  animation: glitchFlash 0.3s;
+}
+
+@keyframes glitchFlash {
+  0% { opacity: 0; }
+  50% { opacity: 0.4; }
+  100% { opacity: 0; }
+}
+
+/* MAGIC TEXT EFFECT */
+.magic-text {
+  color: #fff;
+  text-shadow: 0 0 8px #00ff9f, 0 0 20px #00ff9f;
+  animation: fadeIn 1s ease;
+}
