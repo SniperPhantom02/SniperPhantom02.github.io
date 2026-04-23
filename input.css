@@ -1,95 +1,35 @@
 @tailwind base;
+@tailwind components;
 @tailwind utilities;
 
-.terminal * {
-    @apply break-words
+@layer base {
+  body {
+    @apply bg-garrison-black text-white font-apple antialiased;
+    scroll-behavior: smooth;
+  }
+
+  /* Custom selection color to match the gold theme */
+  ::selection {
+    @apply bg-shelby-gold text-garrison-black;
+  }
 }
 
-.prompt {
-    @apply font-bold flex flex-col w-full
+/* Apple-style Glassmorphism */
+.glass-nav {
+  background: rgba(5, 5, 5, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.1);
 }
 
-.prompt-user {
-    @apply text-cyan-700
-}
-
-.prompt-host {
-    @apply text-green-700
-}
-
-.prompt-directory {
-    @apply text-blue-700
-}
-
-.prompt-return.true {
-    @apply text-green-700
-}
-
-.prompt-return.false {
-    @apply text-red-700
-}
-
-.prompt-input {
-    @apply flex
-}
-
-.prompt-input input {
-    @apply w-full outline-none bg-transparent
-}
-
-a {
-    @apply underline
-}
-
-#blur {
-    @apply backdrop-blur-sm pointer-events-none;
-    animation: blur 5s ease infinite;
-}
-
-#scanline {
-    @apply pointer-events-none opacity-30;
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.125) 0%, rgba(255, 255, 255, 0.125) 50%, rgba(0, 0, 0, 0.125) 51%, rgba(0, 0, 0, 0.125) 100%);
-    background-size: 100vh 6px;
-    animation: scanline 0.5s linear infinite;
-}
-
-#crt {
-    @apply bg-no-repeat pointer-events-none;
-    background-image: url("./assets/crt.png");
-    background-size: 100% 40px;
-    animation: crt 3s linear infinite;
-}
-
-@keyframes scanline {
-    0% {
-        top: 0;
-    }
-
-    100% {
-        top: -6px;
-    }
-}
-
-@keyframes crt {
-    0% {
-        top: -40px;
-    }
-
-    100% {
-        top: 100%;
-    }
-}
-
-@keyframes blur {
-    0% {
-        @apply opacity-80
-    }
-
-    50% {
-        @apply opacity-40
-    }
-
-    100% {
-        @apply opacity-80
-    }
+/* Custom Cursor for 'Sniper' theme */
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #C5A059;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease-out;
 }
