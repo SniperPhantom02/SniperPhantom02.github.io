@@ -4,74 +4,109 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 const nameEl = document.querySelector(".name");
+gsap.registerPlugin(ScrollTrigger);
 
-if (nameEl) {
-  const text = nameEl.innerText;
-  nameEl.innerText = "";
+/* =========================
+   HERO ANIMATION (NAME)
+========================= */
 
-  text.split("").forEach((char, i) => {
-    const span = document.createElement("span");
-    span.innerText = char;
-    span.style.opacity = "0";
-    span.style.display = "inline-block";
-    span.style.transform = "translateY(20px)";
-    span.style.transition = "all 0.6s ease";
+gsap.from(".name", {
+  y: 80,
+  opacity: 0,
+  duration: 1.2,
+  ease: "power4.out"
+});
 
-    nameEl.appendChild(span);
-
-    setTimeout(() => {
-      span.style.opacity = "1";
-      span.style.transform = "translateY(0)";
-    }, i * 50);
-  });
-}
+gsap.from(".tagline", {
+  y: 40,
+  opacity: 0,
+  delay: 0.3,
+  duration: 1,
+  ease: "power3.out"
+});
 
 
 /* =========================
-   FADE-IN SECTIONS
+   PARALLAX BACKGROUND
 ========================= */
 
-const faders = document.querySelectorAll(".fade-in");
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-
-    entry.target.classList.add("show");
-  });
-}, { threshold: 0.2 });
-
-faders.forEach(el => observer.observe(el));
+gsap.to("body", {
+  backgroundPosition: "50% 100%",
+  ease: "none",
+  scrollTrigger: {
+    trigger: "body",
+    start: "top top",
+    end: "bottom bottom",
+    scrub: true
+  }
+});
 
 
 /* =========================
-   SKILL STAGGER + FLOAT
+   SECTION REVEALS (SMOOTH)
 ========================= */
 
-const skillsSection = document.querySelector(".skills-section");
-
-if (skillsSection) {
-  const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-
-      const skills = entry.target.querySelectorAll(".skill");
-
-      skills.forEach((skill, i) => {
-        setTimeout(() => {
-          skill.style.opacity = "1";
-          skill.style.transform = "translateY(0)";
-          addFloating(skill);
-        }, i * 150);
-      });
-
-    });
-  }, { threshold: 0.3 });
-
-  skillObserver.observe(skillsSection);
-}
+gsap.utils.toArray(".section").forEach((section) => {
+  gsap.from(section, {
+    y: 100,
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: section,
+      start: "top 80%",
+      toggleActions: "play none none reverse"
+    }
+  });
+});
 
 
+/* =========================
+   SKILLS FLOAT + ENTRY
+========================= */
+
+gsap.utils.toArray(".skill").forEach((skill, i) => {
+
+  // entry animation
+  gsap.from(skill, {
+    y: 60,
+    opacity: 0,
+    duration: 0.8,
+    delay: i * 0.1,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".skills-section",
+      start: "top 80%"
+    }
+  });
+
+  // floating animation
+  gsap.to(skill, {
+    y: "+=15",
+    duration: 2 + Math.random(),
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
+  });
+
+});
+
+
+/* =========================
+   STORY SCROLL EFFECT
+========================= */
+
+gsap.utils.toArray(".section").forEach((section) => {
+  gsap.to(section, {
+    opacity: 0.3,
+    scrollTrigger: {
+      trigger: section,
+      start: "top center",
+      end: "bottom center",
+      scrub: true
+    }
+  });
+});
 /* =========================
    FLOATING ANIMATION
 ========================= */
