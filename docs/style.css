@@ -12,6 +12,10 @@ body {
   color: #e8f1f2;
   scroll-behavior: smooth;
 }
+  body {
+  background-size: 100% 200%;
+  background-attachment: fixed;
+}
 
 /* HERO */
 .hero {
