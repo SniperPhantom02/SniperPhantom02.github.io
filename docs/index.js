@@ -3,16 +3,17 @@ const intro = document.getElementById("intro");
 const terminal = document.getElementById("terminal-container");
 const input = document.getElementById("command-input");
 const output = document.getElementById("terminal-output");
+
 const keySound = document.getElementById("keySound");
 const enterSound = document.getElementById("enterSound");
 const glitchSound = document.getElementById("glitchSound");
 const glitchOverlay = document.getElementById("glitch-overlay");
 
 /* =========================
-   ENTER SYSTEM ANIMATION
+   ENTER SYSTEM
 ========================= */
 enterBtn.addEventListener("click", () => {
-  enterSound.play();
+  enterSound && enterSound.play();
 
   intro.style.opacity = "0";
 
@@ -22,22 +23,15 @@ enterBtn.addEventListener("click", () => {
     input.focus();
   }, 800);
 });
-function triggerGlitch() {
-  glitchOverlay.classList.add("glitch-active");
-  glitchSound.currentTime = 0;
-  glitchSound.play();
-
-  setTimeout(() => {
-    glitchOverlay.classList.remove("glitch-active");
-  }, 300);
-}
 
 /* =========================
    KEYBOARD SOUND
 ========================= */
 input.addEventListener("keydown", () => {
-  keySound.currentTime = 0;
-  keySound.play();
+  if (Math.random() > 0.7 && keySound) {
+    keySound.currentTime = 0;
+    keySound.play();
+  }
 });
 
 /* =========================
@@ -64,91 +58,29 @@ function typeText(text, speed = 20) {
 }
 
 /* =========================
-   COMMAND SYSTEM
-========================= */
-const commands = {
-
-  help: async () => {
-    await typeText("Available commands:");
-    await typeText("about   → Who am I");
-    await typeText("skills  → My arsenal");
-    await typeText("projects → Classified work");
-    await typeText("contact → Find me");
-    await typeText("clear   → Reset terminal");
-  },
-
-  about: async () => {
-    await typeText("Initializing profile...");
-    await delay(400);
-    await typeText("Ashutosh Sharma");
-    await typeText("CSE Student | System Thinker");
-    await typeText("I don't follow tutorials. I reverse engineer them.");
-    await typeText("I don't chase trends. I understand systems.");
-  },
-
-  skills: async () => {
-    await typeText("Loading skill matrix...\n");
-
-    createSkillBar("C++", 90);
-    createSkillBar("Python", 85);
-    createSkillBar("JavaScript", 80);
-    createSkillBar("Machine Learning", 75);
-    createSkillBar("DSA", 88);
-  },
-
-  projects: async () => {
-    await typeText("Decrypting project files...\n");
-
-    createProjectCard("Terminal Portfolio", "Interactive hacker-style portfolio");
-    createProjectCard("ML Systems", "Model-based intelligent solutions");
-    createProjectCard("Web Experiments", "Animation-heavy UI builds");
-  },
-
-  contact: async () => {
-    await typeText("Establishing connection...\n");
-    await typeText("Email: sharmaashutosh2610@gmail.com");
-    await typeText("LinkedIn: linkedin.com/in/be_a_sharma");
-    await typeText("GitHub: github.com/SniperPhantom02");
-  },
-
-  clear: async () => {
-    output.innerHTML = "";
-  }
-
-};
-
-/* =========================
-   HANDLE INPUT
-========================= */
-input.addEventListener("keydown", async (e) => {
-  if (e.key === "Enter") {
-    const cmd = input.value.trim().toLowerCase();
-
-    // show command
-    const commandLine = document.createElement("div");
-    commandLine.innerHTML = `<span style="color:#888">$</span> ${cmd}`;
-    output.appendChild(commandLine);
-
-    input.value = "";
-
-    if (commands[cmd]) {
-      await commands[cmd]();
-    } else {
-      await typeText("Command not found. Type 'help'");
-    }
-
-    output.scrollTop = output.scrollHeight;
-  }
-});
-/* =========================
-   DELAY FUNCTION
+   DELAY
 ========================= */
 function delay(ms) {
   return new Promise(res => setTimeout(res, ms));
 }
 
 /* =========================
-   SKILL BAR (ANIMATED)
+   GLITCH EFFECT
+========================= */
+function triggerGlitch() {
+  if (!glitchOverlay || !glitchSound) return;
+
+  glitchOverlay.classList.add("glitch-active");
+  glitchSound.currentTime = 0;
+  glitchSound.play();
+
+  setTimeout(() => {
+    glitchOverlay.classList.remove("glitch-active");
+  }, 300);
+}
+
+/* =========================
+   SKILL BAR
 ========================= */
 function createSkillBar(name, percent) {
   const container = document.createElement("div");
@@ -204,3 +136,100 @@ function createProjectCard(title, desc) {
 
   output.appendChild(card);
 }
+
+/* =========================
+   COMMANDS
+========================= */
+const commands = {
+
+  help: async () => {
+    await typeText("Available commands:");
+    await typeText("about");
+    await typeText("skills");
+    await typeText("projects");
+    await typeText("contact");
+    await typeText("resume");
+    await typeText("hobbies");
+    await typeText("clear");
+  },
+
+  about: async () => {
+    await typeText("Initializing profile...");
+    await delay(300);
+    await typeText("Ashutosh Sharma");
+    await typeText("CSE Student | System Thinker");
+    await typeText("I don't follow tutorials. I reverse engineer them.");
+  },
+
+  skills: async () => {
+    await typeText("Loading skill matrix...\n");
+
+    createSkillBar("C++", 90);
+    createSkillBar("Python", 85);
+    createSkillBar("JavaScript", 80);
+    createSkillBar("Machine Learning", 75);
+    createSkillBar("DSA", 88);
+  },
+
+  projects: async () => {
+    triggerGlitch();
+    await typeText("Decrypting project files...\n");
+
+    createProjectCard("Terminal Portfolio", "Interactive hacker-style portfolio");
+    createProjectCard("ML Systems", "Intelligent models");
+    createProjectCard("Web Experiments", "Animation-heavy builds");
+  },
+
+  contact: async () => {
+    await typeText("Email: your-email@example.com");
+    await typeText("LinkedIn: linkedin.com/in/yourprofile");
+    await typeText("GitHub: github.com/yourusername");
+  },
+
+  resume: async () => {
+    triggerGlitch();
+    await typeText("Loading resume...\n");
+
+    await typeText("Field: Computer Science Engineering");
+    await typeText("Focus: ML + Web + Systems");
+    await typeText("Strength: Problem solving");
+  },
+
+  hobbies: async () => {
+    await typeText("Sports | Tech | Deep Thinking");
+  },
+
+  clear: async () => {
+    output.innerHTML = "";
+  }
+
+};
+
+/* =========================
+   INPUT HANDLER
+========================= */
+input.addEventListener("keydown", async (e) => {
+  if (e.key === "Enter") {
+    const cmd = input.value.trim().toLowerCase();
+
+    const line = document.createElement("div");
+    line.innerHTML = `<span style="color:#888">$</span> ${cmd}`;
+    output.appendChild(line);
+
+    input.value = "";
+
+    // easter egg
+    if (cmd === "whoami") {
+      await typeText("Someone who refuses to be average.");
+      return;
+    }
+
+    if (commands[cmd]) {
+      await commands[cmd]();
+    } else {
+      await typeText("Command not found. Type 'help'");
+    }
+
+    output.scrollTop = output.scrollHeight;
+  }
+});
