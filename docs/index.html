@@ -3,104 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashutosh Sharma | Technical Excellence</title>
+    <title>Ashutosh Sharma | SniperPhantom</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        'garrison-black': '#050505',
-                        'shelby-gold': '#C5A059',
-                        'industrial-grey': '#1D1D1F',
-                    },
-                    fontFamily: {
-                        'apple': ['Inter', 'sans-serif'],
-                    }
+                    colors: { 'garrison-black': '#050505', 'shelby-gold': '#C5A059', 'industrial-grey': '#1D1D1F' },
+                    fontFamily: { 'apple': ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #050505; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .glass-nav { background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid rgba(197, 160, 89, 0.1); }
-        .custom-cursor { width: 20px; height: 20px; border: 1px solid #C5A059; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.15s ease-out; }
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); opacity: 0.03; pointer-events: none; z-index: 100; }
+        body { background: #050505; color: white; overflow-x: hidden; font-family: 'Inter', sans-serif; }
+        .parallax-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; z-index: -1; pointer-events: none; }
+        .glass-card { background: rgba(29, 29, 31, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(197, 160, 89, 0.1); }
+        .cricket-glow:hover { text-shadow: 0 0 15px rgba(197, 160, 89, 0.8); transition: 0.3s; }
+        .custom-cursor { width: 20px; height: 20px; border: 1px solid #C5A059; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
     </style>
 </head>
-<body class="bg-garrison-black selection:bg-shelby-gold selection:text-black">
+<body class="selection:bg-shelby-gold selection:text-black">
 
     <div class="custom-cursor hidden md:block"></div>
+    <div class="parallax-bg" id="bg-image"></div>
 
-    <nav class="glass-nav fixed top-0 w-full z-50 py-4 px-6 md:px-12 flex justify-between items-center">
-        <div class="text-shelby-gold font-bold text-xl tracking-tighter">ASHUTOSH.</div>
-        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest text-gray-400">
-            <a href="#projects" class="hover:text-shelby-gold transition-colors">Projects</a>
-            <a href="#achievements" class="hover:text-shelby-gold transition-colors">Intelligence</a>
-            <a href="mailto:sharmaashutosh2610@gmail.com" class="text-shelby-gold border border-shelby-gold/30 px-4 py-1 rounded-full hover:bg-shelby-gold hover:text-black transition-all">Connect</a>
+    <nav class="fixed top-0 w-full z-50 flex justify-between items-center py-6 px-12 mix-blend-difference">
+        <div class="text-shelby-gold font-black text-2xl tracking-tighter">PHANTOM.</div>
+        <div class="flex space-x-8 text-xs uppercase tracking-[0.3em] font-bold">
+            <a href="#projects" class="hover:text-shelby-gold transition-colors">Arsenal</a>
+            <a href="#achievements" class="hover:text-shelby-gold transition-colors">Legacy</a>
+            <a href="mailto:sharmaashutosh2610@gmail.com" class="text-shelby-gold">Contact</a>
         </div>
     </nav>
 
-    <main class="relative h-screen flex flex-col items-center justify-center text-center px-4">
-        <span class="text-shelby-gold/40 font-bold tracking-[1em] uppercase text-xs mb-4">By Order of Technical Excellence</span>
-        <h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter leading-tight mb-6">
-            Ashutosh <span class="text-shelby-gold">Sharma</span>
-        </h1>
-        <p class="max-w-2xl text-lg md:text-xl text-gray-400 font-light leading-relaxed">
-            MCA Student at TIET. Specializing in Quantum-Safe Communication and Full-Stack Development. Solving real-world problems with industrial precision.
-        </p>
-        <div class="mt-12 flex flex-col md:flex-row gap-6">
-            <a href="#projects" class="bg-white text-black px-8 py-4 rounded-full font-bold hover:scale-105 transition-transform">View My Arsenal</a>
-            <a href="https://github.com/SniperPhantom02" target="_blank" class="flex items-center gap-2 text-shelby-gold hover:underline">Inspect GitHub</a>
+    <section class="h-screen flex flex-col justify-center items-center relative px-4">
+        <div class="hero-content text-center">
+            <h2 class="text-shelby-gold text-sm tracking-[1.5em] uppercase mb-8 opacity-0" id="hero-sub">Industrial Precision</h2>
+            <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 opacity-0" id="hero-title">
+                Ashutosh <span class="text-shelby-gold">Sharma</span>
+            </h1>
+            <p class="max-w-xl text-gray-400 text-lg md:text-xl font-light opacity-0" id="hero-p">
+                MCA @ <span class="text-white">TIET</span>[cite: 13]. Engineering Quantum-Safe Channels [cite: 20] and Spatio-Temporal Energy Networks[cite: 25].
+            </p>
         </div>
-    </main>
+    </section>
 
-    <section id="projects" class="py-24 px-6 md:px-12 bg-garrison-black">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tighter mb-16 text-center text-white">The <span class="text-shelby-gold">Intelligence</span> Report</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="md:col-span-2 group relative overflow-hidden rounded-3xl bg-industrial-grey border border-white/5 p-8 transition-all hover:border-shelby-gold/30">
-                    <span class="text-shelby-gold text-xs font-bold uppercase tracking-widest">Master Project</span>
-                    <h3 class="text-3xl font-bold mt-2 mb-4 text-white">Quantum-Safe Communication</h3>
-                    <p class="text-gray-400 font-light max-w-md">Implemented a secure communication system using OpenSSL and Linux, simulating real-world encryption workflows.</p>
-                    <div class="flex gap-3 mt-6">
-                        <span class="px-3 py-1 bg-black/50 text-xs rounded-full border border-white/10">OpenSSL</span>
-                        <span class="px-3 py-1 bg-black/50 text-xs rounded-full border border-white/10">ML-KEM-768</span>
+    <section id="projects" class="py-32 px-6 md:px-24">
+        <h3 class="text-5xl font-black mb-20 tracking-tighter">The Intelligence <span class="text-shelby-gold">Report</span></h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            
+            <div class="glass-card p-10 rounded-3xl project-card overflow-hidden relative">
+                <div class="z-10 relative">
+                    <span class="text-shelby-gold text-xs font-bold uppercase tracking-widest">Master Research</span>
+                    <h4 class="text-4xl font-bold mt-4 mb-6">Quantum-Safe Communication</h4>
+                    <p class="text-gray-400 leading-relaxed mb-8">Implementing ML-KEM-768 algorithms using OpenSSL to secure channels against post-quantum threats[cite: 20].</p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">ML-KEM-768</span>
+                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">OpenSSL</span>
                     </div>
                 </div>
-                <div class="rounded-3xl bg-industrial-grey border border-white/5 p-8 transition-all hover:border-shelby-gold/30">
-                    <h3 class="text-xl font-bold mb-6 text-shelby-gold">Core Intelligence</h3>
-                    <ul class="space-y-3 text-gray-300 text-sm">
-                        <li class="flex justify-between border-b border-white/5 pb-1"><span>Data Structures</span> <span>DSA</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-1"><span>Algorithms</span> <span>Logic</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-1"><span>OOP</span> <span>Python</span></li>
-                        <li class="flex justify-between border-b border-white/5 pb-1"><span>SQL Server</span> <span>DB</span></li>
-                    </ul>
+            </div>
+
+            <div class="glass-card p-10 rounded-3xl project-card overflow-hidden relative">
+                <div class="z-10 relative">
+                    <span class="text-shelby-gold text-xs font-bold uppercase tracking-widest">ML Publication</span>
+                    <h4 class="text-4xl font-bold mt-4 mb-6">STEAL-Net</h4>
+                    <p class="text-gray-400 leading-relaxed mb-8">A Spatio-Temporal Energy-Aware Lightweight Network for sustainable demand forecasting[cite: 25].</p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">Deep Learning</span>
+                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">Energy AI</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="achievements" class="py-24 px-6 md:px-12 bg-garrison-black">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-center text-4xl font-bold mb-16">Orders & <span class="text-shelby-gold">Decorations</span></h2>
-            <div class="space-y-12 border-l border-shelby-gold/20 ml-4 pl-8">
-                <div>
-                    <h3 class="text-xl font-bold text-shelby-gold">Finalist – Hackowasp 8.0</h3>
-                    <p class="text-gray-400 text-sm">Top technical competitor at Thapar Institute.</p>
+    <section id="achievements" class="py-32 bg-industrial-grey/20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h3 class="text-center text-4xl font-black mb-20 tracking-tighter">Legacy & <span class="text-shelby-gold">Discipline</span></h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="text-center group achievement-card">
+                    <div class="text-6xl mb-6 cricket-glow">🏏</div>
+                    <h4 class="text-xl font-bold text-shelby-gold">Vice-Captain</h4>
+                    <p class="text-gray-500 text-sm mt-2">Leading the charge in the School Cricket Team[cite: 30]. Strategy, timing, and teamwork.</p>
                 </div>
-                <div>
-                    <h3 class="text-xl font-bold text-white">Rifle Shooting Gold Medalist</h3>
-                    <p class="text-gray-400 text-sm">National Level Finalist. Precision is a lifestyle.</p>
+
+                <div class="text-center group achievement-card">
+                    <div class="text-6xl mb-6">🎯</div>
+                    <h4 class="text-xl font-bold text-white">National Finalist</h4>
+                    <p class="text-gray-500 text-sm mt-2">Gold Medalist in Rifle Shooting at URJA, TIET[cite: 30]. Precision is non-negotiable.</p>
                 </div>
+
+                <div class="text-center group achievement-card">
+                    <div class="text-6xl mb-6">🎖️</div>
+                    <h4 class="text-xl font-bold text-shelby-gold">Best NCC Cadet</h4>
+                    <p class="text-gray-500 text-sm mt-2">2x Best Cadet awardee[cite: 30]. Command and industrial-grade discipline.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="py-20 border-t border-white/5 text-center">
-        <p class="text-shelby-gold italic mb-4">"Intelligence is a very valuable commodity."</p>
-        <p class="text-[10px] text-gray-600 tracking-widest uppercase">© 2026 ASHUTOSH SHARMA</p>
+    <footer class="py-20 text-center border-t border-white/5">
+        <p class="text-gray-600 text-[10px] tracking-[0.5em] uppercase">Built with Precision by Ashutosh Sharma</p>
     </footer>
 
     <script src="index.js"></script>
