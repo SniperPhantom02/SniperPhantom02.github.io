@@ -26,25 +26,24 @@ faders.forEach(fader => {
    SKILLS STAGGER ANIMATION
 ========================= */
 
-const skills = document.querySelectorAll(".skill");
-
-const skillObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-
-    const skillElements = entry.target.querySelectorAll(".skill");
-
-    skillElements.forEach((skill, index) => {
-      setTimeout(() => {
-        skill.style.opacity = "1";
-        skill.style.transform = "translateY(0)";
-      }, index * 150); // stagger delay
-    });
-
-  });
-}, { threshold: 0.3 });
-
 const skillsSection = document.querySelector(".skills-section");
+
 if (skillsSection) {
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      const skillElements = entry.target.querySelectorAll(".skill");
+
+      skillElements.forEach((skill, index) => {
+        setTimeout(() => {
+          skill.style.opacity = "1";
+          skill.style.transform = "translateY(0)";
+        }, index * 150);
+      });
+
+    });
+  }, { threshold: 0.3 });
+
   skillObserver.observe(skillsSection);
 }
