@@ -8,79 +8,60 @@
   <link rel="stylesheet" href="style.css">
 
   <!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 
 <body>
 
+  <!-- CURSOR -->
+  <div class="cursor"></div>
+
   <!-- HERO -->
   <section class="hero">
     <h1 class="name">Ashutosh Sharma</h1>
-    <p class="tagline">CSE Student • Builder • Problem Solver</p>
+    <p class="tagline morph-text">CSE Student</p>
   </section>
 
-  <!-- ABOUT -->
-  <section class="section fade-in">
-    <h2>About Me</h2>
-    <p>
-      I build systems, not just projects. I like understanding how things work
-      at a deeper level and then improving them.
-    </p>
+  <!-- STICKY STORY -->
+  <section class="sticky-section">
+    <div class="sticky-content">
+      <h2 class="morph-text">I build systems</h2>
+    </div>
   </section>
 
   <!-- SKILLS -->
   <section class="section skills-section">
     <h2>Skills</h2>
-
     <div class="skills-container">
 
-      <div class="skill">
-        <img src="assets/cpp.png" alt="">
-        <span>C++</span>
-      </div>
-
-      <div class="skill">
-        <img src="assets/python.png" alt="">
-        <span>Python</span>
-      </div>
-
-      <div class="skill">
-        <img src="assets/js.png" alt="">
-        <span>JavaScript</span>
-      </div>
-
-      <div class="skill">
-        <img src="assets/ml.png" alt="">
-        <span>Machine Learning</span>
-      </div>
+      <div class="skill"><img src="assets/cpp.png"><span>C++</span></div>
+      <div class="skill"><img src="assets/python.png"><span>Python</span></div>
+      <div class="skill"><img src="assets/js.png"><span>JavaScript</span></div>
+      <div class="skill"><img src="assets/ml.png"><span>ML</span></div>
 
     </div>
   </section>
 
   <!-- PROJECTS -->
-  <section class="section fade-in">
+  <section class="section">
     <h2>Projects</h2>
 
-    <div class="project">
-      <h3>Terminal Portfolio</h3>
-      <p>Interactive portfolio with animations and dynamic UI.</p>
+    <div class="project-card">
+      <img src="assets/project1.jpg">
+      <div class="overlay">Terminal Portfolio</div>
     </div>
 
-    <div class="project">
-      <h3>ML Systems</h3>
-      <p>Model-based intelligent solutions.</p>
+    <div class="project-card">
+      <img src="assets/project2.jpg">
+      <div class="overlay">ML System</div>
     </div>
 
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section fade-in">
-    <h2>Contact</h2>
-    <p>Email: sharmaashutosh2610@gmail.com</p>
-    <p>GitHub: github.com/SniperPhantom02</p>
   </section>
 
   <script src="index.js"></script>
-
 </body>
 </html>
