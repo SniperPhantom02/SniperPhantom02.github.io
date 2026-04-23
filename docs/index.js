@@ -55,32 +55,42 @@ const commands = {
 
   help: async () => {
     await typeText("Available commands:");
-    await typeText("about  - Who am I");
-    await typeText("skills - My weapons");
-    await typeText("projects - Things I've built");
-    await typeText("contact - Reach me");
-    await typeText("clear - Clean screen");
+    await typeText("about   → Who am I");
+    await typeText("skills  → My arsenal");
+    await typeText("projects → Classified work");
+    await typeText("contact → Find me");
+    await typeText("clear   → Reset terminal");
   },
 
   about: async () => {
+    await typeText("Initializing profile...");
+    await delay(400);
     await typeText("Ashutosh Sharma");
-    await typeText("CSE Student | Builder | Problem Solver");
-    await typeText("I don’t just write code. I design systems.");
+    await typeText("CSE Student | System Thinker");
+    await typeText("I don't follow tutorials. I reverse engineer them.");
+    await typeText("I don't chase trends. I understand systems.");
   },
 
   skills: async () => {
-    await typeText("Languages: C++, Python, JavaScript");
-    await typeText("Domains: Machine Learning, Web Dev, DSA");
-    await typeText("Mindset: Break → Understand → Rebuild better");
+    await typeText("Loading skill matrix...\n");
+
+    createSkillBar("C++", 90);
+    createSkillBar("Python", 85);
+    createSkillBar("JavaScript", 80);
+    createSkillBar("Machine Learning", 75);
+    createSkillBar("DSA", 88);
   },
 
   projects: async () => {
-    await typeText("• Terminal Portfolio (this)");
-    await typeText("• ML-based systems (more coming...)");
-    await typeText("• Web projects with animation focus");
+    await typeText("Decrypting project files...\n");
+
+    createProjectCard("Terminal Portfolio", "Interactive hacker-style portfolio");
+    createProjectCard("ML Systems", "Model-based intelligent solutions");
+    createProjectCard("Web Experiments", "Animation-heavy UI builds");
   },
 
   contact: async () => {
+    await typeText("Establishing connection...\n");
     await typeText("Email: your-email@example.com");
     await typeText("LinkedIn: linkedin.com/in/yourprofile");
     await typeText("GitHub: github.com/yourusername");
@@ -88,11 +98,6 @@ const commands = {
 
   clear: async () => {
     output.innerHTML = "";
-  },
-
-  secret: async () => {
-    await typeText("You weren’t supposed to find this.");
-    await typeText("But I like curious minds.");
   }
 
 };
