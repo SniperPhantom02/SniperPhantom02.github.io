@@ -19,12 +19,15 @@
         }
     </script>
     <style>
-        #bg-image { background-image: url('assets/birmingham.png'); background-size: cover; }
         body { background: #050505; color: white; overflow-x: hidden; font-family: 'Inter', sans-serif; }
-        .parallax-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; z-index: -1; pointer-events: none; }
-        .glass-card { background: rgba(29, 29, 31, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(197, 160, 89, 0.1); }
-        .cricket-glow:hover { text-shadow: 0 0 15px rgba(197, 160, 89, 0.8); transition: 0.3s; }
-        .custom-cursor { width: 20px; height: 20px; border: 1px solid #C5A059; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
+        /* High-end Dark Industrial Background */
+        .parallax-bg { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background-image: linear-gradient(rgba(5,5,5,0.8), rgba(5,5,5,0.8)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop'); 
+            background-size: cover; background-position: center; opacity: 0.15; z-index: -1; pointer-events: none; 
+        }
+        .glass-card { background: rgba(29, 29, 31, 0.4); backdrop-filter: blur(15px); border: 1px solid rgba(197, 160, 89, 0.1); }
+        .custom-cursor { width: 22px; height: 22px; border: 1.5px solid #C5A059; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
     </style>
 </head>
 <body class="selection:bg-shelby-gold selection:text-black">
@@ -42,76 +45,72 @@
     </nav>
 
     <section class="h-screen flex flex-col justify-center items-center relative px-4">
-        <div class="hero-content text-center">
+        <div class="text-center">
             <h2 class="text-shelby-gold text-sm tracking-[1.5em] uppercase mb-8 opacity-0" id="hero-sub">Industrial Precision</h2>
             <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 opacity-0" id="hero-title">
                 Ashutosh <span class="text-shelby-gold">Sharma</span>
             </h1>
-            <p class="max-w-xl text-gray-400 text-lg md:text-xl font-light opacity-0" id="hero-p">
-                MCA @ <span class="text-white">TIET</span>[cite: 13]. Engineering Quantum-Safe Channels [cite: 20] and Spatio-Temporal Energy Networks[cite: 25].
+            <p class="max-w-xl text-gray-400 text-lg md:text-xl font-light opacity-0 mx-auto" id="hero-p">
+                MCA Student @ TIET. Specializing in Quantum-Safe Communication, Machine Learning, and Full-Stack Development.
             </p>
         </div>
     </section>
 
     <section id="projects" class="py-32 px-6 md:px-24">
-        <h3 class="text-5xl font-black mb-20 tracking-tighter">The Intelligence <span class="text-shelby-gold">Report</span></h3>
+        <h3 class="text-5xl font-black mb-20 tracking-tighter text-center">The Intelligence <span class="text-shelby-gold">Report</span></h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             
-            <div class="glass-card p-10 rounded-3xl project-card overflow-hidden relative">
-                <div class="z-10 relative">
-                    <span class="text-shelby-gold text-xs font-bold uppercase tracking-widest">Master Research</span>
-                    <h4 class="text-4xl font-bold mt-4 mb-6">Quantum-Safe Communication</h4>
-                    <p class="text-gray-400 leading-relaxed mb-8">Implementing ML-KEM-768 algorithms using OpenSSL to secure channels against post-quantum threats[cite: 20].</p>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">ML-KEM-768</span>
-                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">OpenSSL</span>
-                    </div>
+            <div class="glass-card p-10 rounded-3xl project-card relative">
+                <span class="text-shelby-gold text-xs font-bold uppercase tracking-widest">Master Project</span>
+                <h4 class="text-3xl font-bold mt-4 mb-4">Quantum-Safe Communication</h4>
+                <p class="text-gray-400 leading-relaxed mb-8">Designed a secure communication system using OpenSSL and Linux, simulating real-world encryption via ML-KEM-768.</p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 bg-black rounded-full text-[10px] font-bold border border-white/10 uppercase">Cryptography</span>
+                    <span class="px-4 py-2 bg-black rounded-full text-[10px] font-bold border border-white/10 uppercase">OpenSSL</span>
                 </div>
             </div>
 
-            <div class="glass-card p-10 rounded-3xl project-card overflow-hidden relative">
-                <div class="z-10 relative">
-                    <span class="text-shelby-gold text-xs font-bold uppercase tracking-widest">ML Publication</span>
-                    <h4 class="text-4xl font-bold mt-4 mb-6">STEAL-Net</h4>
-                    <p class="text-gray-400 leading-relaxed mb-8">A Spatio-Temporal Energy-Aware Lightweight Network for sustainable demand forecasting[cite: 25].</p>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">Deep Learning</span>
-                        <span class="px-4 py-2 bg-black rounded-full text-xs font-bold border border-white/10">Energy AI</span>
-                    </div>
+            <div class="glass-card p-10 rounded-3xl project-card relative">
+                <span class="text-shelby-gold text-xs font-bold uppercase tracking-widest">ML Research</span>
+                <h4 class="text-3xl font-bold mt-4 mb-4">STEAL-Net</h4>
+                <p class="text-gray-400 leading-relaxed mb-8">Spatio-Temporal Energy-Aware Lightweight Network for scalable and sustainable energy demand forecasting.</p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 bg-black rounded-full text-[10px] font-bold border border-white/10 uppercase">Deep Learning</span>
+                    <span class="px-4 py-2 bg-black rounded-full text-[10px] font-bold border border-white/10 uppercase">Python</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="achievements" class="py-32 bg-industrial-grey/20">
+    <section id="achievements" class="py-32 bg-industrial-grey/10">
         <div class="max-w-6xl mx-auto px-6">
             <h3 class="text-center text-4xl font-black mb-20 tracking-tighter">Legacy & <span class="text-shelby-gold">Discipline</span></h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
                 
-                <div class="text-center group achievement-card">
-                    <div class="text-6xl mb-6 cricket-glow">🏏</div>
+                <div class="achievement-card">
+                    <div class="text-6xl mb-6 cricket-glow cursor-pointer">🏏</div>
                     <h4 class="text-xl font-bold text-shelby-gold">Vice-Captain</h4>
-                    <p class="text-gray-500 text-sm mt-2">Leading the charge in the School Cricket Team[cite: 30]. Strategy, timing, and teamwork.</p>
+                    <p class="text-gray-500 text-sm mt-2 font-light px-4">Leading the School Cricket Team with strategic precision and teamwork.</p>
                 </div>
 
-                <div class="text-center group achievement-card">
+                <div class="achievement-card">
                     <div class="text-6xl mb-6">🎯</div>
                     <h4 class="text-xl font-bold text-white">National Finalist</h4>
-                    <p class="text-gray-500 text-sm mt-2">Gold Medalist in Rifle Shooting at URJA, TIET[cite: 30]. Precision is non-negotiable.</p>
+                    <p class="text-gray-500 text-sm mt-2 font-light px-4">Gold Medalist in Rifle Shooting at URJA, TIET. Focus is my core philosophy.</p>
                 </div>
 
-                <div class="text-center group achievement-card">
+                <div class="achievement-card">
                     <div class="text-6xl mb-6">🎖️</div>
                     <h4 class="text-xl font-bold text-shelby-gold">Best NCC Cadet</h4>
-                    <p class="text-gray-500 text-sm mt-2">2x Best Cadet awardee[cite: 30]. Command and industrial-grade discipline.</p>
+                    <p class="text-gray-500 text-sm mt-2 font-light px-4">2x Best Cadet awardee. Trained for high-pressure leadership and discipline.</p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <footer class="py-20 text-center border-t border-white/5">
-        <p class="text-gray-600 text-[10px] tracking-[0.5em] uppercase">Built with Precision by Ashutosh Sharma</p>
+    <footer class="py-20 text-center border-t border-white/5 opacity-50">
+        <p class="text-[10px] tracking-[0.5em] uppercase">Built for Success • 2026 Ashutosh Sharma</p>
     </footer>
 
     <script src="index.js"></script>
