@@ -4,6 +4,9 @@ const terminal = document.getElementById("terminal-container");
 const input = document.getElementById("command-input");
 const output = document.getElementById("terminal-output");
 const keySound = document.getElementById("keySound");
+const enterSound = document.getElementById("enterSound");
+const glitchSound = document.getElementById("glitchSound");
+const glitchOverlay = document.getElementById("glitch-overlay");
 
 /* =========================
    ENTER SYSTEM ANIMATION
