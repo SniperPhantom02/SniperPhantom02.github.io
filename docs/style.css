@@ -7,9 +7,9 @@
 
 /* BODY */
 body {
-  font-family: 'Inter', sans-serif;
-  background: #0a0a0a;
-  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #e8f1f2;
   scroll-behavior: smooth;
 }
 
@@ -23,32 +23,36 @@ body {
 }
 
 .name {
-  font-size: 4rem;
+  font-size: 4.5rem;
   font-weight: 600;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .tagline {
-  margin-top: 10px;
-  color: #aaa;
+  margin-top: 15px;
+  color: #b0c4cc;
   font-size: 1.2rem;
 }
 
-/* SECTIONS */
+/* SECTION */
 .section {
-  padding: 100px 10%;
+  padding: 120px 10%;
   max-width: 1200px;
 }
 
 .section h2 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-bottom: 20px;
 }
 
-/* FADE IN ANIMATION */
+/* FADE IN */
 .fade-in {
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 1s ease;
+  transform: translateY(60px);
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .fade-in.show {
@@ -60,52 +64,53 @@ body {
 .skills-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
-  margin-top: 40px;
+  gap: 40px;
+  margin-top: 50px;
 }
 
 .skill {
-  width: 120px;
-  height: 120px;
-  backdrop-filter: blur(10px);
-  background: rgba(255,255,255,0.05);
+  width: 130px;
+  height: 130px;
   border-radius: 20px;
+  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.08);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: all 0.4s ease;
+  transition: all 0.5s ease;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px);
 }
 
 .skill img {
-  width: 40px;
-  opacity: 0.8;
+  width: 45px;
+  opacity: 0.85;
 }
 
 .skill span {
-  margin-top: 10px;
-  font-size: 0.9rem;
+  margin-top: 12px;
+  font-size: 0.95rem;
 }
 
-/* HOVER EFFECT */
+/* HOVER */
 .skill:hover {
-  transform: translateY(-10px) scale(1.05);
-  background: rgba(255,255,255,0.1);
+  transform: translateY(-12px) scale(1.08);
+  background: rgba(255,255,255,0.15);
 }
 
 /* PROJECTS */
 .project {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 15px;
-  background: rgba(255,255,255,0.04);
-  transition: 0.3s;
+  margin-top: 25px;
+  padding: 25px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.06);
+  transition: all 0.4s ease;
 }
 
 .project:hover {
-  background: rgba(255,255,255,0.08);
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.12);
 }
 
 /* SCROLLBAR */
@@ -113,6 +118,6 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #444;
+  background: rgba(255,255,255,0.2);
   border-radius: 10px;
 }
