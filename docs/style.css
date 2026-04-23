@@ -121,3 +121,12 @@ body {
   background: rgba(255,255,255,0.2);
   border-radius: 10px;
 }
+/* NAME LETTER SPAN */
+.name span {
+  display: inline-block;
+}
+
+/* SMOOTHER SECTION TRANSITION */
+.section {
+  transition: all 0.8s ease;
+}
