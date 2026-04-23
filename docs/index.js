@@ -12,13 +12,17 @@ const glitchOverlay = document.getElementById("glitch-overlay");
    ENTER SYSTEM ANIMATION
 ========================= */
 enterBtn.addEventListener("click", () => {
+  enterSound.play();
+
   intro.style.opacity = "0";
+
   setTimeout(() => {
     intro.style.display = "none";
     terminal.classList.remove("hidden");
     input.focus();
   }, 800);
 });
+
 
 /* =========================
    KEYBOARD SOUND
