@@ -22,7 +22,15 @@ enterBtn.addEventListener("click", () => {
     input.focus();
   }, 800);
 });
+function triggerGlitch() {
+  glitchOverlay.classList.add("glitch-active");
+  glitchSound.currentTime = 0;
+  glitchSound.play();
 
+  setTimeout(() => {
+    glitchOverlay.classList.remove("glitch-active");
+  }, 300);
+}
 
 /* =========================
    KEYBOARD SOUND
