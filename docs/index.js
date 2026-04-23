@@ -125,3 +125,67 @@ input.addEventListener("keydown", async (e) => {
     output.scrollTop = output.scrollHeight;
   }
 });
+/* =========================
+   DELAY FUNCTION
+========================= */
+function delay(ms) {
+  return new Promise(res => setTimeout(res, ms));
+}
+
+/* =========================
+   SKILL BAR (ANIMATED)
+========================= */
+function createSkillBar(name, percent) {
+  const container = document.createElement("div");
+  container.style.margin = "10px 0";
+
+  const label = document.createElement("div");
+  label.innerText = name;
+
+  const bar = document.createElement("div");
+  bar.style.height = "6px";
+  bar.style.background = "rgba(255,255,255,0.1)";
+  bar.style.marginTop = "4px";
+  bar.style.borderRadius = "5px";
+  bar.style.overflow = "hidden";
+
+  const fill = document.createElement("div");
+  fill.style.height = "100%";
+  fill.style.width = "0%";
+  fill.style.background = "#00ff9f";
+  fill.style.transition = "width 1s ease";
+
+  bar.appendChild(fill);
+  container.appendChild(label);
+  container.appendChild(bar);
+  output.appendChild(container);
+
+  setTimeout(() => {
+    fill.style.width = percent + "%";
+  }, 100);
+}
+
+/* =========================
+   PROJECT CARD
+========================= */
+function createProjectCard(title, desc) {
+  const card = document.createElement("div");
+  card.style.border = "1px solid rgba(0,255,159,0.3)";
+  card.style.padding = "10px";
+  card.style.margin = "10px 0";
+  card.style.borderRadius = "6px";
+  card.style.background = "rgba(0,0,0,0.4)";
+  card.style.animation = "fadeIn 1s ease";
+
+  const t = document.createElement("div");
+  t.innerHTML = `<strong>${title}</strong>`;
+
+  const d = document.createElement("div");
+  d.style.color = "#aaa";
+  d.innerText = desc;
+
+  card.appendChild(t);
+  card.appendChild(d);
+
+  output.appendChild(card);
+}
