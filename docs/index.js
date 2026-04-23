@@ -91,9 +91,9 @@ const commands = {
 
   contact: async () => {
     await typeText("Establishing connection...\n");
-    await typeText("Email: your-email@example.com");
-    await typeText("LinkedIn: linkedin.com/in/yourprofile");
-    await typeText("GitHub: github.com/yourusername");
+    await typeText("Email: sharmaashutosh2610@gmail.com");
+    await typeText("LinkedIn: linkedin.com/in/be_a_sharma");
+    await typeText("GitHub: github.com/SniperPhantom02");
   },
 
   clear: async () => {
