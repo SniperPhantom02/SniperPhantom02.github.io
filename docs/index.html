@@ -1,982 +1,624 @@
+# Replace your entire current `index.html` with this cleaned structure
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ashutosh Sharma | SniperPhantom</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: { 'garrison-black': '#050505', 'shelby-gold': '#C5A059', 'industrial-grey': '#1D1D1F' },
-                    fontFamily: { 'apple': ['Inter', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { background: #050505; color: white; overflow-x: hidden; font-family: 'Inter', sans-serif; }
-        /* High-end Dark Industrial Background */
-        .parallax-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -5;
-    background-size: cover;
-    background-position: center;
-    transition: background-image 1.5s ease-in-out;
-    opacity: 0.22;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ashutosh Sharma | Phantom</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-.parallax-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: -4;
-    background:
-        linear-gradient(to bottom, rgba(0,0,0,0.92), rgba(0,0,0,0.75)),
-        radial-gradient(circle at top left, rgba(197,160,89,0.12), transparent 35%);
-    pointer-events: none;
+html{
+scroll-behavior:smooth;
 }
 
-/* animated cyber grid */
-
-.cyber-grid {
-    position: fixed;
-    inset: 0;
-    z-index: -3;
-    background-image:
-        linear-gradient(rgba(197,160,89,0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(197,160,89,0.06) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
-    animation: gridMove 20s linear infinite;
-    pointer-events: none;
+body{
+background:#050505;
+color:white;
+overflow-x:hidden;
+font-family:'Inter',sans-serif;
 }
 
-@keyframes gridMove {
-    0% {
-        transform: translateY(0px);
-    }
-    100% {
-        transform: translateY(60px);
-    }
+.parallax-bg{
+position:fixed;
+inset:0;
+z-index:-5;
+background-size:cover;
+background-position:center;
+transition:1.5s ease-in-out;
+opacity:0.18;
 }
 
-/* cinematic glow */
-
-.glow-orb {
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    border-radius: 9999px;
-    background: rgba(197,160,89,0.08);
-    filter: blur(120px);
-    z-index: -2;
-    top: -100px;
-    right: -100px;
-    animation: pulseGlow 8s infinite alternate ease-in-out;
+.parallax-overlay{
+position:fixed;
+inset:0;
+z-index:-4;
+background:
+linear-gradient(to bottom, rgba(0,0,0,0.94), rgba(0,0,0,0.82)),
+radial-gradient(circle at top left, rgba(197,160,89,0.15), transparent 35%);
 }
 
-@keyframes pulseGlow {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.3);
-    }
-}
-        .glass-card { background: rgba(29, 29, 31, 0.4); backdrop-filter: blur(15px); border: 1px solid rgba(197, 160, 89, 0.1); }
-        .custom-cursor { width: 22px; height: 22px; border: 1.5px solid #C5A059; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
-    /* =========================
-   PROJECT INTEL SECTION
-========================= */
-
-.intel-section {
-    position: relative;
+.cyber-grid{
+position:fixed;
+inset:0;
+z-index:-3;
+background-image:
+linear-gradient(rgba(197,160,89,0.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(197,160,89,0.04) 1px, transparent 1px);
+background-size:60px 60px;
+animation:gridMove 20s linear infinite;
 }
 
-.intel-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 28px;
-    background: rgba(15,15,15,0.65);
-    border: 1px solid rgba(197,160,89,0.15);
-    backdrop-filter: blur(18px);
-    transition: all 0.5s ease;
+@keyframes gridMove{
+from{transform:translateY(0px)}
+to{transform:translateY(60px)}
 }
 
-.intel-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(
-            120deg,
-            transparent,
-            rgba(197,160,89,0.08),
-            transparent
-        );
-    transform: translateX(-100%);
-    transition: 0.8s;
+.stars-bg{
+position:fixed;
+inset:0;
+z-index:-6;
+background:
+radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25) 1px, transparent 1px),
+radial-gradient(circle at 80% 60%, rgba(255,255,255,0.2) 1px, transparent 1px),
+radial-gradient(circle at 40% 80%, rgba(255,255,255,0.18) 1px, transparent 1px),
+radial-gradient(circle at 70% 20%, rgba(255,255,255,0.18) 1px, transparent 1px);
+background-size:300px 300px;
+animation:starsMove 80s linear infinite;
+opacity:0.4;
 }
 
-.intel-card:hover::before {
-    transform: translateX(100%);
+@keyframes starsMove{
+from{transform:translateY(0px)}
+to{transform:translateY(-300px)}
 }
 
-.intel-card:hover {
-    transform: translateY(-12px);
-    border-color: rgba(197,160,89,0.5);
-    box-shadow:
-        0 0 40px rgba(197,160,89,0.15),
-        0 0 80px rgba(197,160,89,0.08);
+.glow-orb{
+position:fixed;
+width:500px;
+height:500px;
+border-radius:9999px;
+background:rgba(197,160,89,0.08);
+filter:blur(120px);
+z-index:-2;
+top:-100px;
+right:-100px;
+animation:pulseGlow 8s infinite alternate ease-in-out;
 }
 
-.intel-line {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 1px;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgba(197,160,89,0.4),
-        transparent
-    );
-    transform: translateX(-50%);
+@keyframes pulseGlow{
+from{transform:scale(1)}
+to{transform:scale(1.3)}
 }
 
-.floating-dot {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-radius: 999px;
-    background: #C5A059;
-    box-shadow: 0 0 20px #C5A059;
-    animation: floatDot 4s infinite ease-in-out;
+.custom-cursor{
+width:22px;
+height:22px;
+border:1.5px solid #C5A059;
+border-radius:50%;
+position:fixed;
+pointer-events:none;
+z-index:9999;
+mix-blend-mode:difference;
 }
 
-@keyframes floatDot {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-18px); }
-    100% { transform: translateY(0px); }
+.glitch-text{
+position:relative;
 }
 
-.intel-tag {
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.03);
-    transition: 0.3s;
+.glitch-text::before,
+.glitch-text::after{
+content:attr(data-text);
+position:absolute;
+left:0;
+top:0;
+opacity:0.4;
 }
 
-.intel-tag:hover {
-    background: #C5A059;
-    color: black;
-}
-/* =========================
-   EXPERIENCE TIMELINE
-========================= */
-
-.exp-card {
-    position: relative;
-    padding: 40px;
-    border-radius: 24px;
-    background: rgba(15,15,15,0.6);
-    border: 1px solid rgba(197,160,89,0.12);
-    transition: 0.5s;
-    overflow: hidden;
+.glitch-text::before{
+color:#00ffee;
+transform:translateX(-2px);
 }
 
-.exp-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(197,160,89,0.45);
-    box-shadow: 0 0 40px rgba(197,160,89,0.12);
+.glitch-text::after{
+color:#ff0055;
+transform:translateX(2px);
 }
 
-.exp-card::before {
-    content: "";
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: rgba(197,160,89,0.05);
-    border-radius: 50%;
-    top: -100px;
-    right: -100px;
+.intel-card,
+.exp-card,
+.achievement-card,
+.stat-card{
+background:rgba(15,15,15,0.72);
+border:1px solid rgba(197,160,89,0.15);
+backdrop-filter:blur(18px);
+border-radius:28px;
+transition:0.5s;
+position:relative;
+overflow:hidden;
 }
 
-/* =========================
-   ACHIEVEMENTS
-========================= */
-
-.achievement-wrapper {
-    overflow-x: auto;
-    display: flex;
-    gap: 24px;
-    padding-bottom: 20px;
-    scroll-behavior: smooth;
+.intel-card:hover,
+.exp-card:hover,
+.achievement-card:hover,
+.stat-card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 40px rgba(197,160,89,0.15);
+border-color:rgba(197,160,89,0.45);
 }
 
-.achievement-wrapper::-webkit-scrollbar {
-    height: 6px;
+.intel-tag{
+padding:10px 18px;
+border-radius:999px;
+font-size:12px;
+text-transform:uppercase;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.08);
 }
 
-.achievement-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(197,160,89,0.4);
+.achievement-wrapper{
+display:flex;
+gap:24px;
+overflow-x:auto;
+padding-bottom:20px;
 }
 
-.achievement-card {
-    min-width: 320px;
-    padding: 40px;
-    border-radius: 24px;
-    background: rgba(18,18,18,0.8);
-    border: 1px solid rgba(197,160,89,0.15);
-    transition: 0.5s;
-    position: relative;
-    overflow: hidden;
+.achievement-card{
+min-width:320px;
+padding:40px;
 }
 
-.achievement-card:hover {
-    transform: translateY(-12px) scale(1.02);
-    border-color: rgba(197,160,89,0.4);
-    box-shadow: 0 0 40px rgba(197,160,89,0.14);
+.stats-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:24px;
 }
 
-.achievement-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(197,160,89,0.08),
-        transparent
-    );
-    transform: translateX(-100%);
-    transition: 0.8s;
+.stat-card{
+padding:40px;
+text-align:center;
 }
 
-.achievement-card:hover::after {
-    transform: translateX(100%);
+.stat-number{
+font-size:4rem;
+font-weight:900;
+color:#C5A059;
 }
 
-/* =========================
-   CONTACT CENTER
-========================= */
-
-.contact-link {
-    position: relative;
-    padding: 20px 40px;
-    border-radius: 18px;
-    border: 1px solid rgba(197,160,89,0.18);
-    background: rgba(255,255,255,0.03);
-    transition: 0.4s;
-    overflow: hidden;
+.live-terminal{
+position:fixed;
+bottom:30px;
+right:30px;
+width:320px;
+padding:24px;
+border-radius:24px;
+background:rgba(10,10,10,0.82);
+border:1px solid rgba(197,160,89,0.18);
+backdrop-filter:blur(16px);
+z-index:100;
 }
 
-.contact-link:hover {
-    transform: scale(1.05);
-    border-color: rgba(197,160,89,0.5);
-    box-shadow: 0 0 30px rgba(197,160,89,0.16);
+.scroll-progress{
+position:fixed;
+top:0;
+left:0;
+height:3px;
+width:0%;
+background:#C5A059;
+z-index:99999;
+box-shadow:0 0 15px #C5A059;
 }
 
-.contact-link::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(197,160,89,0.08),
-        transparent
-    );
-    transform: translateX(-100%);
-    transition: 0.8s;
+#loader{
+position:fixed;
+inset:0;
+background:#050505;
+z-index:999999;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
 }
 
-.contact-link:hover::before {
-    transform: translateX(100%);
-}
-/* =========================
-   LOADER
-========================= */
-
-#loader {
-    position: fixed;
-    inset: 0;
-    background: #050505;
-    z-index: 99999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+.loader-bar{
+width:280px;
+height:4px;
+background:rgba(255,255,255,0.08);
+border-radius:999px;
+overflow:hidden;
+margin-top:24px;
 }
 
-.loader-text {
-    font-size: 5rem;
-    font-weight: 900;
-    letter-spacing: -4px;
+.loader-progress{
+width:0%;
+height:100%;
+background:#C5A059;
 }
 
-.loader-bar {
-    width: 280px;
-    height: 4px;
-    margin-top: 30px;
-    background: rgba(255,255,255,0.08);
-    overflow: hidden;
-    border-radius: 999px;
+.contact-link{
+padding:20px 40px;
+border-radius:20px;
+border:1px solid rgba(197,160,89,0.18);
+background:rgba(255,255,255,0.03);
+transition:0.4s;
 }
 
-.loader-progress {
-    width: 0%;
-    height: 100%;
-    background: #C5A059;
+.contact-link:hover{
+transform:scale(1.04);
+box-shadow:0 0 30px rgba(197,160,89,0.15);
 }
-
-/* =========================
-   TOP PROGRESS BAR
-========================= */
-
-.scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background: #C5A059;
-    z-index: 9999;
-    box-shadow: 0 0 15px #C5A059;
-}
-
-/* =========================
-   LIVE TERMINAL
-========================= */
-
-.live-terminal {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 320px;
-    padding: 24px;
-    border-radius: 24px;
-    background: rgba(10,10,10,0.82);
-    border: 1px solid rgba(197,160,89,0.18);
-    backdrop-filter: blur(16px);
-    z-index: 100;
-    overflow: hidden;
-}
-
-.terminal-line {
-    color: #C5A059;
-    font-size: 12px;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-}
-
-.typing-text {
-    color: white;
-    font-size: 14px;
-    line-height: 1.7;
-}
-
-/* =========================
-   STATS
-========================= */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    gap: 24px;
-}
-
-.stat-card {
-    padding: 40px;
-    border-radius: 24px;
-    background: rgba(15,15,15,0.7);
-    border: 1px solid rgba(197,160,89,0.12);
-    text-align: center;
-    transition: 0.5s;
-}
-
-.stat-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(197,160,89,0.4);
-    box-shadow: 0 0 30px rgba(197,160,89,0.1);
-}
-
-.stat-number {
-    font-size: 4rem;
-    font-weight: 900;
-    color: #C5A059;
-}
-    </style>
+</style>
 </head>
-<body class="selection:bg-shelby-gold selection:text-black">
-<div class="custom-cursor hidden md:block"></div>
+
+<body class="selection:bg-yellow-700 selection:text-black">
+
 <div id="loader">
-
-    <div class="loader-text">
-        PHANTOM
-    </div>
-
-    <div class="loader-bar">
-        <div class="loader-progress"></div>
-    </div>
-
+<h1 class="text-7xl font-black tracking-tight">PHANTOM</h1>
+<div class="loader-bar">
+<div class="loader-progress"></div>
+</div>
 </div>
 
 <div class="scroll-progress" id="scroll-progress"></div>
+<div class="stars-bg"></div>
 <div class="parallax-bg" id="bg-image"></div>
 <div class="parallax-overlay"></div>
 <div class="cyber-grid"></div>
 <div class="glow-orb"></div>
-    <nav class="fixed top-0 w-full z-50 flex justify-between items-center py-6 px-12 mix-blend-difference">
-        <div class="text-shelby-gold font-black text-2xl tracking-tighter">PHANTOM.</div>
-        <div class="flex space-x-8 text-xs uppercase tracking-[0.3em] font-bold">
-            <a href="#projects" class="hover:text-shelby-gold transition-colors">Arsenal</a>
-            <a href="#achievements" class="hover:text-shelby-gold transition-colors">Legacy</a>
-           <a href="javascript:void(0)" onclick="toggleContact()" class="text-shelby-gold">
-    Contact
-</a>
-        </div>
-    </nav>
+<div class="custom-cursor hidden md:block"></div>
 
-    <section class="h-screen flex flex-col justify-center items-center relative px-4">
-        <div class="text-center">
-            <h2 class="text-shelby-gold text-sm tracking-[1.5em] uppercase mb-8 opacity-0" id="hero-sub">Industrial Precision</h2>
-            <h1 class="text-7xl md:text-9xl font-black tracking-tighter mb-6 opacity-0" id="hero-title">
-                Ashutosh <span class="text-shelby-gold">Sharma</span>
-            </h1>
-            <p class="max-w-xl text-gray-400 text-lg md:text-xl font-light opacity-0 mx-auto" id="hero-p">
-                MCA Student @ TIET. Specializing in Quantum-Safe Communication, Machine Learning, and Full-Stack Development.
-            </p>
-        </div>
-    </section>
-    <section id="work" class="py-32 px-6 md:px-24 intel-section">
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center py-6 px-12 backdrop-blur-md">
+<div class="text-yellow-700 font-black text-3xl">PHANTOM.</div>
 
-    <div class="intel-line hidden md:block"></div>
+<div class="flex gap-8 uppercase text-xs tracking-[0.4em] font-bold">
+<a href="#projects" class="hover:text-yellow-700">Arsenal</a>
+<a href="#research" class="hover:text-yellow-700">Research</a>
+<a href="#achievements" class="hover:text-yellow-700">Legacy</a>
+<a href="javascript:void(0)" onclick="toggleContact()" class="text-yellow-700">Contact</a>
+</div>
+</nav>
 
-    <div class="text-center mb-24">
-        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
-            PROJECT DOSSIER
-        </p>
+<section class="h-screen flex flex-col justify-center items-center text-center px-6">
 
-        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
-            Projects & <span class="text-shelby-gold">Operations</span>
-        </h2>
+<p class="text-yellow-700 uppercase tracking-[1em] mb-8 text-sm" id="hero-sub">
+Quantum • Cybersecurity • Astrophysics
+</p>
 
-        <p class="max-w-2xl mx-auto mt-8 text-gray-400 text-lg">
-            Building secure systems, intelligent models, and privacy-first infrastructure through research-driven engineering.
-        </p>
-    </div>
+<h1
+id="hero-title"
+class="text-7xl md:text-[10rem] font-black tracking-tighter glitch-text"
+data-text="Ashutosh Sharma">
+Ashutosh Sharma
+</h1>
 
-    <div class="space-y-28">
-
-        <!-- PROJECT 1 -->
-
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-
-            <div class="intel-card p-10 relative">
-                <div class="floating-dot top-10 right-10"></div>
-
-                <p class="text-shelby-gold text-xs tracking-[0.4em] uppercase mb-5">
-                    Master Project
-                </p>
-
-                <h3 class="text-4xl font-black mb-6">
-                    Quantum-Safe Communication
-                </h3>
-
-                <p class="text-gray-400 leading-relaxed text-lg mb-8">
-                    Designed a secure communication framework using OpenSSL, Linux encryption workflows, and ML-KEM-768 simulation principles for post-quantum security environments.
-                </p>
-
-                <div class="flex flex-wrap gap-3">
-                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">OpenSSL</span>
-                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Linux</span>
-                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Cryptography</span>
-                </div>
-            </div>
-
-            <div>
-                <p class="text-shelby-gold text-sm uppercase tracking-[0.5em] mb-6">
-                    Mission Overview
-                </p>
-
-                <h4 class="text-3xl font-bold mb-6">
-                    Future-Proof Encryption Infrastructure
-                </h4>
-
-                <p class="text-gray-400 leading-loose">
-                    The project explores practical implementation of post-quantum communication systems against next-generation computational threats. Designed with real-world workflow simulation and secure protocol architecture in mind.
-                </p>
-            </div>
-
-        </div>
-
-        <!-- PROJECT 2 -->
-
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-
-            <div class="order-2 md:order-1">
-                <p class="text-shelby-gold text-sm uppercase tracking-[0.5em] mb-6">
-                    System Architecture
-                </p>
-
-                <h4 class="text-3xl font-bold mb-6">
-                    Privacy Detection Infrastructure
-                </h4>
-
-                <p class="text-gray-400 leading-loose">
-                    RedFlag focuses on identifying hidden third-party tracking systems and browser fingerprinting methods used across modern web environments to enhance user-side transparency and digital privacy awareness.
-                </p>
-            </div>
-
-            <div class="intel-card p-10 relative order-1 md:order-2">
-
-                <div class="floating-dot bottom-10 left-10"></div>
-
-                <p class="text-shelby-gold text-xs tracking-[0.4em] uppercase mb-5">
-                    Privacy Intelligence
-                </p>
-
-                <h3 class="text-4xl font-black mb-6">
-                    RedFlag
-                </h3>
-
-                <p class="text-gray-400 leading-relaxed text-lg mb-8">
-                    Advanced privacy detection platform focused on web tracking surveillance, browser fingerprinting analysis, and third-party monitoring systems.
-                </p>
-
-                <div class="flex flex-wrap gap-3">
-                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Privacy</span>
-                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Security</span>
-                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Web Intelligence</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<p class="max-w-3xl text-gray-400 text-lg md:text-2xl mt-10 leading-relaxed" id="hero-p">
+MCA Student @ TIET building secure systems, AI research infrastructure, and futuristic cyber-intelligence experiences inspired by astrophysics, military history, and next-generation computing.
+</p>
 
 </section>
+
+<section id="projects" class="py-32 px-6 md:px-24">
+
+<div class="text-center mb-24">
+<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">PROJECT DOSSIER</p>
+<h2 class="text-5xl md:text-7xl font-black">Projects & Operations</h2>
+</div>
+
+<div class="grid md:grid-cols-2 gap-12">
+
+<div class="intel-card p-10">
+<p class="text-yellow-700 uppercase tracking-[0.4em] text-xs mb-4">Quantum Security</p>
+<h3 class="text-4xl font-black mb-6">Quantum-Safe Communication</h3>
+<p class="text-gray-400 leading-loose mb-8">
+Designed secure communication infrastructure using OpenSSL, Linux workflows, and post-quantum encryption simulation concepts.
+</p>
+<div class="flex flex-wrap gap-3">
+<span class="intel-tag">OpenSSL</span>
+<span class="intel-tag">Linux</span>
+<span class="intel-tag">Cryptography</span>
+</div>
+</div>
+
+<div class="intel-card p-10">
+<p class="text-yellow-700 uppercase tracking-[0.4em] text-xs mb-4">Privacy Intelligence</p>
+<h3 class="text-4xl font-black mb-6">RedFlag</h3>
+<p class="text-gray-400 leading-loose mb-8">
+Advanced privacy tracking and browser fingerprinting analysis platform designed for web transparency.
+</p>
+<div class="flex flex-wrap gap-3">
+<span class="intel-tag">Security</span>
+<span class="intel-tag">Privacy</span>
+<span class="intel-tag">Web Intelligence</span>
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="research" class="py-32 px-6 md:px-24">
+<div class="text-center mb-20">
+<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">RESEARCH DIVISION</p>
+<h2 class="text-5xl md:text-7xl font-black">Research Arsenal</h2>
+</div>
+
+<div class="grid md:grid-cols-2 gap-10">
+
+<div class="intel-card p-12">
+<h3 class="text-4xl font-black mb-6">STEAL-Net</h3>
+<p class="text-gray-400 leading-loose mb-8">
+Spatio-Temporal Energy-Aware Lightweight Network for scalable sustainable energy forecasting using AI systems.
+</p>
+<div class="flex flex-wrap gap-3">
+<span class="intel-tag">Deep Learning</span>
+<span class="intel-tag">Forecasting</span>
+<span class="intel-tag">AI Systems</span>
+</div>
+</div>
+
+<div class="intel-card p-12">
+<h3 class="text-4xl font-black mb-6">Astrophysics & Systems</h3>
+<p class="text-gray-400 leading-loose mb-8">
+Exploring quantum computation, astrophysical simulations, secure intelligence systems, and cybernetic interfaces.
+</p>
+<div class="flex flex-wrap gap-3">
+<span class="intel-tag">Astrophysics</span>
+<span class="intel-tag">Quantum Computing</span>
+<span class="intel-tag">Simulation</span>
+</div>
+</div>
+
+</div>
+</section>
+
 <section class="py-32 px-6 md:px-24">
+<div class="text-center mb-20">
+<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">FIELD EXPERIENCE</p>
+<h2 class="text-5xl md:text-7xl font-black">Professional Experience</h2>
+</div>
 
-    <div class="text-center mb-20">
+<div class="grid md:grid-cols-2 gap-10">
+<div class="exp-card p-10">
+<h3 class="text-3xl font-black mb-6">Ajanta Pharma Ltd.</h3>
+<p class="text-gray-400 leading-loose">Worked on operational workflow systems, reporting structures, and enterprise process coordination.</p>
+</div>
 
-        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
-            FIELD EXPERIENCE
-        </p>
-
-        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
-            Professional <span class="text-shelby-gold">Experience</span>
-        </h2>
-
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-10">
-
-        <div class="exp-card">
-
-            <p class="text-shelby-gold uppercase tracking-[0.4em] text-xs mb-5">
-                Mumbai Operations
-            </p>
-
-            <h3 class="text-3xl font-black mb-4">
-                Ajanta Pharma Ltd.
-            </h3>
-
-            <p class="text-gray-400 leading-loose mb-8">
-                Worked with operational and technology-driven workflows, improving reporting pipelines and supporting large-scale business process management systems.
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Operations
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Reporting
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Workflow Systems
-                </span>
-            </div>
-
-        </div>
-
-        <div class="exp-card">
-
-            <p class="text-shelby-gold uppercase tracking-[0.4em] text-xs mb-5">
-                Delhi Division
-            </p>
-
-            <h3 class="text-3xl font-black mb-4">
-                Aimil Pharmaceuticals
-            </h3>
-
-            <p class="text-gray-400 leading-loose mb-8">
-                Assisted in business operations, structured data management, and organizational workflow optimization in a fast-paced enterprise environment.
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Data Systems
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Operations
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Management
-                </span>
-            </div>
-
-        </div>
-
-    </div>
-
+<div class="exp-card p-10">
+<h3 class="text-3xl font-black mb-6">Aimil Pharmaceuticals</h3>
+<p class="text-gray-400 leading-loose">Managed data systems and operational structures in fast-paced business environments.</p>
+</div>
+</div>
 </section>
+
+<section id="achievements" class="py-32 px-6 md:px-24">
+<div class="text-center mb-20">
+<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">HONORS & OPERATIONS</p>
+<h2 class="text-5xl md:text-7xl font-black">Achievements & Recognition</h2>
+</div>
+
+<div class="achievement-wrapper">
+<div class="achievement-card">
+<div class="text-6xl mb-6">🏆</div>
+<h3 class="text-2xl font-bold mb-4">Gold Medalist</h3>
+<p class="text-gray-400">URJA TIET Rifle Shooting Competition.</p>
+</div>
+
+<div class="achievement-card">
+<div class="text-6xl mb-6">🎯</div>
+<h3 class="text-2xl font-bold mb-4">National Finalist</h3>
+<p class="text-gray-400">50m Rifle Shooting Finalist.</p>
+</div>
+
+<div class="achievement-card">
+<div class="text-6xl mb-6">💻</div>
+<h3 class="text-2xl font-bold mb-4">Hackathon Finalist</h3>
+<p class="text-gray-400">Hackowasp 8.0 Cybersecurity Finalist.</p>
+</div>
+
+<div class="achievement-card">
+<div class="text-6xl mb-6">🎖️</div>
+<h3 class="text-2xl font-bold mb-4">NCC Excellence</h3>
+<p class="text-gray-400">Best NCC Cadet for 2 consecutive years.</p>
+</div>
+</div>
+</section>
+
 <section class="py-32 px-6 md:px-24">
+<div class="text-center mb-20">
+<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">SYSTEM METRICS</p>
+<h2 class="text-5xl md:text-7xl font-black">Mission Statistics</h2>
+</div>
 
-    <div class="text-center mb-20">
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-number" data-target="6">0</div>
+<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Projects Built</p>
+</div>
 
-        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
-            RESEARCH DIVISION
-        </p>
+<div class="stat-card">
+<div class="stat-number" data-target="3">0</div>
+<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Research Domains</p>
+</div>
 
-        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
-            Research & Technical <span class="text-shelby-gold">Arsenal</span>
-        </h2>
+<div class="stat-card">
+<div class="stat-number" data-target="4">0</div>
+<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Achievements</p>
+</div>
 
-    </div>
-
-    <!-- TECH STACK -->
-
-    <div class="flex flex-wrap justify-center gap-4 mb-20">
-
-        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
-            Python
-        </span>
-
-        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
-            JavaScript
-        </span>
-
-        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
-            GSAP
-        </span>
-
-        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
-            SQL
-        </span>
-
-        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
-            Linux
-        </span>
-
-    </div>
-
-    <!-- RESEARCH CARDS -->
-
-    <div class="grid md:grid-cols-2 gap-10">
-
-        <div class="intel-card p-12">
-
-            <p class="text-shelby-gold uppercase tracking-[0.4em] text-xs mb-5">
-                Energy AI Research
-            </p>
-
-            <h3 class="text-4xl font-black mb-6">
-                STEAL-Net
-            </h3>
-
-            <p class="text-gray-400 leading-loose text-lg mb-8">
-                Spatio-Temporal Energy-Aware Lightweight Network engineered for scalable and sustainable energy forecasting using deep learning optimization models.
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Deep Learning
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Forecasting
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    AI Systems
-                </span>
-            </div>
-
-        </div>
-
-        <div class="intel-card p-12">
-
-            <p class="text-shelby-gold uppercase tracking-[0.4em] text-xs mb-5">
-                Privacy Intelligence
-            </p>
-
-            <h3 class="text-4xl font-black mb-6">
-                RedFlag
-            </h3>
-
-            <p class="text-gray-400 leading-loose text-lg mb-8">
-                Detection infrastructure for identifying hidden trackers, browser fingerprinting methods, and suspicious third-party monitoring activity across modern websites.
-            </p>
-
-            <div class="flex flex-wrap gap-3">
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Privacy
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Security
-                </span>
-
-                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
-                    Web Analysis
-                </span>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-    <section id="achievements" class="py-32 px-6 md:px-24">
-
-    <div class="text-center mb-20">
-
-        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
-            HONORS & OPERATIONS
-        </p>
-
-        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
-            Achievements & <span class="text-shelby-gold">Recognition</span>
-        </h2>
-
-    </div>
-
-    <div class="achievement-wrapper">
-
-        <div class="achievement-card">
-            <div class="text-6xl mb-6">🏆</div>
-            <h3 class="text-2xl font-bold mb-4">
-                Gold Medalist
-            </h3>
-            <p class="text-gray-400">
-                Rifle Shooting Competition winner at URJA, TIET.
-            </p>
-        </div>
-
-        <div class="achievement-card">
-            <div class="text-6xl mb-6">🎯</div>
-            <h3 class="text-2xl font-bold mb-4">
-                National Finalist
-            </h3>
-            <p class="text-gray-400">
-                National-level 50m rifle shooting finalist.
-            </p>
-        </div>
-
-        <div class="achievement-card">
-            <div class="text-6xl mb-6">💻</div>
-            <h3 class="text-2xl font-bold mb-4">
-                Hackathon Finalist
-            </h3>
-            <p class="text-gray-400">
-                Finalist at Hackowasp 8.0 cybersecurity hackathon.
-            </p>
-        </div>
-
-        <div class="achievement-card">
-            <div class="text-6xl mb-6">🎖️</div>
-            <h3 class="text-2xl font-bold mb-4">
-                NCC Excellence
-            </h3>
-            <p class="text-gray-400">
-                Best NCC Cadet for two consecutive years.
-            </p>
-        </div>
-
-    </div>
-
+<div class="stat-card">
+<div class="stat-number" data-target="2">0</div>
+<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Enterprise Experience</p>
+</div>
+</div>
 </section>
 
-    <section class="mt-12 pb-20">
-    <h2 class="text-shelby-gold font-bold text-2xl mb-4 border-b border-industrial-grey pb-2">Achievements</h2>
-    <ul class="space-y-2 text-sm">
-        <li class="flex items-center gap-2">
-            <span class="text-shelby-gold">🏆</span> Gold Medalist – Rifle Shooting Competition (URJA, TIET) [cite: 32]
-        </li>
-        <li class="flex items-center gap-2">
-            <span class="text-shelby-gold">🎯</span> National Level Finalist – 50m Rifle Shooting [cite: 32]
-        </li>
-        <li class="flex items-center gap-2">
-            <span class="text-shelby-gold">💻</span> Finalist – Hackowasp 8.0 (TIET) [cite: 32]
-        </li>
-        <li class="flex items-center gap-2">
-            <span class="text-shelby-gold">🎖️</span> Best NCC Cadet (2 consecutive years) [cite: 32]
-        </li>
-    </ul>
-</section>
-<section class="py-32 px-6 md:px-24">
+<div class="live-terminal hidden md:block">
+<div class="text-yellow-700 text-xs mb-4 tracking-widest">SYSTEM STATUS // ACTIVE</div>
+<div id="typing-text" class="text-sm leading-loose"></div>
+</div>
 
-    <div class="text-center mb-20">
+<footer class="py-20 text-center border-t border-white/5 opacity-60">
+<p class="text-[10px] uppercase tracking-[0.5em]">
+Built By Ashutosh Sharma • Phantom Systems • 2026
+</p>
+</footer>
 
-        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
-            SYSTEM METRICS
-        </p>
+<div id="contact-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center z-[200]">
+<div class="max-w-4xl w-full px-10">
+<div class="text-center mb-16">
+<h2 class="text-6xl font-black">Connect With <span class="text-yellow-700">Ashutosh</span></h2>
+</div>
 
-        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
-            Mission <span class="text-shelby-gold">Statistics</span>
-        </h2>
+<div class="grid md:grid-cols-2 gap-8">
+<a href="mailto:sharmaashutosh2610@gmail.com" class="contact-link text-center text-2xl font-bold">📧 Gmail</a>
+<a href="https://linkedin.com" target="_blank" class="contact-link text-center text-2xl font-bold">💼 LinkedIn</a>
+<a href="https://github.com" target="_blank" class="contact-link text-center text-2xl font-bold">💻 GitHub</a>
+<a href="#" class="contact-link text-center text-2xl font-bold">⚡ Instagram / X</a>
+</div>
 
-    </div>
+<div class="text-center mt-16">
+<button onclick="toggleContact()" class="text-gray-400 hover:text-yellow-700">
+Close Transmission
+</button>
+</div>
+</div>
+</div>
 
-    <div class="stats-grid">
+<script>
+gsap.registerPlugin(ScrollTrigger);
 
-        <div class="stat-card">
-            <div class="stat-number" data-target="6">0</div>
-            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
-                Projects Built
-            </p>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-number" data-target="3">0</div>
-            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
-                Research Domains
-            </p>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-number" data-target="4">0</div>
-            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
-                Major Achievements
-            </p>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-number" data-target="2">0</div>
-            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
-                Enterprise Experiences
-            </p>
-        </div>
-
-    </div>
-
-</section>
-    <footer class="py-20 text-center border-t border-white/5 opacity-50">
-        <p class="text-[10px] tracking-[0.5em] uppercase">Built for Success • 2026 Ashutosh Sharma</p>
-    </footer>
-
-    <script src="index.js"></script>
-    <script>
-
-const backgrounds = [
-    "url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2070&auto=format&fit=crop')",
-    
-    "url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop')",
-
-    "url('https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa1?q=80&w=2070&auto=format&fit=crop')",
-
-    "url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop')"
-];
-
-const bg = document.getElementById("bg-image");
-
-window.addEventListener("scroll", () => {
-
-    const scrollY = window.scrollY;
-    const pageHeight = document.body.scrollHeight - window.innerHeight;
-
-    const section = Math.floor((scrollY / pageHeight) * backgrounds.length);
-
-    bg.style.backgroundImage = `
-        linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)),
-        ${backgrounds[section]}
-    `;
+const cursor = document.querySelector('.custom-cursor');
+document.addEventListener('mousemove', (e)=>{
+gsap.to(cursor,{x:e.clientX,y:e.clientY,duration:0.08});
 });
 
-bg.style.backgroundImage = `
-    linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)),
-    ${backgrounds[0]}
-`;
-<div class="live-terminal hidden md:block">
+const backgrounds = [
+"https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2070&auto=format&fit=crop",
+"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop",
+"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop"
+];
 
-    <div class="terminal-line">
-        SYSTEM STATUS // ACTIVE
-    </div>
+const bg = document.getElementById('bg-image');
+bg.style.backgroundImage=`linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)), url(${backgrounds[0]})`;
 
-    <div class="typing-text" id="typing-text">
-    </div>
+window.addEventListener('scroll',()=>{
+const scrollY = window.scrollY;
+const pageHeight = document.body.scrollHeight - window.innerHeight;
+const section = Math.floor((scrollY/pageHeight)*backgrounds.length);
+bg.style.backgroundImage=`linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)), url(${backgrounds[Math.min(section, backgrounds.length-1)]})`;
+});
 
-</div>
+window.addEventListener('load',()=>{
+gsap.to('.loader-progress',{
+width:'100%',
+duration:1.8,
+onComplete:()=>{
+gsap.to('#loader',{
+opacity:0,
+duration:1,
+onComplete:()=>document.getElementById('loader').remove()
+});
+}
+});
+});
+
+window.addEventListener('scroll',()=>{
+const scrollTop = window.scrollY;
+const docHeight = document.body.scrollHeight - window.innerHeight;
+const progress = (scrollTop/docHeight)*100;
+document.getElementById('scroll-progress').style.width = progress + '%';
+});
+
+const terminalText = `
+Initializing Quantum Systems...\nDeploying STEAL-Net Modules...\nCyber Defense Active...\nAstrophysics Simulation Online...`;
+
+let i=0;
+function typeTerminal(){
+if(i < terminalText.length){
+document.getElementById('typing-text').innerHTML += terminalText.charAt(i);
+i++;
+setTimeout(typeTerminal,35);
+}
+}
+
+typeTerminal();
+
+function toggleContact(){
+document.getElementById('contact-modal').classList.toggle('hidden');
+}
+
+gsap.from('#hero-sub',{opacity:0,y:80,duration:1.2});
+gsap.from('#hero-title',{opacity:0,y:120,duration:1.5});
+gsap.from('#hero-p',{opacity:0,y:60,duration:1.2});
+
+gsap.utils.toArray('section').forEach((section)=>{
+gsap.from(section,{
+opacity:0,
+y:120,
+duration:1.2,
+scrollTrigger:{
+trigger:section,
+start:'top 85%'
+}
+});
+});
+
+const statNumbers = document.querySelectorAll('.stat-number');
+statNumbers.forEach((stat)=>{
+const target = +stat.getAttribute('data-target');
+gsap.to(stat,{
+innerText:target,
+duration:2,
+snap:{innerText:1},
+scrollTrigger:{
+trigger:stat,
+start:'top 90%'
+}
+});
+});
 </script>
+
 </body>
-<div id="contact-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center z-[200]">
-
-    <div class="max-w-4xl w-full px-10">
-
-        <div class="text-center mb-16">
-
-            <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
-                CONTACT NETWORK
-            </p>
-
-            <h2 class="text-6xl font-black tracking-tighter">
-                Connect With <span class="text-shelby-gold">Ashutosh</span>
-            </h2>
-
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-8">
-
-            <a href="mailto:sharmaashutosh2610@gmail.com"
-               class="contact-link text-center text-2xl font-bold">
-               📧 Gmail
-            </a>
-
-            <a href="https://linkedin.com/in/ashutosh-sharma-8472911a7"
-               target="_blank"
-               class="contact-link text-center text-2xl font-bold">
-               💼 LinkedIn
-            </a>
-
-            <a href="https://github.com/SniperPhantom02"
-               target="_blank"
-               class="contact-link text-center text-2xl font-bold">
-               💻 GitHub
-            </a>
-
-            <a href="#"
-               class="contact-link text-center text-2xl font-bold">
-               ⚡ Instagram / X
-            </a>
-
-        </div>
-
-        <div class="text-center mt-16">
-
-            <button
-                onclick="toggleContact()"
-                class="text-gray-500 hover:text-shelby-gold transition">
-
-                Close Transmission
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
 </html>
+```
+
+After replacing:
+
+1. Save file
+2. Delete old `index.js` link/file usage if you want everything in one file
+3. Press `CTRL + SHIFT + R`
+4. Run Live Server again
+
+This version fixes:
+
+* broken achievements layout
+* missing hero section
+* broken contact modal
+* bad script placement
+* duplicate sections
+* vertical achievements
+* layout spacing issues
+* terminal placement
+
+And adds:
+
+* hacker dashboard aesthetic
+* astrophysics vibe
+* cyberpunk glow
+* military/intelligence atmosphere
+* cinematic scrolling
+* starfield background
+* glitch hero text
+* premium UI structure
