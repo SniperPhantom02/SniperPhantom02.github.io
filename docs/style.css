@@ -160,8 +160,18 @@ margin-bottom:30px;
 .hero-title{
 font-size:8rem;
 font-weight:900;
-line-height:1;
+line-height:0.95;
 position:relative;
+background:linear-gradient(
+to bottom,
+#ffffff,
+#d6d6d6
+);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-shadow:
+0 0 25px rgba(197,160,89,0.15);
+letter-spacing:-6px;
 }
 
 .hero-p{
@@ -186,13 +196,15 @@ opacity:0.4;
 }
 
 .glitch-text::before{
-color:#00ffee;
-transform:translateX(-2px);
+color:rgba(197,160,89,0.18);
+transform:translateX(-3px);
+filter:blur(1px);
 }
 
 .glitch-text::after{
-color:#ff0055;
-transform:translateX(2px);
+color:rgba(255,255,255,0.08);
+transform:translateX(3px);
+filter:blur(1px);
 }
 
 /* ORBITS */
@@ -515,4 +527,212 @@ box-shadow:0 0 15px #C5A059;
 
 .contact-btn{
 color:#C5A059 !important;
+}
+/* =========================
+   CINEMATIC BACKGROUND
+========================= */
+
+body::after{
+content:'';
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 20% 20%, rgba(197,160,89,0.08), transparent 20%),
+radial-gradient(circle at 80% 30%, rgba(255,255,255,0.04), transparent 20%),
+radial-gradient(circle at 70% 80%, rgba(197,160,89,0.06), transparent 20%);
+mix-blend-mode:screen;
+pointer-events:none;
+animation:floatingGlow 20s ease-in-out infinite alternate;
+z-index:-1;
+}
+
+@keyframes floatingGlow{
+from{
+transform:translateY(0px) scale(1);
+}
+to{
+transform:translateY(-40px) scale(1.1);
+}
+}
+
+.bg-noise{
+position:fixed;
+inset:0;
+z-index:-2;
+opacity:0.04;
+background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+pointer-events:none;
+}
+
+.smoke-layer{
+position:fixed;
+width:200%;
+height:200%;
+background:
+radial-gradient(circle, rgba(255,255,255,0.03), transparent 60%);
+top:-50%;
+left:-50%;
+animation:smokeMove 45s linear infinite;
+z-index:-3;
+pointer-events:none;
+}
+
+@keyframes smokeMove{
+from{
+transform:rotate(0deg);
+}
+to{
+transform:rotate(360deg);
+}
+}
+/* =========================
+   LEGACY ARCHIVE
+========================= */
+
+.achievements-section{
+position:relative;
+overflow:hidden;
+}
+
+.achievement-title{
+font-size:6rem;
+font-weight:900;
+letter-spacing:-4px;
+background:linear-gradient(
+to bottom,
+#ffffff,
+#bdbdbd
+);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.achievement-track{
+display:flex;
+gap:40px;
+overflow-x:auto;
+padding:40px 10px 30px;
+scroll-snap-type:x mandatory;
+}
+
+.achievement-track::-webkit-scrollbar{
+height:8px;
+}
+
+.achievement-track::-webkit-scrollbar-thumb{
+background:#C5A059;
+border-radius:999px;
+}
+
+.achievement-dossier{
+position:relative;
+min-width:360px;
+padding:50px 40px;
+border-radius:30px;
+background:
+linear-gradient(
+145deg,
+rgba(18,18,18,0.95),
+rgba(8,8,8,0.92)
+);
+
+border:1px solid rgba(197,160,89,0.12);
+
+overflow:hidden;
+
+transition:0.6s;
+
+scroll-snap-align:center;
+
+backdrop-filter:blur(20px);
+}
+
+.achievement-dossier:hover{
+transform:
+translateY(-16px)
+rotateX(6deg)
+rotateY(-6deg);
+
+border-color:rgba(197,160,89,0.4);
+
+box-shadow:
+0 0 50px rgba(197,160,89,0.15);
+}
+
+.achievement-glow{
+position:absolute;
+width:260px;
+height:260px;
+background:rgba(197,160,89,0.08);
+border-radius:50%;
+top:-120px;
+right:-120px;
+filter:blur(20px);
+}
+
+.achievement-icon{
+font-size:4.5rem;
+margin-bottom:30px;
+position:relative;
+z-index:2;
+}
+
+.achievement-dossier h3{
+font-size:2rem;
+margin-bottom:20px;
+font-weight:900;
+position:relative;
+z-index:2;
+}
+
+.achievement-dossier p{
+color:#a1a1aa;
+line-height:1.9;
+margin-bottom:30px;
+position:relative;
+z-index:2;
+}
+
+.achievement-line{
+width:100%;
+height:1px;
+background:
+linear-gradient(
+to right,
+rgba(197,160,89,0.5),
+transparent
+);
+
+margin-bottom:20px;
+}
+
+.achievement-dossier span{
+font-size:12px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#C5A059;
+}
+
+/* FLOATING GOLD PARTICLES */
+
+.achievements-section::before{
+content:'';
+position:absolute;
+width:500px;
+height:500px;
+background:rgba(197,160,89,0.05);
+filter:blur(120px);
+border-radius:50%;
+top:-100px;
+left:-100px;
+animation:floatArchive 12s infinite alternate ease-in-out;
+}
+
+@keyframes floatArchive{
+from{
+transform:translateY(0px);
+}
+to{
+transform:translateY(60px);
+}
 }

@@ -325,3 +325,59 @@ document
 .classList.toggle("hidden");
 
 }
+/* =========================
+   LEGACY DOSSIER EFFECT
+========================= */
+
+gsap.utils.toArray(".achievement-dossier")
+.forEach((card)=>{
+
+gsap.from(card,{
+
+opacity:0,
+y:120,
+duration:1.2,
+
+scrollTrigger:{
+trigger:card,
+start:"top 90%"
+}
+
+});
+
+card.addEventListener("mousemove",(e)=>{
+
+const rect =
+card.getBoundingClientRect();
+
+const x =
+e.clientX - rect.left;
+
+const y =
+e.clientY - rect.top;
+
+const rotateY =
+(x - rect.width/2)/18;
+
+const rotateX =
+(y - rect.height/2)/18;
+
+gsap.to(card,{
+rotateY:rotateY,
+rotateX:-rotateX,
+duration:0.3
+});
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+gsap.to(card,{
+rotateX:0,
+rotateY:0,
+duration:0.6
+});
+
+});
+
+});
