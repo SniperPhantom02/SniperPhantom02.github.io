@@ -51,3 +51,25 @@ gsap.from(".achievement-card", {
     duration: 1.2,
     ease: "back.out(1.7)"
 });
+// Function to toggle contact modal
+function toggleContact() {
+    const modal = document.getElementById('contact-modal');
+    modal.classList.toggle('hidden');
+}
+
+// GSAP Scroll Animation
+// Requires: <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".p-6", {
+    scrollTrigger: {
+        trigger: "#work",
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse"
+    },
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    stagger: 0.2
+});

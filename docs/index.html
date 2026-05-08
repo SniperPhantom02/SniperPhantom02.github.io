@@ -55,7 +55,42 @@
             </p>
         </div>
     </section>
+<section id="work" class="py-20 px-10">
+    <h2 class="text-shelby-gold font-bold text-3xl mb-10">Projects & Research</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="p-6 border border-industrial-grey bg-garrison-black hover:border-shelby-gold transition-all group">
+            <span class="text-xs text-shelby-gold uppercase tracking-widest">Cybersecurity</span>
+            <h3 class="text-xl font-bold mt-2">Quantum-Safe Communication</h3>
+            <p class="text-gray-400 mt-2 text-sm">Implemented secure communication using OpenSSL and Linux encryption workflows[cite: 22].</p>
+            <div class="mt-4 flex gap-2">
+                <span class="px-2 py-1 bg-industrial-grey text-[10px]">OpenSSL</span>
+                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Linux</span>
+            </div>
+        </div>
 
+        <div class="p-6 border border-industrial-grey bg-garrison-black hover:border-shelby-gold transition-all">
+            <span class="text-xs text-shelby-gold uppercase tracking-widest">Research (In Progress)</span>
+            <h3 class="text-xl font-bold mt-2">STEAL-Net</h3>
+            <p class="text-gray-400 mt-2 text-sm">Spatio-Temporal Energy-Aware Lightweight Network for sustainable energy forecasting[cite: 27].</p>
+            <div class="mt-4 flex gap-2">
+                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Deep Learning</span>
+                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Energy AI</span>
+            </div>
+        </div>
+
+        <div class="p-6 border border-industrial-grey bg-garrison-black hover:border-shelby-gold transition-all">
+            <span class="text-xs text-shelby-gold uppercase tracking-widest">Privacy</span>
+            <h3 class="text-xl font-bold mt-2">RedFlag</h3>
+            <p class="text-gray-400 mt-2 text-sm">Detection system for third-party web tracking to enhance user privacy[cite: 26].</p>
+            <div class="mt-4 flex gap-2">
+                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Web Tech</span>
+                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Privacy</span>
+            </div>
+        </div>
+
+    </div>
+</section>
     <section id="projects" class="py-32 px-6 md:px-24">
         <h3 class="text-5xl font-black mb-20 tracking-tighter text-center">The Intelligence <span class="text-shelby-gold">Report</span></h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -115,4 +150,16 @@
 
     <script src="index.js"></script>
 </body>
+<div id="contact-modal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[200]">
+    <div class="text-center">
+        <h2 class="text-shelby-gold text-2xl mb-8">Connect with Ashutosh</h2>
+        <div class="flex flex-col gap-4">
+            <a href="mailto:sharmaashutosh2610@gmail.com" class="hover:text-shelby-gold text-xl">Email</a>
+            <a href="https://linkedin.com/in/ashutosh-sharma-8472911a7" target="_blank" class="hover:text-shelby-gold text-xl">LinkedIn</a>
+            <a href="https://github.com/SniperPhantom02" target="_blank" class="hover:text-shelby-gold text-xl">GitHub</a>
+            <a href="#" class="hover:text-shelby-gold text-xl">Instagram / Twitter</a>
+        </div>
+        <button onclick="toggleContact()" class="mt-10 text-gray-500 underline">Close</button>
+    </div>
+</div>
 </html>
