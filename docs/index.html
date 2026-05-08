@@ -299,11 +299,136 @@
 .contact-link:hover::before {
     transform: translateX(100%);
 }
+/* =========================
+   LOADER
+========================= */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #050505;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.loader-text {
+    font-size: 5rem;
+    font-weight: 900;
+    letter-spacing: -4px;
+}
+
+.loader-bar {
+    width: 280px;
+    height: 4px;
+    margin-top: 30px;
+    background: rgba(255,255,255,0.08);
+    overflow: hidden;
+    border-radius: 999px;
+}
+
+.loader-progress {
+    width: 0%;
+    height: 100%;
+    background: #C5A059;
+}
+
+/* =========================
+   TOP PROGRESS BAR
+========================= */
+
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: #C5A059;
+    z-index: 9999;
+    box-shadow: 0 0 15px #C5A059;
+}
+
+/* =========================
+   LIVE TERMINAL
+========================= */
+
+.live-terminal {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 320px;
+    padding: 24px;
+    border-radius: 24px;
+    background: rgba(10,10,10,0.82);
+    border: 1px solid rgba(197,160,89,0.18);
+    backdrop-filter: blur(16px);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.terminal-line {
+    color: #C5A059;
+    font-size: 12px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.typing-text {
+    color: white;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 24px;
+}
+
+.stat-card {
+    padding: 40px;
+    border-radius: 24px;
+    background: rgba(15,15,15,0.7);
+    border: 1px solid rgba(197,160,89,0.12);
+    text-align: center;
+    transition: 0.5s;
+}
+
+.stat-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(197,160,89,0.4);
+    box-shadow: 0 0 30px rgba(197,160,89,0.1);
+}
+
+.stat-number {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #C5A059;
+}
     </style>
 </head>
 <body class="selection:bg-shelby-gold selection:text-black">
 <div class="custom-cursor hidden md:block"></div>
+<div id="loader">
 
+    <div class="loader-text">
+        PHANTOM
+    </div>
+
+    <div class="loader-bar">
+        <div class="loader-progress"></div>
+    </div>
+
+</div>
+
+<div class="scroll-progress" id="scroll-progress"></div>
 <div class="parallax-bg" id="bg-image"></div>
 <div class="parallax-overlay"></div>
 <div class="cyber-grid"></div>
@@ -702,7 +827,53 @@
         </li>
     </ul>
 </section>
+<section class="py-32 px-6 md:px-24">
 
+    <div class="text-center mb-20">
+
+        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
+            SYSTEM METRICS
+        </p>
+
+        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
+            Mission <span class="text-shelby-gold">Statistics</span>
+        </h2>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-number" data-target="6">0</div>
+            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
+                Projects Built
+            </p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number" data-target="3">0</div>
+            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
+                Research Domains
+            </p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number" data-target="4">0</div>
+            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
+                Major Achievements
+            </p>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number" data-target="2">0</div>
+            <p class="mt-4 text-gray-400 uppercase tracking-widest text-xs">
+                Enterprise Experiences
+            </p>
+        </div>
+
+    </div>
+
+</section>
     <footer class="py-20 text-center border-t border-white/5 opacity-50">
         <p class="text-[10px] tracking-[0.5em] uppercase">Built for Success • 2026 Ashutosh Sharma</p>
     </footer>
@@ -739,7 +910,16 @@ bg.style.backgroundImage = `
     linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)),
     ${backgrounds[0]}
 `;
+<div class="live-terminal hidden md:block">
 
+    <div class="terminal-line">
+        SYSTEM STATUS // ACTIVE
+    </div>
+
+    <div class="typing-text" id="typing-text">
+    </div>
+
+</div>
 </script>
 </body>
 <div id="contact-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center z-[200]">

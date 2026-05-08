@@ -277,3 +277,114 @@ for(let i = 0; i < 25; i++){
     });
 
 }
+/* =========================
+   LOADER
+========================= */
+
+window.addEventListener("load", () => {
+
+    gsap.to(".loader-progress", {
+
+        width: "100%",
+        duration: 1.8,
+        ease: "power4.out",
+
+        onComplete: () => {
+
+            gsap.to("#loader", {
+
+                opacity: 0,
+                duration: 1,
+                pointerEvents: "none",
+
+                onComplete: () => {
+
+                    document.getElementById("loader").remove();
+
+                }
+
+            });
+
+        }
+
+    });
+
+});
+
+/* =========================
+   SCROLL PROGRESS
+========================= */
+
+window.addEventListener("scroll", () => {
+
+    const scrollTop = window.scrollY;
+
+    const docHeight =
+        document.body.scrollHeight - window.innerHeight;
+
+    const progress =
+        (scrollTop / docHeight) * 100;
+
+    document.getElementById("scroll-progress")
+        .style.width = progress + "%";
+
+});
+
+/* =========================
+   TERMINAL TYPING EFFECT
+========================= */
+
+const terminalText = `
+Initializing Quantum Systems...
+Deploying STEAL-Net Modules...
+Privacy Defense Layer Active...
+Secure Communication Channel Established...
+`;
+
+let i = 0;
+
+function typeTerminal(){
+
+    if(i < terminalText.length){
+
+        document.getElementById("typing-text")
+            .innerHTML += terminalText.charAt(i);
+
+        i++;
+
+        setTimeout(typeTerminal, 35);
+
+    }
+
+}
+
+typeTerminal();
+
+/* =========================
+   STATS COUNTER
+========================= */
+
+const statNumbers =
+    document.querySelectorAll(".stat-number");
+
+statNumbers.forEach((stat) => {
+
+    const target =
+        +stat.getAttribute("data-target");
+
+    gsap.to(stat, {
+
+        innerText: target,
+        duration: 2,
+        snap: { innerText: 1 },
+
+        scrollTrigger: {
+
+            trigger: stat,
+            start: "top 90%"
+
+        }
+
+    });
+
+});
