@@ -90,6 +90,92 @@
 }
         .glass-card { background: rgba(29, 29, 31, 0.4); backdrop-filter: blur(15px); border: 1px solid rgba(197, 160, 89, 0.1); }
         .custom-cursor { width: 22px; height: 22px; border: 1.5px solid #C5A059; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; mix-blend-mode: difference; }
+    /* =========================
+   PROJECT INTEL SECTION
+========================= */
+
+.intel-section {
+    position: relative;
+}
+
+.intel-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 28px;
+    background: rgba(15,15,15,0.65);
+    border: 1px solid rgba(197,160,89,0.15);
+    backdrop-filter: blur(18px);
+    transition: all 0.5s ease;
+}
+
+.intel-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            120deg,
+            transparent,
+            rgba(197,160,89,0.08),
+            transparent
+        );
+    transform: translateX(-100%);
+    transition: 0.8s;
+}
+
+.intel-card:hover::before {
+    transform: translateX(100%);
+}
+
+.intel-card:hover {
+    transform: translateY(-12px);
+    border-color: rgba(197,160,89,0.5);
+    box-shadow:
+        0 0 40px rgba(197,160,89,0.15),
+        0 0 80px rgba(197,160,89,0.08);
+}
+
+.intel-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(197,160,89,0.4),
+        transparent
+    );
+    transform: translateX(-50%);
+}
+
+.floating-dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: #C5A059;
+    box-shadow: 0 0 20px #C5A059;
+    animation: floatDot 4s infinite ease-in-out;
+}
+
+@keyframes floatDot {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+    100% { transform: translateY(0px); }
+}
+
+.intel-tag {
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
+    transition: 0.3s;
+}
+
+.intel-tag:hover {
+    background: #C5A059;
+    color: black;
+}
     </style>
 </head>
 <body class="selection:bg-shelby-gold selection:text-black">
@@ -119,41 +205,114 @@
             </p>
         </div>
     </section>
-<section id="work" class="py-20 px-10">
-    <h2 class="text-shelby-gold font-bold text-3xl mb-10">Projects & Research</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <div class="p-6 border border-industrial-grey bg-garrison-black hover:border-shelby-gold transition-all group">
-            <span class="text-xs text-shelby-gold uppercase tracking-widest">Cybersecurity</span>
-            <h3 class="text-xl font-bold mt-2">Quantum-Safe Communication</h3>
-            <p class="text-gray-400 mt-2 text-sm">Implemented secure communication using OpenSSL and Linux encryption workflows[cite: 22].</p>
-            <div class="mt-4 flex gap-2">
-                <span class="px-2 py-1 bg-industrial-grey text-[10px]">OpenSSL</span>
-                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Linux</span>
+    <section id="work" class="py-32 px-6 md:px-24 intel-section">
+
+    <div class="intel-line hidden md:block"></div>
+
+    <div class="text-center mb-24">
+        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
+            PROJECT DOSSIER
+        </p>
+
+        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
+            Projects & <span class="text-shelby-gold">Operations</span>
+        </h2>
+
+        <p class="max-w-2xl mx-auto mt-8 text-gray-400 text-lg">
+            Building secure systems, intelligent models, and privacy-first infrastructure through research-driven engineering.
+        </p>
+    </div>
+
+    <div class="space-y-28">
+
+        <!-- PROJECT 1 -->
+
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+
+            <div class="intel-card p-10 relative">
+                <div class="floating-dot top-10 right-10"></div>
+
+                <p class="text-shelby-gold text-xs tracking-[0.4em] uppercase mb-5">
+                    Master Project
+                </p>
+
+                <h3 class="text-4xl font-black mb-6">
+                    Quantum-Safe Communication
+                </h3>
+
+                <p class="text-gray-400 leading-relaxed text-lg mb-8">
+                    Designed a secure communication framework using OpenSSL, Linux encryption workflows, and ML-KEM-768 simulation principles for post-quantum security environments.
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">OpenSSL</span>
+                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Linux</span>
+                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Cryptography</span>
+                </div>
             </div>
+
+            <div>
+                <p class="text-shelby-gold text-sm uppercase tracking-[0.5em] mb-6">
+                    Mission Overview
+                </p>
+
+                <h4 class="text-3xl font-bold mb-6">
+                    Future-Proof Encryption Infrastructure
+                </h4>
+
+                <p class="text-gray-400 leading-loose">
+                    The project explores practical implementation of post-quantum communication systems against next-generation computational threats. Designed with real-world workflow simulation and secure protocol architecture in mind.
+                </p>
+            </div>
+
         </div>
 
-        <div class="p-6 border border-industrial-grey bg-garrison-black hover:border-shelby-gold transition-all">
-            <span class="text-xs text-shelby-gold uppercase tracking-widest">Research (In Progress)</span>
-            <h3 class="text-xl font-bold mt-2">STEAL-Net</h3>
-            <p class="text-gray-400 mt-2 text-sm">Spatio-Temporal Energy-Aware Lightweight Network for sustainable energy forecasting[cite: 27].</p>
-            <div class="mt-4 flex gap-2">
-                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Deep Learning</span>
-                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Energy AI</span>
-            </div>
-        </div>
+        <!-- PROJECT 2 -->
 
-        <div class="p-6 border border-industrial-grey bg-garrison-black hover:border-shelby-gold transition-all">
-            <span class="text-xs text-shelby-gold uppercase tracking-widest">Privacy</span>
-            <h3 class="text-xl font-bold mt-2">RedFlag</h3>
-            <p class="text-gray-400 mt-2 text-sm">Detection system for third-party web tracking to enhance user privacy[cite: 26].</p>
-            <div class="mt-4 flex gap-2">
-                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Web Tech</span>
-                <span class="px-2 py-1 bg-industrial-grey text-[10px]">Privacy</span>
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+
+            <div class="order-2 md:order-1">
+                <p class="text-shelby-gold text-sm uppercase tracking-[0.5em] mb-6">
+                    System Architecture
+                </p>
+
+                <h4 class="text-3xl font-bold mb-6">
+                    Privacy Detection Infrastructure
+                </h4>
+
+                <p class="text-gray-400 leading-loose">
+                    RedFlag focuses on identifying hidden third-party tracking systems and browser fingerprinting methods used across modern web environments to enhance user-side transparency and digital privacy awareness.
+                </p>
             </div>
+
+            <div class="intel-card p-10 relative order-1 md:order-2">
+
+                <div class="floating-dot bottom-10 left-10"></div>
+
+                <p class="text-shelby-gold text-xs tracking-[0.4em] uppercase mb-5">
+                    Privacy Intelligence
+                </p>
+
+                <h3 class="text-4xl font-black mb-6">
+                    RedFlag
+                </h3>
+
+                <p class="text-gray-400 leading-relaxed text-lg mb-8">
+                    Advanced privacy detection platform focused on web tracking surveillance, browser fingerprinting analysis, and third-party monitoring systems.
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Privacy</span>
+                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Security</span>
+                    <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">Web Intelligence</span>
+                </div>
+
+            </div>
+
         </div>
 
     </div>
+
 </section>
 <section class="mt-12 space-y-8">
     <div>
@@ -184,29 +343,112 @@
         </div>
     </div>
 </section>
-<section class="mt-12">
-    <h2 class="text-shelby-gold font-bold text-2xl mb-6">Research & Technical Arsenal</h2>
-    
-    <div class="flex flex-wrap gap-3 mb-8">
-        <span class="px-3 py-1 bg-shelby-gold text-garrison-black font-bold text-xs">PYTHON [cite: 10]</span>
-        <span class="px-3 py-1 bg-shelby-gold text-garrison-black font-bold text-xs">JAVASCRIPT [cite: 10]</span>
-        <span class="px-3 py-1 bg-shelby-gold text-garrison-black font-bold text-xs">BASH [cite: 10]</span>
-        <span class="px-3 py-1 bg-shelby-gold text-garrison-black font-bold text-xs">SQL [cite: 12]</span>
+<section class="py-32 px-6 md:px-24">
+
+    <div class="text-center mb-20">
+
+        <p class="text-shelby-gold uppercase tracking-[0.5em] text-xs mb-6">
+            RESEARCH DIVISION
+        </p>
+
+        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
+            Research & Technical <span class="text-shelby-gold">Arsenal</span>
+        </h2>
+
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-5 border border-industrial-grey hover:border-shelby-gold transition-colors">
-            <span class="text-[10px] text-gray-500 uppercase tracking-tighter">Domain: Energy AI / Spatio-Temporal [cite: 27]</span>
-            <h3 class="font-bold text-lg mt-1">STEAL-Net</h3>
-            <p class="text-sm text-gray-400 mt-2">A Spatio-Temporal Energy-Aware Lightweight Network for scalable energy forecasting[cite: 27].</p>
-        </div>
-        
-        <div class="p-5 border border-industrial-grey hover:border-shelby-gold transition-colors">
-            <span class="text-[10px] text-gray-500 uppercase tracking-tighter">Domain: Web Privacy / Security [cite: 26]</span>
-            <h3 class="font-bold text-lg mt-1">RedFlag</h3>
-            <p class="text-sm text-gray-400 mt-2">Detection of third-party web tracking for enhanced user privacy protection[cite: 26].</p>
-        </div>
+    <!-- TECH STACK -->
+
+    <div class="flex flex-wrap justify-center gap-4 mb-20">
+
+        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
+            Python
+        </span>
+
+        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
+            JavaScript
+        </span>
+
+        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
+            GSAP
+        </span>
+
+        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
+            SQL
+        </span>
+
+        <span class="intel-tag px-6 py-3 rounded-full text-sm uppercase">
+            Linux
+        </span>
+
     </div>
+
+    <!-- RESEARCH CARDS -->
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+        <div class="intel-card p-12">
+
+            <p class="text-shelby-gold uppercase tracking-[0.4em] text-xs mb-5">
+                Energy AI Research
+            </p>
+
+            <h3 class="text-4xl font-black mb-6">
+                STEAL-Net
+            </h3>
+
+            <p class="text-gray-400 leading-loose text-lg mb-8">
+                Spatio-Temporal Energy-Aware Lightweight Network engineered for scalable and sustainable energy forecasting using deep learning optimization models.
+            </p>
+
+            <div class="flex flex-wrap gap-3">
+                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
+                    Deep Learning
+                </span>
+
+                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
+                    Forecasting
+                </span>
+
+                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
+                    AI Systems
+                </span>
+            </div>
+
+        </div>
+
+        <div class="intel-card p-12">
+
+            <p class="text-shelby-gold uppercase tracking-[0.4em] text-xs mb-5">
+                Privacy Intelligence
+            </p>
+
+            <h3 class="text-4xl font-black mb-6">
+                RedFlag
+            </h3>
+
+            <p class="text-gray-400 leading-loose text-lg mb-8">
+                Detection infrastructure for identifying hidden trackers, browser fingerprinting methods, and suspicious third-party monitoring activity across modern websites.
+            </p>
+
+            <div class="flex flex-wrap gap-3">
+                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
+                    Privacy
+                </span>
+
+                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
+                    Security
+                </span>
+
+                <span class="intel-tag px-4 py-2 rounded-full text-xs uppercase">
+                    Web Analysis
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
     <section id="projects" class="py-32 px-6 md:px-24">
         <h3 class="text-5xl font-black mb-20 tracking-tighter text-center">The Intelligence <span class="text-shelby-gold">Report</span></h3>
