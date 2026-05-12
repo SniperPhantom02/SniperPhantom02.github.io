@@ -1,586 +1,1265 @@
-
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ashutosh Sharma | Phantom</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHANTOM. | Ashutosh Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Fira+Code:wght@300;400;500;600&family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #C8973E;
+  --gold-light: #D4A84B;
+  --gold-dark: #A07830;
+  --bg-deep: #0A0A0F;
+  --bg-card: rgba(14, 14, 20, 0.85);
+  --text-primary: #E8E0D0;
+  --text-muted: #8A8070;
+  --green-terminal: #00FF41;
+  --green-dim: #0A3A12;
+  --red-accent: #8B1A1A;
+  --smoke: rgba(200, 151, 62, 0.03);
 }
 
-html{
-scroll-behavior:smooth;
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Crimson Text', Georgia, serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  cursor: crosshair;
 }
 
-body{
-background:#050505;
-color:white;
-overflow-x:hidden;
-font-family:'Inter',sans-serif;
+/* ========== DYNAMIC BACKGROUND ========== */
+.bg-matrix {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
-.parallax-bg{
-position:fixed;
-inset:0;
-z-index:-5;
-background-size:cover;
-background-position:center;
-transition:1.5s ease-in-out;
-opacity:0.18;
+.bg-matrix canvas { width: 100%; height: 100%; }
+
+.fog-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(200,151,62,0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(139,26,26,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(0,255,65,0.02) 0%, transparent 40%);
+  animation: fogDrift 20s ease-in-out infinite alternate;
 }
 
-.parallax-overlay{
-position:fixed;
-inset:0;
-z-index:-4;
-background:
-linear-gradient(to bottom, rgba(0,0,0,0.94), rgba(0,0,0,0.82)),
-radial-gradient(circle at top left, rgba(197,160,89,0.15), transparent 35%);
+@keyframes fogDrift {
+  0% { opacity: 0.6; transform: translateX(-2%); }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; transform: translateX(2%); }
 }
 
-.cyber-grid{
-position:fixed;
-inset:0;
-z-index:-3;
-background-image:
-linear-gradient(rgba(197,160,89,0.04) 1px, transparent 1px),
-linear-gradient(90deg, rgba(197,160,89,0.04) 1px, transparent 1px);
-background-size:60px 60px;
-animation:gridMove 20s linear infinite;
+/* Scanline effect */
+.scanlines {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
 }
 
-@keyframes gridMove{
-from{transform:translateY(0px)}
-to{transform:translateY(60px)}
+/* ========== NAVBAR ========== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 15, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(200, 151, 62, 0.15);
+  transition: background 0.4s;
 }
 
-.stars-bg{
-position:fixed;
-inset:0;
-z-index:-6;
-background:
-radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25) 1px, transparent 1px),
-radial-gradient(circle at 80% 60%, rgba(255,255,255,0.2) 1px, transparent 1px),
-radial-gradient(circle at 40% 80%, rgba(255,255,255,0.18) 1px, transparent 1px),
-radial-gradient(circle at 70% 20%, rgba(255,255,255,0.18) 1px, transparent 1px);
-background-size:300px 300px;
-animation:starsMove 80s linear infinite;
-opacity:0.4;
+nav.scrolled { background: rgba(10, 10, 15, 0.85); }
+
+.nav-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.4rem;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-decoration: none;
+  position: relative;
 }
 
-@keyframes starsMove{
-from{transform:translateY(0px)}
-to{transform:translateY(-300px)}
+.nav-brand::after {
+  content: '_';
+  animation: blink 1s infinite;
+  color: var(--green-terminal);
 }
 
-.glow-orb{
-position:fixed;
-width:500px;
-height:500px;
-border-radius:9999px;
-background:rgba(197,160,89,0.08);
-filter:blur(120px);
-z-index:-2;
-top:-100px;
-right:-100px;
-animation:pulseGlow 8s infinite alternate ease-in-out;
+@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+.nav-links { display: flex; gap: 2.5rem; align-items: center; }
+
+.nav-links a {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
 }
 
-@keyframes pulseGlow{
-from{transform:scale(1)}
-to{transform:scale(1.3)}
+.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
 }
 
-.custom-cursor{
-width:22px;
-height:22px;
-border:1.5px solid #C5A059;
-border-radius:50%;
-position:fixed;
-pointer-events:none;
-z-index:9999;
-mix-blend-mode:difference;
+.nav-links a:hover::after { width: 100%; }
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
 }
 
-.glitch-text{
-position:relative;
+.hamburger span {
+  display: block;
+  width: 28px; height: 2px;
+  background: var(--gold);
+  transition: all 0.3s;
 }
 
-.glitch-text::before,
-.glitch-text::after{
-content:attr(data-text);
-position:absolute;
-left:0;
-top:0;
-opacity:0.4;
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 6rem 4rem;
 }
 
-.glitch-text::before{
-color:#00ffee;
-transform:translateX(-2px);
+.hero-content { max-width: 900px; }
+
+.hero-pre {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: var(--green-terminal);
+  letter-spacing: 3px;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: typeIn 0.8s 0.5s forwards;
 }
 
-.glitch-text::after{
-color:#ff0055;
-transform:translateX(2px);
+.hero-pre::before { content: '> '; color: var(--text-muted); }
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeSlideUp 1s 0.8s forwards;
 }
 
-.intel-card,
-.exp-card,
-.achievement-card,
-.stat-card{
-background:rgba(15,15,15,0.72);
-border:1px solid rgba(197,160,89,0.15);
-backdrop-filter:blur(18px);
-border-radius:28px;
-transition:0.5s;
-position:relative;
-overflow:hidden;
+.hero-name span {
+  display: block;
+  color: var(--gold);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.45em;
+  letter-spacing: 6px;
+  margin-top: 0.5rem;
 }
 
-.intel-card:hover,
-.exp-card:hover,
-.achievement-card:hover,
-.stat-card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 40px rgba(197,160,89,0.15);
-border-color:rgba(197,160,89,0.45);
+.hero-tagline {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 550px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeSlideUp 1s 1.2s forwards;
 }
 
-.intel-tag{
-padding:10px 18px;
-border-radius:999px;
-font-size:12px;
-text-transform:uppercase;
-background:rgba(255,255,255,0.04);
-border:1px solid rgba(255,255,255,0.08);
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1px solid var(--gold-dark);
+  padding: 1rem 2.5rem;
+  transition: all 0.4s;
+  opacity: 0;
+  animation: fadeSlideUp 1s 1.5s forwards;
 }
 
-.achievement-wrapper{
-display:flex;
-gap:24px;
-overflow-x:auto;
-padding-bottom:20px;
+.hero-cta:hover {
+  background: rgba(200, 151, 62, 0.1);
+  border-color: var(--gold);
+  letter-spacing: 5px;
 }
 
-.achievement-card{
-min-width:320px;
-padding:40px;
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 4px;
+  writing-mode: vertical-rl;
+  animation: float 3s ease-in-out infinite;
 }
 
-.stats-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:24px;
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
 }
 
-.stat-card{
-padding:40px;
-text-align:center;
+@keyframes typeIn {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-.stat-number{
-font-size:4rem;
-font-weight:900;
-color:#C5A059;
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.live-terminal{
-position:fixed;
-bottom:30px;
-right:30px;
-width:320px;
-padding:24px;
-border-radius:24px;
-background:rgba(10,10,10,0.82);
-border:1px solid rgba(197,160,89,0.18);
-backdrop-filter:blur(16px);
-z-index:100;
+/* ========== SECTIONS ========== */
+section {
+  position: relative;
+  z-index: 5;
+  padding: 6rem 6rem;
 }
 
-.scroll-progress{
-position:fixed;
-top:0;
-left:0;
-height:3px;
-width:0%;
-background:#C5A059;
-z-index:99999;
-box-shadow:0 0 15px #C5A059;
+.section-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 6px;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
 }
 
-#loader{
-position:fixed;
-inset:0;
-background:#050505;
-z-index:999999;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3rem;
+  position: relative;
 }
 
-.loader-bar{
-width:280px;
-height:4px;
-background:rgba(255,255,255,0.08);
-border-radius:999px;
-overflow:hidden;
-margin-top:24px;
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px; height: 2px;
+  background: var(--gold);
+  margin-top: 1rem;
 }
 
-.loader-progress{
-width:0%;
-height:100%;
-background:#C5A059;
+/* ========== ABOUT ========== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
 }
 
-.contact-link{
-padding:20px 40px;
-border-radius:20px;
-border:1px solid rgba(197,160,89,0.18);
-background:rgba(255,255,255,0.03);
-transition:0.4s;
+.about-text {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--text-muted);
 }
 
-.contact-link:hover{
-transform:scale(1.04);
-box-shadow:0 0 30px rgba(197,160,89,0.15);
+.about-text p { margin-bottom: 1.5rem; }
+
+.about-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--gold-light);
+  border-left: 2px solid var(--gold-dark);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  line-height: 1.8;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(200, 151, 62, 0.1);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.stat-card:hover { border-color: rgba(200, 151, 62, 0.3); }
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--gold-dark);
+}
+
+.stat-number {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+/* ========== ARSENAL ========== */
+.arsenal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.arsenal-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(200, 151, 62, 0.08);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+
+.arsenal-card:hover {
+  border-color: rgba(200, 151, 62, 0.25);
+  transform: translateY(-4px);
+}
+
+.arsenal-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, var(--gold-dark), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.arsenal-card:hover::after { transform: scaleX(1); }
+
+.arsenal-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--green-terminal);
+  font-family: 'Fira Code', monospace;
+}
+
+.arsenal-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.arsenal-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.arsenal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.2rem;
+}
+
+.arsenal-tags span {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(0, 255, 65, 0.15);
+  color: var(--green-terminal);
+  opacity: 0.7;
+}
+
+/* ========== ACHIEVEMENTS ========== */
+.achievements-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.achievement-item {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 2rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(200, 151, 62, 0.08);
+  transition: all 0.3s;
+}
+
+.achievement-item:hover {
+  border-color: rgba(200, 151, 62, 0.2);
+  background: rgba(14, 14, 20, 0.95);
+}
+
+.achievement-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200, 151, 62, 0.2);
+  color: var(--gold);
+}
+
+.achievement-item h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.achievement-item p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ========== RESEARCH ========== */
+.research-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.research-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 2.5rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(200, 151, 62, 0.08);
+  transition: all 0.3s;
+}
+
+.research-card:hover { border-color: rgba(200, 151, 62, 0.2); }
+
+.research-year {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--gold-dark);
+  opacity: 0.5;
+  line-height: 1;
+}
+
+.research-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.research-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.research-status {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  padding: 0.4rem 1rem;
+  border: 1px solid;
+  white-space: nowrap;
+  height: fit-content;
+}
+
+.status-active { border-color: var(--green-terminal); color: var(--green-terminal); }
+.status-progress { border-color: var(--gold); color: var(--gold); }
+
+/* ========== LEGACY (Experience + Education) ========== */
+.legacy-timeline {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.legacy-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1px; height: 100%;
+  background: linear-gradient(180deg, var(--gold-dark), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 2rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -3.35rem; top: 0.5rem;
+  width: 8px; height: 8px;
+  border: 2px solid var(--gold);
+  background: var(--bg-deep);
+  transform: rotate(45deg);
+}
+
+.timeline-date {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--gold-dark);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-item h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-item h4 {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+}
+
+.timeline-item p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ========== CONTACT ========== */
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.contact-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.contact-info p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.contact-links { display: flex; flex-direction: column; gap: 1rem; }
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+  letter-spacing: 1px;
+}
+
+.contact-link:hover { color: var(--gold); }
+
+.contact-link-icon {
+  width: 40px; height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200, 151, 62, 0.2);
+  color: var(--gold);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.contact-form input,
+.contact-form textarea {
+  background: rgba(14, 14, 20, 0.8);
+  border: 1px solid rgba(200, 151, 62, 0.15);
+  padding: 1rem 1.2rem;
+  color: var(--text-primary);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus { border-color: var(--gold); }
+
+.contact-form textarea { min-height: 150px; resize: vertical; }
+
+.contact-form button {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  padding: 1.2rem 3rem;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 0.4s;
+  align-self: flex-start;
+}
+
+.contact-form button:hover {
+  background: var(--gold);
+  color: var(--bg-deep);
+}
+
+/* ========== FOOTER ========== */
+footer {
+  position: relative;
+  z-index: 5;
+  padding: 3rem 6rem;
+  border-top: 1px solid rgba(200, 151, 62, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+.footer-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--gold-dark);
+}
+
+/* ========== SCROLL REVEAL ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  section { padding: 5rem 3rem; }
+  .hero { padding: 7rem 3rem 4rem; }
+  nav { padding: 1rem 2rem; }
+  footer { padding: 2rem 3rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .achievements-list { grid-template-columns: 1fr; }
+  .contact-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+  .research-card { grid-template-columns: 1fr; gap: 1rem; }
+  .research-year { font-size: 2rem; }
+}
+
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  nav { padding: 1rem 1.5rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 75%;
+    height: 100vh;
+    background: rgba(10, 10, 15, 0.97);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: 1px solid rgba(200, 151, 62, 0.15);
+  }
+
+  .nav-links.open { right: 0; }
+
+  .nav-links a { font-size: 0.9rem; letter-spacing: 6px; }
+
+  .hamburger { display: flex; }
+
+  .nav-brand { font-size: 1.8rem; }
+
+  .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
+
+  .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .arsenal-grid { grid-template-columns: 1fr; }
+
+  .stat-card { padding: 1.5rem; }
+
+  .stat-number { font-size: 2rem; }
+
+  .achievement-item { padding: 1.5rem; }
+
+  .contact-form button { width: 100%; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .about-stats { grid-template-columns: 1fr; }
+  .hero-cta { width: 100%; justify-content: center; }
+  .achievement-item { flex-direction: column; }
+  section { padding: 3rem 1rem; }
+  .hero { padding: 5rem 1rem 3rem; }
+  nav { padding: 0.8rem 1rem; }
+  footer { padding: 1.5rem 1rem; }
+}
+
+/* ========== CUSTOM SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ========== GLITCH TEXT ========== */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.glitch::before {
+  animation: glitch1 3s infinite;
+  color: var(--green-terminal);
+  z-index: -1;
+}
+
+.glitch::after {
+  animation: glitch2 3s infinite;
+  color: var(--red-accent);
+  z-index: -2;
+}
+
+@keyframes glitch1 {
+  0%, 93%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  94% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 1px); }
+  96% { clip-path: inset(50% 0 20% 0); transform: translate(3px, -1px); }
+  98% { clip-path: inset(70% 0 5% 0); transform: translate(-2px, 2px); }
+}
+
+@keyframes glitch2 {
+  0%, 91%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+  92% { clip-path: inset(40% 0 30% 0); transform: translate(3px, -1px); }
+  95% { clip-path: inset(10% 0 70% 0); transform: translate(-3px, 2px); }
+  97% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
+}
+
+/* Terminal typing in sections */
+.terminal-line::before {
+  content: '$ ';
+  color: var(--green-terminal);
+  font-family: 'Fira Code', monospace;
 }
 </style>
 </head>
+<body>
 
-<body class="selection:bg-yellow-700 selection:text-black">
-<div class="bg-noise"></div>
-<div class="smoke-layer"></div>
-<div id="loader">
-<h1 class="text-7xl font-black tracking-tight">PHANTOM</h1>
-<div class="loader-bar">
-<div class="loader-progress"></div>
+<!-- Dynamic Background -->
+<div class="bg-matrix">
+  <canvas id="matrixCanvas"></canvas>
 </div>
-</div>
+<div class="fog-overlay"></div>
+<div class="scanlines"></div>
 
-<div class="scroll-progress" id="scroll-progress"></div>
-<div class="stars-bg"></div>
-<div class="parallax-bg" id="bg-image"></div>
-<div class="parallax-overlay"></div>
-<div class="cyber-grid"></div>
-<div class="glow-orb"></div>
-<div class="custom-cursor hidden md:block"></div>
-
-<nav class="fixed top-0 w-full z-50 flex justify-between items-center py-6 px-12 backdrop-blur-md">
-<div class="text-yellow-700 font-black text-3xl">PHANTOM.</div>
-
-<div class="flex gap-8 uppercase text-xs tracking-[0.4em] font-bold">
-<a href="#projects" class="hover:text-yellow-700">Arsenal</a>
-<a href="#research" class="hover:text-yellow-700">Research</a>
-<a href="#achievements" class="hover:text-yellow-700">Legacy</a>
-<a href="javascript:void(0)" onclick="toggleContact()" class="text-yellow-700">Contact</a>
-</div>
+<!-- Navigation -->
+<nav id="navbar">
+  <a href="#" class="nav-brand glitch" data-text="PHANTOM">PHANTOM</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#arsenal">Arsenal</a>
+    <a href="#research">Research</a>
+    <a href="#legacy">Legacy</a>
+    <a href="#contact" class="active">Contact</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
-<section class="h-screen flex flex-col justify-center items-center text-center px-6">
-
-<p class="text-yellow-700 uppercase tracking-[1em] mb-8 text-sm" id="hero-sub">
-Quantum • Cybersecurity • Strategic Systems
-</p>
-
-<h1
-id="hero-title"
-class="text-7xl md:text-[10rem] font-black tracking-tighter glitch-text"
-data-text="Ashutosh Sharma">
-Ashutosh Sharma
-</h1>
-
-<p class="max-w-3xl text-gray-400 text-lg md:text-2xl mt-10 leading-relaxed" id="hero-p">
-MCA Student @ TIET building secure systems, AI research infrastructure, and futuristic cyber-intelligence experiences inspired by strategic thinking, space systems, and next-generation computing.
-</p>
-
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-pre">initializing phantom protocol...</div>
+    <h1 class="hero-name">
+      Ashutosh Sharma
+      <span>// by order of the phantom</span>
+    </h1>
+    <p class="hero-tagline">
+      MCA @ Thapar Institute &mdash; Quantum Computing &bull; Cybersecurity &bull; Full Stack Development &bull; Competitive Shooter
+    </p>
+    <a href="#arsenal" class="hero-cta">EXPLORE ARSENAL &rarr;</a>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
 </section>
 
-<section id="projects" class="py-32 px-6 md:px-24">
-
-<div class="text-center mb-24">
-<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">PROJECT DOSSIER</p>
-<h2 class="text-5xl md:text-7xl font-black">Projects & Operations</h2>
-</div>
-
-<div class="grid md:grid-cols-2 gap-12">
-
-<div class="intel-card p-10">
-<p class="text-yellow-700 uppercase tracking-[0.4em] text-xs mb-4">Quantum Security</p>
-<h3 class="text-4xl font-black mb-6">Quantum-Safe Communication</h3>
-<p class="text-gray-400 leading-loose mb-8">
-Designed secure communication infrastructure using OpenSSL, Linux workflows, and post-quantum encryption simulation concepts.
-</p>
-<div class="flex flex-wrap gap-3">
-<span class="intel-tag">OpenSSL</span>
-<span class="intel-tag">Linux</span>
-<span class="intel-tag">Cryptography</span>
-</div>
-</div>
-
-<div class="intel-card p-10">
-<p class="text-yellow-700 uppercase tracking-[0.4em] text-xs mb-4">Privacy Intelligence</p>
-<h3 class="text-4xl font-black mb-6">RedFlag</h3>
-<p class="text-gray-400 leading-loose mb-8">
-Advanced privacy tracking and browser fingerprinting analysis platform designed for web transparency.
-</p>
-<div class="flex flex-wrap gap-3">
-<span class="intel-tag">Security</span>
-<span class="intel-tag">Privacy</span>
-<span class="intel-tag">Web Intelligence</span>
-</div>
-</div>
-
-</div>
-</section>
-
-<section id="research" class="py-32 px-6 md:px-24">
-<div class="text-center mb-20">
-<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">RESEARCH DIVISION</p>
-<h2 class="text-5xl md:text-7xl font-black">Research Arsenal</h2>
-</div>
-
-<div class="grid md:grid-cols-2 gap-10">
-
-<div class="intel-card p-12">
-<h3 class="text-4xl font-black mb-6">STEAL-Net</h3>
-<p class="text-gray-400 leading-loose mb-8">
-Spatio-Temporal Energy-Aware Lightweight Network for scalable sustainable energy forecasting using AI systems.
-</p>
-<div class="flex flex-wrap gap-3">
-<span class="intel-tag">Deep Learning</span>
-<span class="intel-tag">Forecasting</span>
-<span class="intel-tag">AI Systems</span>
-</div>
-</div>
-
-<div class="intel-card p-12">
-<h3 class="text-4xl font-black mb-6">Astrophysics & Systems</h3>
-<p class="text-gray-400 leading-loose mb-8">
-Exploring quantum computation, astrophysical simulations, secure intelligence systems, and cybernetic interfaces.
-</p>
-<div class="flex flex-wrap gap-3">
-<span class="intel-tag">Astrophysics</span>
-<span class="intel-tag">Quantum Computing</span>
-<span class="intel-tag">Simulation</span>
-</div>
-</div>
-
-</div>
-</section>
-
-<section class="py-32 px-6 md:px-24">
-<div class="text-center mb-20">
-<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">FIELD EXPERIENCE</p>
-<h2 class="text-5xl md:text-7xl font-black">Professional Experience</h2>
-</div>
-
-<div class="grid md:grid-cols-2 gap-10">
-<div class="exp-card p-10">
-<h3 class="text-3xl font-black mb-6">Ajanta Pharma Ltd.</h3>
-<p class="text-gray-400 leading-loose">Worked on operational workflow systems, reporting structures, and enterprise process coordination.</p>
-</div>
-
-<div class="exp-card p-10">
-<h3 class="text-3xl font-black mb-6">Aimil Pharmaceuticals</h3>
-<p class="text-gray-400 leading-loose">Managed data systems and operational structures in fast-paced business environments.</p>
-</div>
-</div>
-</section>
-
-<!-- Replace your current Achievements section with this -->
-<section id="achievements" class="h-screen flex items-center overflow-hidden bg-[#050505]">
-    <div class="horizontal-container flex items-center px-24 gap-20">
-        <div class="min-w-[500px]">
-            <p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-4">LEGACY ARCHIVE</p>
-            <h2 class="text-7xl font-black leading-tight">Professional<br><span class="text-yellow-700">Milestones.</span></h2>
-            <p class="text-gray-500 mt-8 uppercase tracking-widest text-sm">Scroll Down to explore horizontally →</p>
-        </div>
-        
-        <!-- Cards -->
-        <div class="achievement-card-hex p-12 min-w-[400px]">
-            <span class="text-6xl mb-6 block">🏆</span>
-            <h3 class="text-3xl font-bold mb-4">Gold Medalist</h3>
-            <p class="text-gray-400">URJA TIET Rifle Shooting. Precision under pressure translated to system architecture.</p>
-        </div>
-        <!-- Repeat for other cards -->
+<!-- About -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">// 001 &mdash; DOSSIER</div>
+    <h2 class="section-title">About the Phantom</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        MCA student at Thapar Institute of Engineering and Technology with a strong foundation in computer science and hands-on experience building web and data-driven applications. Passionate about full stack development, problem-solving, and developing scalable real-world solutions through projects and hackathons.
+      </p>
+      <p>
+        From the shooting range to the command line, every discipline demands the same thing: precision under pressure, total focus, and zero tolerance for error.
+      </p>
+      <div class="about-quote">
+        &ldquo;In competitive shooting, a millisecond of hesitation or a single heartbeat out of sync means a missed target. I apply that same uncompromising precision to my code and security architectures.&rdquo;
+      </div>
     </div>
+    <div class="about-stats reveal">
+      <div class="stat-card">
+        <div class="stat-number">91%</div>
+        <div class="stat-label">BCA Score</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Projects Deployed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Publications In Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">&infin;</div>
+        <div class="stat-label">Lines of Code</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- Add a Custom Glow for the Cursor -->
-<div class="cursor-glow"></div>
-
-<section class="py-32 px-6 md:px-24">
-<div class="text-center mb-20">
-<p class="text-yellow-700 uppercase tracking-[0.5em] text-xs mb-6">SYSTEM METRICS</p>
-<h2 class="text-5xl md:text-7xl font-black">Mission Statistics</h2>
-</div>
-
-<div class="stats-grid">
-<div class="stat-card">
-<div class="stat-number" data-target="6">0</div>
-<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Projects Built</p>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" data-target="3">0</div>
-<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Research Domains</p>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" data-target="4">0</div>
-<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Achievements</p>
-</div>
-
-<div class="stat-card">
-<div class="stat-number" data-target="2">0</div>
-<p class="mt-4 text-gray-400 uppercase text-xs tracking-widest">Enterprise Experience</p>
-</div>
-</div>
+<!-- Arsenal -->
+<section id="arsenal">
+  <div class="reveal">
+    <div class="section-label">// 002 &mdash; WEAPONS</div>
+    <h2 class="section-title">Arsenal</h2>
+  </div>
+  <div class="arsenal-grid">
+    <div class="arsenal-card reveal">
+      <div class="arsenal-icon">&lt;/&gt;</div>
+      <h3>Frontend Warfare</h3>
+      <p>Crafting pixel-perfect interfaces with surgical precision. Every element placed with intent, every animation tuned for impact.</p>
+      <div class="arsenal-tags">
+        <span>HTML5</span><span>CSS3</span><span>JavaScript ES6+</span>
+      </div>
+    </div>
+    <div class="arsenal-card reveal">
+      <div class="arsenal-icon">&#123;&#125;</div>
+      <h3>Backend Operations</h3>
+      <p>Server-side logic and API architectures. Building the invisible infrastructure that powers everything.</p>
+      <div class="arsenal-tags">
+        <span>Node.js</span><span>Python</span><span>Bash</span>
+      </div>
+    </div>
+    <div class="arsenal-card reveal">
+      <div class="arsenal-icon">&#x26A0;</div>
+      <h3>Data & Intelligence</h3>
+      <p>Machine learning pipelines, prediction models, and data analytics that transform noise into actionable intelligence.</p>
+      <div class="arsenal-tags">
+        <span>ML/AI</span><span>NLP</span><span>TF-IDF</span><span>Analytics</span>
+      </div>
+    </div>
+    <div class="arsenal-card reveal">
+      <div class="arsenal-icon">&#x1F512;</div>
+      <h3>Quantum & Security</h3>
+      <p>Quantum-safe communication channels, encryption workflows, and security architectures built for the post-quantum era.</p>
+      <div class="arsenal-tags">
+        <span>OpenSSL</span><span>Linux</span><span>Quantum Computing</span>
+      </div>
+    </div>
+    <div class="arsenal-card reveal">
+      <div class="arsenal-icon">&#x2697;</div>
+      <h3>Databases & Systems</h3>
+      <p>Structured data systems, query optimization, and database architectures that scale without breaking a sweat.</p>
+      <div class="arsenal-tags">
+        <span>SQL</span><span>SQL Server</span><span>MongoDB</span>
+      </div>
+    </div>
+    <div class="arsenal-card reveal">
+      <div class="arsenal-icon">&#x2699;</div>
+      <h3>Tools & Ops</h3>
+      <p>Version control mastery, cloud deployment, and the toolchain that keeps operations running at peak performance.</p>
+      <div class="arsenal-tags">
+        <span>Git</span><span>VS Code</span><span>AWS</span><span>Jupyter</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="live-terminal hidden md:block">
-<div class="text-yellow-700 text-xs mb-4 tracking-widest">SYSTEM STATUS // ACTIVE</div>
-<div id="typing-text" class="text-sm leading-loose"></div>
-</div>
+<!-- Achievements -->
+<section id="achievements">
+  <div class="reveal">
+    <div class="section-label">// 003 &mdash; DECORATIONS</div>
+    <h2 class="section-title">Achievements</h2>
+  </div>
+  <div class="achievements-list">
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">&#x1F3AF;</div>
+      <div>
+        <h3>National Level Finalist &mdash; 50m Rifle Shooting</h3>
+        <p>Competing at the highest level of precision shooting across India. One breath, one shot, one chance.</p>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">&#x1F3C6;</div>
+      <div>
+        <h3>Gold Medalist &mdash; Rifle Shooting (URJA, TIET)</h3>
+        <p>Claimed gold in the inter-college rifle shooting competition at Thapar Institute.</p>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">&#x1F4BB;</div>
+      <div>
+        <h3>Finalist &mdash; Hackowasp 8.0 (TIET)</h3>
+        <p>Competed among the best in Thapar's flagship hackathon, building innovative solutions under pressure.</p>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">&#x2B50;</div>
+      <div>
+        <h3>Best NCC Cadet &mdash; 2 Consecutive Years</h3>
+        <p>Recognized for outstanding leadership, discipline, and commitment in the National Cadet Corps.</p>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">&#x1F3CF;</div>
+      <div>
+        <h3>Vice-Captain &mdash; School Cricket Team</h3>
+        <p>Led from the front on and off the field, building team cohesion and competitive strategy.</p>
+      </div>
+    </div>
+    <div class="achievement-item reveal">
+      <div class="achievement-icon">&#x1F4DC;</div>
+      <div>
+        <h3>Certified &mdash; AWS, Google AI, Coding Ninjas</h3>
+        <p>Python Programming, Responsible AI (Google), AWS Cloud Foundation, Front-End Developer certifications.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<footer class="py-20 text-center border-t border-white/5 opacity-60">
-<p class="text-[10px] uppercase tracking-[0.5em]">
-Built By Ashutosh Sharma • Phantom Systems • 2026
-</p>
+<!-- Research -->
+<section id="research">
+  <div class="reveal">
+    <div class="section-label">// 004 &mdash; INTEL</div>
+    <h2 class="section-title">Research</h2>
+  </div>
+  <div class="research-grid">
+    <div class="research-card reveal">
+      <div class="research-year">2025</div>
+      <div>
+        <h3>Quantum-Safe Communication Channel</h3>
+        <p>Designed and implemented a secure communication system using OpenSSL and Linux, simulating real-world encryption workflows. Participated in Quantum Computing workshops at IIITM Jabalpur.</p>
+      </div>
+      <div class="research-status status-active">DEPLOYED</div>
+    </div>
+    <div class="research-card reveal">
+      <div class="research-year">2025</div>
+      <div>
+        <h3>RedFlag &mdash; Third-Party Web Tracking Detection</h3>
+        <p>Research publication on detecting third-party web tracking for enhanced user privacy. Building tools that protect the average user from invisible surveillance.</p>
+      </div>
+      <div class="research-status status-progress">IN PROGRESS</div>
+    </div>
+    <div class="research-card reveal">
+      <div class="research-year">2025</div>
+      <div>
+        <h3>STEAL-Net: Energy Demand Forecasting</h3>
+        <p>A Spatio-Temporal Energy-Aware Lightweight Network for scalable and sustainable energy demand forecasting using advanced ML techniques.</p>
+      </div>
+      <div class="research-status status-progress">IN PROGRESS</div>
+    </div>
+    <div class="research-card reveal">
+      <div class="research-year">2025</div>
+      <div>
+        <h3>Thapar Topic Trend Miner</h3>
+        <p>Built a topic trend mining system using NLP techniques &mdash; TF-IDF, topic modeling, and data visualization to detect emerging trends from large text datasets.</p>
+      </div>
+      <div class="research-status status-active">COMPLETE</div>
+    </div>
+    <div class="research-card reveal">
+      <div class="research-year">2025</div>
+      <div>
+        <h3>Data Analytics & ML Projects</h3>
+        <p>Flood & rainfall prediction (CED TIET &ndash; VITRAN), student dropout prediction, energy anomaly detection across multiple research verticals.</p>
+      </div>
+      <div class="research-status status-active">ACTIVE</div>
+    </div>
+  </div>
+</section>
+
+<!-- Legacy -->
+<section id="legacy">
+  <div class="reveal">
+    <div class="section-label">// 005 &mdash; CHRONICLES</div>
+    <h2 class="section-title">Legacy</h2>
+  </div>
+  <div class="legacy-timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2025 &mdash; 2027 (Expected)</div>
+      <h3>Master of Computer Applications</h3>
+      <h4>Thapar Institute of Engineering & Technology, Patiala</h4>
+      <p>Focus areas: Software Engineering, AI, Cloud & Quantum Computing. Engaged in cutting-edge research and hackathon culture.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">May 2024 &mdash; Mar 2025</div>
+      <h3>Ajanta Pharma Ltd.</h3>
+      <h4>Mumbai</h4>
+      <p>Collaborated with cross-functional teams to support technology-driven workflows. Worked with data handling and reporting processes to enhance operational decision-making.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">Feb 2023 &mdash; Nov 2023</div>
+      <h3>Aimil Pharmaceuticals Ltd.</h3>
+      <h4>New Delhi</h4>
+      <p>Assisted in business operations and documentation. Gained exposure to structured data systems and organizational workflows in a fast-paced environment.</p>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-date">2019 &mdash; 2022</div>
+      <h3>Bachelor of Computer Applications</h3>
+      <h4>KLSD College, Panjab University, Chandigarh</h4>
+      <p>Graduated with 91% score. Built the foundation in programming, data structures, algorithms, and OOP concepts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">// 006 &mdash; TRANSMISSION</div>
+    <h2 class="section-title">Contact</h2>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <h3>Establish Connection</h3>
+      <p>Whether you want to collaborate on a project, discuss quantum computing, or challenge me at the shooting range &mdash; every transmission gets a response.</p>
+      <div class="contact-links">
+        <a href="mailto:sharmaashutosh2610@gmail.com" class="contact-link">
+          <div class="contact-link-icon">@</div>
+          sharmaashutosh2610@gmail.com
+        </a>
+        <a href="tel:+919417716895" class="contact-link">
+          <div class="contact-link-icon">&#x260E;</div>
+          +91 94177 16895
+        </a>
+        <a href="https://www.linkedin.com/in/ashutosh-sharma-8472911a7/" target="_blank" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          LinkedIn Profile
+        </a>
+        <a href="https://github.com/SniperPhantom02" target="_blank" class="contact-link">
+          <div class="contact-link-icon">&lt;/&gt;</div>
+          GitHub &mdash; SniperPhantom02
+        </a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <input type="text" placeholder="// Your name">
+      <input type="email" placeholder="// Your email">
+      <textarea placeholder="// Your message..."></textarea>
+      <button type="button">TRANSMIT &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span>&copy; 2025 PHANTOM. All rights reserved.</span>
+  <span class="footer-quote">&ldquo;By order of the Phantom Blinders.&rdquo;</span>
 </footer>
 
-<div id="contact-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-xl flex items-center justify-center z-[200]">
-<div class="max-w-4xl w-full px-10">
-<div class="text-center mb-16">
-<h2 class="text-6xl font-black">Connect With <span class="text-yellow-700">Ashutosh</span></h2>
-</div>
-
-<div class="grid md:grid-cols-2 gap-8">
-<a href="mailto:sharmaashutosh2610@gmail.com" class="contact-link text-center text-2xl font-bold">📧 Gmail</a>
-<a href="https://linkedin.com/in/ashutosh-sharma-8472911a7" target="_blank" class="contact-link text-center text-2xl font-bold">💼 LinkedIn</a>
-<a href="https://github.com/SniperPhantom02" target="_blank" class="contact-link text-center text-2xl font-bold">💻 GitHub</a>
-<a href="https://www.instagram.com/sharma_ashutosh1407?igsh=NGU3ZTM0Y21uMnd4" class="contact-link text-center text-2xl font-bold">⚡ Instagram / X</a>
-</div>
-
-<div class="text-center mt-16">
-<button onclick="toggleContact()" class="text-gray-400 hover:text-yellow-700">
-Close Transmission
-</button>
-</div>
-</div>
-</div>
-
 <script>
-gsap.registerPlugin(ScrollTrigger);
+// ========== MATRIX RAIN BACKGROUND ==========
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
 
-const cursor = document.querySelector('.custom-cursor');
-document.addEventListener('mousemove', (e)=>{
-gsap.to(cursor,{x:e.clientX,y:e.clientY,duration:0.08});
-});
-
-const backgrounds = [
-"https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2070&auto=format&fit=crop",
-"https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2070&auto=format&fit=crop",
-"https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop"
-];
-
-const bg = document.getElementById('bg-image');
-bg.style.backgroundImage=`linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)), url(${backgrounds[0]})`;
-
-window.addEventListener('scroll',()=>{
-const scrollY = window.scrollY;
-const pageHeight = document.body.scrollHeight - window.innerHeight;
-const section = Math.floor((scrollY/pageHeight)*backgrounds.length);
-bg.style.backgroundImage=`linear-gradient(rgba(0,0,0,0.82), rgba(0,0,0,0.88)), url(${backgrounds[Math.min(section, backgrounds.length-1)]})`;
-});
-
-window.addEventListener('load',()=>{
-gsap.to('.loader-progress',{
-width:'100%',
-duration:1.8,
-onComplete:()=>{
-gsap.to('#loader',{
-opacity:0,
-duration:1,
-onComplete:()=>document.getElementById('loader').remove()
-});
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
-});
-});
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
 
-window.addEventListener('scroll',()=>{
-const scrollTop = window.scrollY;
-const docHeight = document.body.scrollHeight - window.innerHeight;
-const progress = (scrollTop/docHeight)*100;
-document.getElementById('scroll-progress').style.width = progress + '%';
-});
+const chars = 'PHANTOM01アイウエオカキクケコサシスセソ{}[]<>/\\|!@#$%^&*QUANTUM';
+const fontSize = 14;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
 
-const terminalText = `
-Initializing Quantum Systems...\nDeploying STEAL-Net Modules...\nCyber Defense Active...\nAstrophysics Simulation Online...`;
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(10, 10, 15, 0.06)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.font = fontSize + 'px "Fira Code", monospace';
 
-let i=0;
-function typeTerminal(){
-if(i < terminalText.length){
-document.getElementById('typing-text').innerHTML += terminalText.charAt(i);
-i++;
-setTimeout(typeTerminal,35);
-}
+  for (let i = 0; i < drops.length; i++) {
+    const char = chars[Math.floor(Math.random() * chars.length)];
+    const x = i * fontSize;
+    const y = drops[i] * fontSize;
+
+    // Alternate between gold and green
+    if (Math.random() > 0.85) {
+      ctx.fillStyle = 'rgba(200, 151, 62, 0.25)';
+    } else {
+      ctx.fillStyle = 'rgba(0, 255, 65, 0.12)';
+    }
+
+    ctx.fillText(char, x, y);
+
+    if (y > canvas.height && Math.random() > 0.98) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
 }
 
-typeTerminal();
+setInterval(drawMatrix, 80);
 
-function toggleContact(){
-document.getElementById('contact-modal').classList.toggle('hidden');
-}
-
-gsap.from('#hero-sub',{opacity:0,y:80,duration:1.2});
-gsap.from('#hero-title',{opacity:0,y:120,duration:1.5});
-gsap.from('#hero-p',{opacity:0,y:60,duration:1.2});
-
-gsap.utils.toArray('section').forEach((section)=>{
-gsap.from(section,{
-opacity:0,
-y:120,
-duration:1.2,
-scrollTrigger:{
-trigger:section,
-start:'top 85%'
-}
-});
+window.addEventListener('resize', () => {
+  columns = Math.floor(canvas.width / fontSize);
+  drops = Array(columns).fill(1);
 });
 
-const statNumbers = document.querySelectorAll('.stat-number');
-statNumbers.forEach((stat)=>{
-const target = +stat.getAttribute('data-target');
-gsap.to(stat,{
-innerText:target,
-duration:2,
-snap:{innerText:1},
-scrollTrigger:{
-trigger:stat,
-start:'top 90%'
-}
+// ========== NAVBAR SCROLL ==========
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 50);
 });
+
+// ========== HAMBURGER MENU ==========
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// Close menu on link click
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('hamburger').classList.remove('active');
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ========== SCROLL REVEAL ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, index * 100);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ========== SMOOTH SCROLL ==========
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// ========== ACTIVE NAV HIGHLIGHT ==========
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    if (scrollY >= top) current = section.getAttribute('id');
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.remove('active');
+    if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+  });
 });
 </script>
 
 </body>
 </html>
-```
-
