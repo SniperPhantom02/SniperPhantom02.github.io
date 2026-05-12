@@ -29,7 +29,7 @@ body {
   background: var(--bg-deep);
   color: var(--text-primary);
   overflow-x: hidden;
-  cursor: crosshair;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='2' fill='%23C8973E'/%3E%3Ccircle cx='12' cy='12' r='8' fill='none' stroke='%23C8973E' stroke-width='0.8'/%3E%3Cline x1='12' y1='0' x2='12' y2='7' stroke='%23C8973E' stroke-width='0.5'/%3E%3Cline x1='12' y1='17' x2='12' y2='24' stroke='%23C8973E' stroke-width='0.5'/%3E%3Cline x1='0' y1='12' x2='7' y2='12' stroke='%23C8973E' stroke-width='0.5'/%3E%3Cline x1='17' y1='12' x2='24' y2='12' stroke='%23C8973E' stroke-width='0.5'/%3E%3C/svg%3E") 12 12, default;
 }
 
 /* ========== DYNAMIC BACKGROUND ========== */
@@ -551,51 +551,6 @@ section {
   background: linear-gradient(180deg, var(--gold-dark), transparent);
 }
 
-.timeline-item {
-  position: relative;
-  margin-bottom: 3rem;
-  padding-left: 2rem;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -3.35rem; top: 0.5rem;
-  width: 8px; height: 8px;
-  border: 2px solid var(--gold);
-  background: var(--bg-deep);
-  transform: rotate(45deg);
-}
-
-.timeline-date {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 3px;
-  color: var(--gold-dark);
-  margin-bottom: 0.5rem;
-}
-
-.timeline-item h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  color: var(--text-primary);
-  margin-bottom: 0.3rem;
-}
-
-.timeline-item h4 {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  color: var(--gold);
-  font-weight: 400;
-  margin-bottom: 0.8rem;
-}
-
-.timeline-item p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
 
 /* ========== CONTACT ========== */
 .contact-wrapper {
@@ -895,10 +850,6 @@ footer {
     </div>
     <div class="about-stats reveal">
       <div class="stat-card">
-        <div class="stat-number">91%</div>
-        <div class="stat-label">BCA Score</div>
-      </div>
-      <div class="stat-card">
         <div class="stat-number">5+</div>
         <div class="stat-label">Projects Deployed</div>
       </div>
@@ -1108,43 +1059,7 @@ footer {
   </div>
 </section>
 
-<!-- Contact -->
-<section id="contact">
-  <div class="reveal">
-    <div class="section-label">// 006 &mdash; TRANSMISSION</div>
-    <h2 class="section-title">Contact</h2>
-  </div>
-  <div class="contact-wrapper">
-    <div class="contact-info reveal">
-      <h3>Establish Connection</h3>
-      <p>Whether you want to collaborate on a project, discuss quantum computing, or challenge me at the shooting range &mdash; every transmission gets a response.</p>
-      <div class="contact-links">
-        <a href="mailto:sharmaashutosh2610@gmail.com" class="contact-link">
-          <div class="contact-link-icon">@</div>
-          sharmaashutosh2610@gmail.com
-        </a>
-        <a href="tel:+919417716895" class="contact-link">
-          <div class="contact-link-icon">&#x260E;</div>
-          +91 94177 16895
-        </a>
-        <a href="https://www.linkedin.com/in/ashutosh-sharma-8472911a7/" target="_blank" class="contact-link">
-          <div class="contact-link-icon">in</div>
-          LinkedIn Profile
-        </a>
-        <a href="https://github.com/SniperPhantom02" target="_blank" class="contact-link">
-          <div class="contact-link-icon">&lt;/&gt;</div>
-          GitHub &mdash; SniperPhantom02
-        </a>
-      </div>
-    </div>
-    <div class="contact-form reveal">
-      <input type="text" placeholder="// Your name">
-      <input type="email" placeholder="// Your email">
-      <textarea placeholder="// Your message..."></textarea>
-      <button type="button">TRANSMIT &rarr;</button>
-    </div>
-  </div>
-</section>
+
 
 <!-- Footer -->
 <footer>
