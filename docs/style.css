@@ -736,3 +736,35 @@ to{
 transform:translateY(60px);
 }
 }
+/* Custom Glow Trail */
+.cursor-glow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(197,160,89,0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* Glassmorphism Card Upgrade */
+.intel-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(197,160,89,0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* Typography polish */
+.glitch-text {
+    text-shadow: 0 0 30px rgba(197,160,89,0.2);
+    letter-spacing: -0.05em;
+}
+
+/* Ensure smooth horizontal movement */
+.horizontal-container {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+}

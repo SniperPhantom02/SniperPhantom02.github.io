@@ -381,3 +381,44 @@ duration:0.6
 });
 
 });
+// Add these to your index.js
+gsap.registerPlugin(ScrollTrigger);
+
+// 1. HORIZONTAL SCROLL FOR ACHIEVEMENTS
+let sections = gsap.utils.toArray(".achievement-card-hex");
+gsap.to(sections, {
+  xPercent: -100 * (sections.length - 1),
+  ease: "none",
+  scrollTrigger: {
+    trigger: "#achievements",
+    pin: true,
+    scrub: 1,
+    snap: 1 / (sections.length - 1),
+    end: () => "+=" + document.querySelector("#achievements").offsetWidth
+  }
+});
+
+// 2. MAGNETIC BUTTONS
+const magnets = document.querySelectorAll('.contact-link');
+magnets.forEach((magnet) => {
+    magnet.addEventListener('mousemove', (e) => {
+        const position = magnet.getBoundingClientRect();
+        const x = e.pageX - position.left - position.width / 2;
+        const y = e.pageY - position.top - position.height / 2;
+        gsap.to(magnet, { x: x * 0.3, y: y * 0.3, duration: 0.2 });
+    });
+    magnet.addEventListener('mouseleave', () => {
+        gsap.to(magnet, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+    });
+});
+
+// 3. CURSOR GLOW TRAIL
+const glow = document.querySelector('.cursor-glow');
+document.addEventListener('mousemove', (e) => {
+    gsap.to(glow, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.5,
+        ease: "power2.out"
+    });
+});
