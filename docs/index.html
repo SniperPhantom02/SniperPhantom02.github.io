@@ -62,7 +62,6 @@ body {
   100% { opacity: 0.7; transform: translateX(2%); }
 }
 
-/* Scanline effect */
 .scanlines {
   position: fixed;
   top: 0; left: 0;
@@ -139,7 +138,6 @@ nav.scrolled { background: rgba(10, 10, 15, 0.85); }
 
 .nav-links a:hover::after { width: 100%; }
 
-/* Hamburger */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -484,26 +482,34 @@ section {
   line-height: 1.6;
 }
 
-/* ========== RESEARCH ========== */
-.research-grid {
+/* ========== PROJECTS & RESEARCH CARDS ========== */
+.pr-grid {
   display: grid;
   gap: 2rem;
 }
 
-.research-card {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 2.5rem;
-  align-items: center;
-  padding: 2.5rem;
+.pr-card {
   background: var(--bg-card);
   border: 1px solid rgba(200, 151, 62, 0.08);
   transition: all 0.3s;
+  overflow: hidden;
 }
 
-.research-card:hover { border-color: rgba(200, 151, 62, 0.2); }
+.pr-card:hover { border-color: rgba(200, 151, 62, 0.25); }
 
-.research-year {
+.pr-card-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  padding: 2.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pr-card-header:hover { background: rgba(200, 151, 62, 0.03); }
+
+.pr-year {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 3rem;
   color: var(--gold-dark);
@@ -511,20 +517,21 @@ section {
   line-height: 1;
 }
 
-.research-card h3 {
+.pr-card-header h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.2rem;
   color: var(--text-primary);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
 }
 
-.research-card p {
-  font-size: 0.95rem;
+.pr-card-header .pr-subtitle {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
   color: var(--text-muted);
-  line-height: 1.7;
+  letter-spacing: 1px;
 }
 
-.research-status {
+.pr-status {
   font-family: 'Fira Code', monospace;
   font-size: 0.65rem;
   letter-spacing: 2px;
@@ -537,7 +544,82 @@ section {
 .status-active { border-color: var(--green-terminal); color: var(--green-terminal); }
 .status-progress { border-color: var(--gold); color: var(--gold); }
 
-/* ========== LEGACY (Experience + Education) ========== */
+.pr-toggle {
+  font-family: 'Fira Code', monospace;
+  font-size: 1.2rem;
+  color: var(--gold);
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(200, 151, 62, 0.2);
+  flex-shrink: 0;
+}
+
+.pr-card.expanded .pr-toggle { transform: rotate(45deg); }
+
+.pr-card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s;
+  padding: 0 2.5rem;
+}
+
+.pr-card.expanded .pr-card-body {
+  max-height: 800px;
+  padding: 0 2.5rem 2.5rem;
+}
+
+.pr-details {
+  border-top: 1px solid rgba(200, 151, 62, 0.1);
+  padding-top: 2rem;
+}
+
+.pr-details p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.pr-details .pr-tech-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--gold-dark);
+  margin-bottom: 0.8rem;
+  margin-top: 1.5rem;
+}
+
+.pr-details .pr-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pr-details .pr-tech-tags span {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(0, 255, 65, 0.15);
+  color: var(--green-terminal);
+  opacity: 0.7;
+}
+
+/* === SPACE FOR FUTURE DETAILS === */
+.pr-details .future-content {
+  /* 
+    ASHUTOSH: Add more details here later.
+    Just add <div class="future-content"><p>Your text</p></div>
+    inside any .pr-details block.
+  */
+  margin-top: 1rem;
+}
+
+/* ========== LEGACY (Timeline) ========== */
 .legacy-timeline {
   position: relative;
   padding-left: 3rem;
@@ -551,90 +633,180 @@ section {
   background: linear-gradient(180deg, var(--gold-dark), transparent);
 }
 
-
-/* ========== CONTACT ========== */
-.contact-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 2rem;
 }
 
-.contact-info h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  color: var(--text-primary);
-  margin-bottom: 1.5rem;
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -3.35rem; top: 0.5rem;
+  width: 8px; height: 8px;
+  border: 2px solid var(--gold);
+  background: var(--bg-deep);
+  transform: rotate(45deg);
 }
 
-.contact-info p {
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 2rem;
-}
-
-.contact-links { display: flex; flex-direction: column; gap: 1rem; }
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.timeline-date {
   font-family: 'Fira Code', monospace;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  transition: color 0.3s;
-  letter-spacing: 1px;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--gold-dark);
+  margin-bottom: 0.5rem;
 }
 
-.contact-link:hover { color: var(--gold); }
+.timeline-item h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
 
-.contact-link-icon {
-  width: 40px; height: 40px;
+.timeline-item h4 {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+}
+
+.timeline-item p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ========== CONTACT MODAL ========== */
+.contact-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(5, 5, 10, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.contact-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.contact-modal {
+  max-width: 500px;
+  width: 90%;
+  padding: 3rem;
   border: 1px solid rgba(200, 151, 62, 0.2);
-  color: var(--gold);
-  font-size: 0.9rem;
-  flex-shrink: 0;
+  background: rgba(14, 14, 20, 0.95);
+  position: relative;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
-
-.contact-form input,
-.contact-form textarea {
-  background: rgba(14, 14, 20, 0.8);
-  border: 1px solid rgba(200, 151, 62, 0.15);
-  padding: 1rem 1.2rem;
-  color: var(--text-primary);
-  font-family: 'Fira Code', monospace;
-  font-size: 0.8rem;
-  outline: none;
-  transition: border-color 0.3s;
+.contact-overlay.active .contact-modal {
+  transform: translateY(0) scale(1);
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus { border-color: var(--gold); }
-
-.contact-form textarea { min-height: 150px; resize: vertical; }
-
-.contact-form button {
+.contact-modal-close {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  background: none;
+  border: 1px solid rgba(200, 151, 62, 0.2);
+  color: var(--text-muted);
+  width: 36px; height: 36px;
   font-family: 'Fira Code', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  padding: 1.2rem 3rem;
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.4s;
-  align-self: flex-start;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.contact-form button:hover {
-  background: var(--gold);
-  color: var(--bg-deep);
+.contact-modal-close:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+.contact-modal h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+}
+
+.contact-modal .modal-subtitle {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 2.5rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.5rem 1rem;
+  border: 1px solid rgba(200, 151, 62, 0.1);
+  background: rgba(10, 10, 15, 0.6);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.contact-card:hover {
+  border-color: var(--gold);
+  background: rgba(200, 151, 62, 0.06);
+  transform: translateY(-3px);
+}
+
+.contact-card-icon {
+  width: 44px; height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(200, 151, 62, 0.25);
+  color: var(--gold);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.contact-card-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.contact-card:hover .contact-card-label { color: var(--gold); }
+
+/* Gmail card spans full width */
+.contact-card.full-width {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.contact-card.full-width .contact-card-label {
+  font-size: 0.75rem;
 }
 
 /* ========== FOOTER ========== */
@@ -671,83 +843,8 @@ footer {
   transform: translateY(0);
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  section { padding: 5rem 3rem; }
-  .hero { padding: 7rem 3rem 4rem; }
-  nav { padding: 1rem 2rem; }
-  footer { padding: 2rem 3rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .achievements-list { grid-template-columns: 1fr; }
-  .contact-wrapper { grid-template-columns: 1fr; gap: 3rem; }
-  .research-card { grid-template-columns: 1fr; gap: 1rem; }
-  .research-year { font-size: 2rem; }
-}
-
-@media (max-width: 768px) {
-  section { padding: 4rem 1.5rem; }
-  .hero { padding: 6rem 1.5rem 3rem; }
-  nav { padding: 1rem 1.5rem; }
-  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
-
-  .nav-links {
-    position: fixed;
-    top: 0; right: -100%;
-    width: 75%;
-    height: 100vh;
-    background: rgba(10, 10, 15, 0.97);
-    backdrop-filter: blur(20px);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
-    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    border-left: 1px solid rgba(200, 151, 62, 0.15);
-  }
-
-  .nav-links.open { right: 0; }
-
-  .nav-links a { font-size: 0.9rem; letter-spacing: 6px; }
-
-  .hamburger { display: flex; }
-
-  .nav-brand { font-size: 1.8rem; }
-
-  .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
-
-  .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
-
-  .arsenal-grid { grid-template-columns: 1fr; }
-
-  .stat-card { padding: 1.5rem; }
-
-  .stat-number { font-size: 2rem; }
-
-  .achievement-item { padding: 1.5rem; }
-
-  .contact-form button { width: 100%; text-align: center; }
-}
-
-@media (max-width: 480px) {
-  .about-stats { grid-template-columns: 1fr; }
-  .hero-cta { width: 100%; justify-content: center; }
-  .achievement-item { flex-direction: column; }
-  section { padding: 3rem 1rem; }
-  .hero { padding: 5rem 1rem 3rem; }
-  nav { padding: 0.8rem 1rem; }
-  footer { padding: 1.5rem 1rem; }
-}
-
-/* ========== CUSTOM SCROLLBAR ========== */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-deep); }
-::-webkit-scrollbar-thumb { background: var(--gold-dark); }
-::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
 /* ========== GLITCH TEXT ========== */
-.glitch {
-  position: relative;
-}
+.glitch { position: relative; }
 
 .glitch::before,
 .glitch::after {
@@ -783,12 +880,71 @@ footer {
   97% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
 }
 
-/* Terminal typing in sections */
-.terminal-line::before {
-  content: '$ ';
-  color: var(--green-terminal);
-  font-family: 'Fira Code', monospace;
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  section { padding: 5rem 3rem; }
+  .hero { padding: 7rem 3rem 4rem; }
+  nav { padding: 1rem 2rem; }
+  footer { padding: 2rem 3rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .achievements-list { grid-template-columns: 1fr; }
+  .pr-card-header { grid-template-columns: 1fr; gap: 1rem; }
+  .pr-year { font-size: 2rem; }
 }
+
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  nav { padding: 1rem 1.5rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+
+  .nav-links {
+    position: fixed;
+    top: 0; right: -100%;
+    width: 75%;
+    height: 100vh;
+    background: rgba(10, 10, 15, 0.97);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: 1px solid rgba(200, 151, 62, 0.15);
+  }
+
+  .nav-links.open { right: 0; }
+  .nav-links a { font-size: 0.9rem; letter-spacing: 6px; }
+  .hamburger { display: flex; }
+  .nav-brand { font-size: 1.8rem; }
+  .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
+  .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .arsenal-grid { grid-template-columns: 1fr; }
+  .stat-card { padding: 1.5rem; }
+  .stat-number { font-size: 2rem; }
+  .achievement-item { padding: 1.5rem; }
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+  .pr-card-header { padding: 1.5rem; }
+  .pr-card.expanded .pr-card-body { padding: 0 1.5rem 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .about-stats { grid-template-columns: 1fr; }
+  .hero-cta { width: 100%; justify-content: center; }
+  .achievement-item { flex-direction: column; }
+  section { padding: 3rem 1rem; }
+  .hero { padding: 5rem 1rem 3rem; }
+  nav { padding: 0.8rem 1rem; }
+  footer { padding: 1.5rem 1rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-modal { padding: 2rem 1.5rem; }
+}
+
+/* ========== CUSTOM SCROLLBAR ========== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 </style>
 </head>
 <body>
@@ -800,21 +956,79 @@ footer {
 <div class="fog-overlay"></div>
 <div class="scanlines"></div>
 
-<!-- Navigation -->
+<!-- ============================================================
+     CONTACT MODAL — pops up when "Contact" is clicked in navbar
+     ============================================================ -->
+<div class="contact-overlay" id="contactOverlay">
+  <div class="contact-modal">
+    <button class="contact-modal-close" onclick="closeContact()">&times;</button>
+    <h3>Establish Connection</h3>
+    <p class="modal-subtitle">// choose your channel</p>
+    <div class="contact-grid">
+
+      <!-- Gmail -->
+      <a href="mailto:sharmaashutosh2610@gmail.com" class="contact-card full-width">
+        <div class="contact-card-icon">@</div>
+        <div class="contact-card-label">sharmaashutosh2610@gmail.com</div>
+      </a>
+
+      <!-- GitHub -->
+      <a href="https://github.com/SniperPhantom02" target="_blank" class="contact-card">
+        <div class="contact-card-icon">&lt;/&gt;</div>
+        <div class="contact-card-label">GitHub</div>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/ashutosh-sharma-8472911a7/" target="_blank" class="contact-card">
+        <div class="contact-card-icon">in</div>
+        <div class="contact-card-label">LinkedIn</div>
+      </a>
+
+      <!-- X (Twitter) — ASHUTOSH: Replace # with your X profile URL -->
+      <a href="#" target="_blank" class="contact-card">
+        <div class="contact-card-icon">X</div>
+        <div class="contact-card-label">X / Twitter</div>
+      </a>
+
+      <!-- Instagram — ASHUTOSH: Replace # with your Instagram profile URL -->
+      <a href="#" target="_blank" class="contact-card">
+        <div class="contact-card-icon">IG</div>
+        <div class="contact-card-label">Instagram</div>
+      </a>
+
+      <!--
+        ============================================================
+        ASHUTOSH — ADD MORE CONTACT LINKS HERE
+        Copy this template and paste below:
+
+        <a href="YOUR_URL" target="_blank" class="contact-card">
+          <div class="contact-card-icon">ICON</div>
+          <div class="contact-card-label">LABEL</div>
+        </a>
+
+        Use class="contact-card full-width" to span the full row.
+        ============================================================
+      -->
+
+    </div>
+  </div>
+</div>
+
+<!-- ========== NAVIGATION ========== -->
 <nav id="navbar">
   <a href="#" class="nav-brand glitch" data-text="PHANTOM">PHANTOM</a>
   <div class="nav-links" id="navLinks">
     <a href="#arsenal">Arsenal</a>
     <a href="#research">Research</a>
     <a href="#legacy">Legacy</a>
-    <a href="#contact" class="active">Contact</a>
+    <a href="javascript:void(0)" onclick="openContact()" class="active">Contact</a>
   </div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
 </nav>
 
-<!-- Hero -->
+<!-- ========== HERO ========== -->
 <section class="hero" id="home">
   <div class="hero-content">
     <div class="hero-pre">initializing phantom protocol...</div>
@@ -830,7 +1044,7 @@ footer {
   <div class="hero-scroll">SCROLL</div>
 </section>
 
-<!-- About -->
+<!-- ========== ABOUT ========== -->
 <section id="about">
   <div class="reveal">
     <div class="section-label">// 001 &mdash; DOSSIER</div>
@@ -847,8 +1061,15 @@ footer {
       <div class="about-quote">
         &ldquo;In competitive shooting, a millisecond of hesitation or a single heartbeat out of sync means a missed target. I apply that same uncompromising precision to my code and security architectures.&rdquo;
       </div>
+      <!--
+        ============================================================
+        ASHUTOSH — ADD MORE ABOUT CONTENT HERE
+        Just add <p>Your paragraph text here</p> blocks.
+        ============================================================
+      -->
     </div>
     <div class="about-stats reveal">
+      <!-- BCA Score removed as requested -->
       <div class="stat-card">
         <div class="stat-number">5+</div>
         <div class="stat-label">Projects Deployed</div>
@@ -861,11 +1082,21 @@ footer {
         <div class="stat-number">&infin;</div>
         <div class="stat-label">Lines of Code</div>
       </div>
+      <!--
+        ============================================================
+        ASHUTOSH — ADD MORE STAT CARDS HERE
+        Template:
+        <div class="stat-card">
+          <div class="stat-number">NUMBER</div>
+          <div class="stat-label">LABEL TEXT</div>
+        </div>
+        ============================================================
+      -->
     </div>
   </div>
 </section>
 
-<!-- Arsenal -->
+<!-- ========== ARSENAL (Skills) ========== -->
 <section id="arsenal">
   <div class="reveal">
     <div class="section-label">// 002 &mdash; WEAPONS</div>
@@ -920,10 +1151,24 @@ footer {
         <span>Git</span><span>VS Code</span><span>AWS</span><span>Jupyter</span>
       </div>
     </div>
+    <!--
+      ============================================================
+      ASHUTOSH — ADD MORE ARSENAL CARDS HERE
+      Template:
+      <div class="arsenal-card reveal">
+        <div class="arsenal-icon">ICON</div>
+        <h3>Skill Name</h3>
+        <p>Description of skill.</p>
+        <div class="arsenal-tags">
+          <span>Tag1</span><span>Tag2</span>
+        </div>
+      </div>
+      ============================================================
+    -->
   </div>
 </section>
 
-<!-- Achievements -->
+<!-- ========== ACHIEVEMENTS ========== -->
 <section id="achievements">
   <div class="reveal">
     <div class="section-label">// 003 &mdash; DECORATIONS</div>
@@ -972,63 +1217,198 @@ footer {
         <p>Python Programming, Responsible AI (Google), AWS Cloud Foundation, Front-End Developer certifications.</p>
       </div>
     </div>
+    <!--
+      ============================================================
+      ASHUTOSH — ADD MORE ACHIEVEMENTS HERE
+      Template:
+      <div class="achievement-item reveal">
+        <div class="achievement-icon">EMOJI</div>
+        <div>
+          <h3>Achievement Title</h3>
+          <p>Description of achievement.</p>
+        </div>
+      </div>
+      ============================================================
+    -->
   </div>
 </section>
 
-<!-- Research -->
+<!-- ========== PROJECTS (Clickable / Expandable) ========== -->
+<section id="projects">
+  <div class="reveal">
+    <div class="section-label">// 004 &mdash; OPERATIONS</div>
+    <h2 class="section-title">Projects</h2>
+  </div>
+  <div class="pr-grid">
+
+    <!-- PROJECT 1: Quantum-Safe Communication Channel -->
+    <div class="pr-card reveal" onclick="toggleCard(this)">
+      <div class="pr-card-header">
+        <div class="pr-year">2025</div>
+        <div>
+          <h3>Quantum-Safe Communication Channel</h3>
+          <div class="pr-subtitle">Secure encryption simulation on Linux</div>
+        </div>
+        <div class="pr-toggle">+</div>
+      </div>
+      <div class="pr-card-body">
+        <div class="pr-details">
+          <p>Designed and implemented a secure communication system using OpenSSL and Linux, simulating real-world encryption workflows for the post-quantum era.</p>
+          <p>Participated in Quantum Computing & Communication workshops at IIITM Jabalpur, gaining hands-on exposure to quantum key distribution concepts and lattice-based cryptography.</p>
+          <!--
+            ASHUTOSH — ADD MORE PROJECT DETAILS HERE
+            Just add <p>Your text</p> blocks.
+          -->
+          <div class="pr-tech-label">// TECH STACK</div>
+          <div class="pr-tech-tags">
+            <span>OpenSSL</span><span>Linux</span><span>Bash</span><span>Cryptography</span><span>Quantum Computing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2: Data Analytics & Machine Learning -->
+    <div class="pr-card reveal" onclick="toggleCard(this)">
+      <div class="pr-card-header">
+        <div class="pr-year">2025</div>
+        <div>
+          <h3>Data Analytics & Machine Learning Projects</h3>
+          <div class="pr-subtitle">Prediction models across multiple domains</div>
+        </div>
+        <div class="pr-toggle">+</div>
+      </div>
+      <div class="pr-card-body">
+        <div class="pr-details">
+          <p>Built and deployed multiple ML models spanning flood & rainfall prediction (CED TIET &ndash; VITRAN collaboration), student dropout prediction systems, and energy anomaly detection pipelines.</p>
+          <p>Applied supervised and unsupervised learning techniques with real-world datasets, focusing on scalable prediction architectures and actionable analytics.</p>
+          <!--
+            ASHUTOSH — ADD MORE PROJECT DETAILS HERE
+            Just add <p>Your text</p> blocks.
+          -->
+          <div class="pr-tech-label">// TECH STACK</div>
+          <div class="pr-tech-tags">
+            <span>Python</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Jupyter</span><span>Data Viz</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 3: Thapar Topic Trend Miner -->
+    <div class="pr-card reveal" onclick="toggleCard(this)">
+      <div class="pr-card-header">
+        <div class="pr-year">2025</div>
+        <div>
+          <h3>Thapar Topic Trend Miner</h3>
+          <div class="pr-subtitle">NLP-powered trend detection from text datasets</div>
+        </div>
+        <div class="pr-toggle">+</div>
+      </div>
+      <div class="pr-card-body">
+        <div class="pr-details">
+          <p>Built a topic trend mining system using NLP techniques to analyze and detect emerging trends from large text datasets. The system processes raw text through preprocessing pipelines, applies TF-IDF and topic modeling algorithms, and generates visual insight reports.</p>
+          <p>Designed for scalability &mdash; capable of ingesting and analyzing thousands of documents to surface hidden patterns and emerging research directions.</p>
+          <!--
+            ASHUTOSH — ADD MORE PROJECT DETAILS HERE
+            Just add <p>Your text</p> blocks.
+          -->
+          <div class="pr-tech-label">// TECH STACK</div>
+          <div class="pr-tech-tags">
+            <span>Python</span><span>NLP</span><span>TF-IDF</span><span>Topic Modeling</span><span>Data Visualization</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--
+      ============================================================
+      ASHUTOSH — ADD MORE PROJECTS HERE
+      Copy a full <div class="pr-card reveal" onclick="toggleCard(this)">
+      block from above and paste here. Change the content inside.
+      ============================================================
+    -->
+
+  </div>
+</section>
+
+<!-- ========== RESEARCH (Clickable / Expandable) ========== -->
 <section id="research">
   <div class="reveal">
-    <div class="section-label">// 004 &mdash; INTEL</div>
+    <div class="section-label">// 005 &mdash; CLASSIFIED INTEL</div>
     <h2 class="section-title">Research</h2>
   </div>
-  <div class="research-grid">
-    <div class="research-card reveal">
-      <div class="research-year">2025</div>
-      <div>
-        <h3>Quantum-Safe Communication Channel</h3>
-        <p>Designed and implemented a secure communication system using OpenSSL and Linux, simulating real-world encryption workflows. Participated in Quantum Computing workshops in-colab with IIITM Jabalpur.</p>
+  <div class="pr-grid">
+
+    <!-- RESEARCH 1: STEAL-Net -->
+    <div class="pr-card reveal" onclick="toggleCard(this)">
+      <div class="pr-card-header">
+        <div class="pr-year">2025</div>
+        <div>
+          <h3>STEAL-Net: Energy Demand Forecasting</h3>
+          <div class="pr-subtitle">Spatio-Temporal Energy-Aware Lightweight Network</div>
+        </div>
+        <div class="pr-status status-progress">IN PROGRESS</div>
+        <div class="pr-toggle">+</div>
       </div>
-      <div class="research-status status-active">DEPLOYED</div>
-    </div>
-    <div class="research-card reveal">
-      <div class="research-year">2025</div>
-      <div>
-        <h3>RedFlag &mdash; Third-Party Web Tracking Detection</h3>
-        <p>Research publication on detecting third-party web tracking for enhanced user privacy. Building tools that protect the average user from invisible surveillance.</p>
+      <div class="pr-card-body">
+        <div class="pr-details">
+          <p>A Spatio-Temporal Energy-Aware Lightweight Network designed for scalable and sustainable energy demand forecasting. The research focuses on building a network architecture that balances prediction accuracy with computational efficiency.</p>
+          <p>Targeting real-world deployment scenarios where lightweight models are critical &mdash; edge devices, smart grids, and IoT-enabled energy infrastructure.</p>
+          <!--
+            ASHUTOSH — ADD MORE RESEARCH DETAILS HERE
+            Add findings, methodology, links to papers, etc.
+            Just add <p>Your text</p> blocks.
+          -->
+          <div class="pr-tech-label">// DOMAINS</div>
+          <div class="pr-tech-tags">
+            <span>Deep Learning</span><span>Energy Systems</span><span>Spatio-Temporal</span><span>IoT</span><span>Sustainability</span>
+          </div>
+        </div>
       </div>
-      <div class="research-status status-progress">IN PROGRESS</div>
     </div>
-    <div class="research-card reveal">
-      <div class="research-year">2025</div>
-      <div>
-        <h3>STEAL-Net: Energy Demand Forecasting</h3>
-        <p>A Spatio-Temporal Energy-Aware Lightweight Network for scalable and sustainable energy demand forecasting using advanced ML techniques.</p>
+
+    <!-- RESEARCH 2: RedFlag -->
+    <div class="pr-card reveal" onclick="toggleCard(this)">
+      <div class="pr-card-header">
+        <div class="pr-year">2025</div>
+        <div>
+          <h3>RedFlag &mdash; Third-Party Web Tracking Detection</h3>
+          <div class="pr-subtitle">User privacy & surveillance detection</div>
+        </div>
+        <div class="pr-status status-progress">IN PROGRESS</div>
+        <div class="pr-toggle">+</div>
       </div>
-      <div class="research-status status-progress">IN PROGRESS</div>
-    </div>
-    <div class="research-card reveal">
-      <div class="research-year">2025</div>
-      <div>
-        <h3>Thapar Topic Trend Miner</h3>
-        <p>Built a topic trend mining system using NLP techniques &mdash; TF-IDF, topic modeling, and data visualization to detect emerging trends from large text datasets.</p>
+      <div class="pr-card-body">
+        <div class="pr-details">
+          <p>Research publication focused on detecting third-party web tracking mechanisms that compromise user privacy. RedFlag identifies and catalogs invisible tracking scripts, fingerprinting techniques, and cross-site surveillance architectures embedded in modern websites.</p>
+          <p>The goal: building tools that give the average user visibility into who is watching them online and how their data flows through the advertising ecosystem.</p>
+          <!--
+            ASHUTOSH — ADD MORE RESEARCH DETAILS HERE
+            Add findings, methodology, links to papers, etc.
+            Just add <p>Your text</p> blocks.
+          -->
+          <div class="pr-tech-label">// DOMAINS</div>
+          <div class="pr-tech-tags">
+            <span>Web Privacy</span><span>Tracking Detection</span><span>Browser Security</span><span>Data Ethics</span>
+          </div>
+        </div>
       </div>
-      <div class="research-status status-active">COMPLETE</div>
     </div>
-    <div class="research-card reveal">
-      <div class="research-year">2025</div>
-      <div>
-        <h3>Data Analytics & ML Projects</h3>
-        <p>Flood & rainfall prediction (CED TIET &ndash; VITRAN), student dropout prediction, energy anomaly detection across multiple research verticals.</p>
-      </div>
-      <div class="research-status status-active">ACTIVE</div>
-    </div>
+
+    <!--
+      ============================================================
+      ASHUTOSH — ADD MORE RESEARCH HERE
+      Copy a full <div class="pr-card reveal" onclick="toggleCard(this)">
+      block from above and paste here. Change the content inside.
+      ============================================================
+    -->
+
   </div>
 </section>
 
-<!-- Legacy -->
+<!-- ========== LEGACY (Experience + Education) ========== -->
 <section id="legacy">
   <div class="reveal">
-    <div class="section-label">// 005 &mdash; CHRONICLES</div>
+    <div class="section-label">// 006 &mdash; CHRONICLES</div>
     <h2 class="section-title">Legacy</h2>
   </div>
   <div class="legacy-timeline">
@@ -1054,18 +1434,43 @@ footer {
       <div class="timeline-date">2019 &mdash; 2022</div>
       <h3>Bachelor of Computer Applications</h3>
       <h4>KLSD College, Panjab University, Chandigarh</h4>
-      <p>Graduated with 91% score. Built the foundation in programming, data structures, algorithms, and OOP concepts.</p>
+      <p>Built the foundation in programming, data structures, algorithms, and OOP concepts.</p>
     </div>
+    <!--
+      ============================================================
+      ASHUTOSH — ADD MORE LEGACY / TIMELINE ITEMS HERE
+      Template:
+      <div class="timeline-item reveal">
+        <div class="timeline-date">DATE RANGE</div>
+        <h3>Title</h3>
+        <h4>Organization</h4>
+        <p>Description.</p>
+      </div>
+      ============================================================
+    -->
   </div>
 </section>
 
-
-
-<!-- Footer -->
+<!-- ========== FOOTER ========== -->
 <footer>
   <span>&copy; 2025 PHANTOM. All rights reserved.</span>
   <span class="footer-quote">&ldquo;By order of the Phantom Blinders.&rdquo;</span>
 </footer>
+
+<!--
+  ============================================================
+  ASHUTOSH — FUTURE SECTIONS
+  Add new sections here before the footer.
+  Use the same pattern:
+  <section id="your-id">
+    <div class="reveal">
+      <div class="section-label">// NUMBER — LABEL</div>
+      <h2 class="section-title">Title</h2>
+    </div>
+    YOUR CONTENT HERE
+  </section>
+  ============================================================
+-->
 
 <script>
 // ========== MATRIX RAIN BACKGROUND ==========
@@ -1094,7 +1499,6 @@ function drawMatrix() {
     const x = i * fontSize;
     const y = drops[i] * fontSize;
 
-    // Alternate between gold and green
     if (Math.random() > 0.85) {
       ctx.fillStyle = 'rgba(200, 151, 62, 0.25)';
     } else {
@@ -1129,13 +1533,42 @@ function toggleMenu() {
   document.getElementById('navLinks').classList.toggle('open');
 }
 
-// Close menu on link click
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => {
     document.getElementById('hamburger').classList.remove('active');
     document.getElementById('navLinks').classList.remove('open');
   });
 });
+
+// ========== CONTACT MODAL ==========
+function openContact() {
+  document.getElementById('contactOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeContact() {
+  document.getElementById('contactOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close on overlay click (not on modal itself)
+document.getElementById('contactOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeContact();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeContact();
+});
+
+// ========== PROJECT / RESEARCH CARD TOGGLE ==========
+function toggleCard(card) {
+  // Close all other open cards first
+  document.querySelectorAll('.pr-card.expanded').forEach(c => {
+    if (c !== card) c.classList.remove('expanded');
+  });
+  card.classList.toggle('expanded');
+}
 
 // ========== SCROLL REVEAL ==========
 const observer = new IntersectionObserver((entries) => {
@@ -1169,7 +1602,7 @@ window.addEventListener('scroll', () => {
     const top = section.offsetTop - 100;
     if (scrollY >= top) current = section.getAttribute('id');
   });
-  document.querySelectorAll('.nav-links a').forEach(a => {
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
     a.classList.remove('active');
     if (a.getAttribute('href') === '#' + current) a.classList.add('active');
   });
