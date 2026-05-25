@@ -38,7 +38,6 @@ body {
 
 a { cursor: pointer; }
 
-/* ========== LOADING SCREEN ========== */
 .loader {
   position: fixed;
   top: 0; left: 0;
@@ -88,7 +87,6 @@ a { cursor: pointer; }
   margin-top: 1.5rem;
 }
 
-/* ========== MATRIX BG ========== */
 .bg-matrix {
   position: fixed; top: 0; left: 0;
   width: 100%; height: 100%;
@@ -120,7 +118,6 @@ a { cursor: pointer; }
   background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
 }
 
-/* Film grain */
 .grain {
   position: fixed; top: -50%; left: -50%;
   width: 200%; height: 200%;
@@ -138,7 +135,6 @@ a { cursor: pointer; }
   100% { transform: translate(2%,1%); }
 }
 
-/* ========== MUSIC PLAYER ========== */
 .music-player {
   position: fixed;
   bottom: 1.5rem; left: 2rem;
@@ -188,7 +184,6 @@ a { cursor: pointer; }
   text-transform: uppercase;
 }
 
-/* ========== NAVBAR ========== */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -262,7 +257,6 @@ nav.scrolled {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* ========== HERO ========== */
 .hero {
   position: relative;
   z-index: 5;
@@ -362,7 +356,6 @@ nav.scrolled {
   100% { left: 100%; }
 }
 
-/* Hero image/portrait area */
 .hero-portrait {
   width: 320px; height: 420px;
   border: 1px solid var(--border-subtle);
@@ -428,7 +421,6 @@ nav.scrolled {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ========== SECTIONS ========== */
 section {
   position: relative;
   z-index: 5;
@@ -460,7 +452,6 @@ section {
   margin-bottom: 4rem;
 }
 
-/* ========== ABOUT / DOSSIER ========== */
 .dossier-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -529,7 +520,6 @@ section {
   text-transform: uppercase;
 }
 
-/* ========== HOLDINGS (Arsenal) ========== */
 .holdings-grid { display: grid; gap: 0; }
 
 .holding-card {
@@ -629,7 +619,6 @@ section {
 
 .holding-card:hover .holding-action-arrow { width: 35px; background: var(--gold); }
 
-/* Holding expanded details */
 .holding-details {
   max-height: 0;
   overflow: hidden;
@@ -678,7 +667,6 @@ section {
   opacity: 0.6;
 }
 
-/* ========== TICKER / MARQUEE ========== */
 .ticker-wrapper {
   position: relative;
   z-index: 5;
@@ -715,7 +703,6 @@ section {
   100% { transform: translateX(-50%); }
 }
 
-/* ========== PHILOSOPHY CARDS ========== */
 .philosophy-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -774,7 +761,6 @@ section {
   font-style: italic;
 }
 
-/* ========== ACHIEVEMENTS ========== */
 .achieve-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -820,7 +806,6 @@ section {
   line-height: 1.6;
 }
 
-/* ========== LEGACY TIMELINE ========== */
 .legacy-timeline {
   position: relative;
   padding-left: 3rem;
@@ -880,7 +865,6 @@ section {
   line-height: 1.8;
 }
 
-/* ========== CONTACT MODAL ========== */
 .contact-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -991,7 +975,6 @@ section {
   gap: 1rem;
 }
 
-/* ========== FOOTER ========== */
 footer {
   position: relative;
   z-index: 5;
@@ -1013,7 +996,6 @@ footer {
   color: var(--gold-dark);
 }
 
-/* ========== SCROLL ANIMATIONS ========== */
 .reveal {
   opacity: 0;
   transform: translateY(50px);
@@ -1054,7 +1036,6 @@ footer {
 .stagger-5 { transition-delay: 0.5s; }
 .stagger-6 { transition-delay: 0.6s; }
 
-/* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
   section, .hero { padding-left: 3rem; padding-right: 3rem; }
   footer { padding: 2rem 3rem; }
@@ -1113,7 +1094,6 @@ footer {
   .achieve-card { flex-direction: column; padding: 1.5rem; }
 }
 
-/* ========== SCROLLBAR ========== */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dark); }
@@ -1124,33 +1104,28 @@ footer {
 </head>
 <body>
 
-<!-- ========== LOADING SCREEN ========== -->
 <div class="loader" id="loader">
   <div class="loader-brand">PHANTOM</div>
   <div class="loader-bar-track"><div class="loader-bar"></div></div>
   <div class="loader-text">By order of the Phantom</div>
 </div>
 
-<!-- ========== BACKGROUNDS ========== -->
 <div class="bg-matrix"><canvas id="matrixCanvas"></canvas></div>
 <div class="fog-overlay"></div>
 <div class="scanlines"></div>
 <div class="grain"></div>
 
-<!-- ========== MUSIC PLAYER ========== -->
 <div class="music-player" id="musicPlayer" onclick="toggleMusic()">
   <div class="music-bars" id="musicBars">
     <span></span><span></span><span></span><span></span>
   </div>
   <div class="music-label" id="musicLabel">Play Soundscape</div>
 </div>
-<!-- 
--->
+
 <audio id="bgMusic" loop preload="auto">
-  <source src="./musicBG.mp3" type="audio/mp3">
+  <source src="./musicBG.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ========== CONTACT MODAL ========== -->
 <div class="contact-overlay" id="contactOverlay">
   <div class="contact-modal" style="position:relative;">
     <button class="contact-close" onclick="closeContact()">&times;</button>
@@ -1169,28 +1144,18 @@ footer {
         <div class="c-card-icon">in</div>
         <div class="c-card-label">LinkedIn</div>
       </a>
-      <!-- ASHUTOSH: Replace # with your X (Twitter) URL -->
       <a href="#" target="_blank" class="c-card">
         <div class="c-card-icon">X</div>
         <div class="c-card-label">X / Twitter</div>
       </a>
-      <!-- ASHUTOSH: Replace # with your Instagram URL -->
       <a href="#" target="_blank" class="c-card">
         <div class="c-card-icon">IG</div>
         <div class="c-card-label">Instagram</div>
       </a>
-      <!--
-        ASHUTOSH — ADD MORE CONTACT LINKS:
-        <a href="URL" target="_blank" class="c-card">
-          <div class="c-card-icon">ICON</div>
-          <div class="c-card-label">LABEL</div>
-        </a>
-      -->
     </div>
   </div>
 </div>
 
-<!-- ========== NAVBAR ========== -->
 <nav id="navbar">
   <a href="#hero" class="nav-brand">PHANTOM</a>
   <div class="nav-links" id="navLinks">
@@ -1205,7 +1170,6 @@ footer {
   </div>
 </nav>
 
-<!-- ========== HERO ========== -->
 <section class="hero" id="hero">
   <div class="hero-content">
     <div class="hero-left">
@@ -1227,7 +1191,6 @@ footer {
   </div>
 </section>
 
-<!-- ========== ABOUT / DOSSIER ========== -->
 <section id="about">
   <div class="section-eyebrow reveal">// 001 &mdash; Dossier</div>
   <h2 class="section-heading reveal">About the Phantom</h2>
@@ -1239,10 +1202,6 @@ footer {
       <div class="dossier-quote reveal">
         &ldquo;In competitive shooting, a millisecond of hesitation or a single heartbeat out of sync means a missed target. I apply that same uncompromising precision to my code and security architectures.&rdquo;
       </div>
-      <!--
-        ASHUTOSH — ADD MORE ABOUT PARAGRAPHS:
-        <p class="reveal">Your text here.</p>
-      -->
     </div>
     <div class="dossier-stats">
       <div class="d-stat reveal stagger-1">
@@ -1261,18 +1220,10 @@ footer {
         <div class="d-stat-num">&#x1F3AF;</div>
         <div class="d-stat-label">National Shooter</div>
       </div>
-      <!--
-        ASHUTOSH — ADD MORE STAT CARDS:
-        <div class="d-stat reveal">
-          <div class="d-stat-num">VALUE</div>
-          <div class="d-stat-label">LABEL</div>
-        </div>
-      -->
     </div>
   </div>
 </section>
 
-<!-- ========== ARSENAL (Holdings-style) ========== -->
 <section id="arsenal">
   <div class="section-eyebrow reveal">// 002 &mdash; Strategic Assets</div>
   <h2 class="section-heading reveal">The Arsenal</h2>
@@ -1291,7 +1242,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>From responsive layouts to complex animations, I build frontends that feel alive. The goal is never just functional &mdash; it's memorable.</p>
-            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>HTML5</span><span>CSS3</span><span>JavaScript ES6+</span><span>Responsive Design</span>
@@ -1314,7 +1264,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>APIs that scale, servers that hold, authentication that locks. The backend is where reliability lives.</p>
-            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>Node.js</span><span>Python</span><span>Bash</span><span>REST APIs</span>
@@ -1337,7 +1286,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>From raw data to deployed models &mdash; NLP, forecasting, anomaly detection across real-world datasets.</p>
-            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>ML/AI</span><span>NLP</span><span>TF-IDF</span><span>Pandas</span><span>Scikit-learn</span>
@@ -1360,7 +1308,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>Exploring lattice-based cryptography, quantum key distribution, and building systems that survive the quantum threat.</p>
-            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>OpenSSL</span><span>Linux</span><span>Quantum Computing</span><span>Cryptography</span>
@@ -1383,7 +1330,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>Relational and non-relational databases, optimized queries, and data pipelines built for production workloads.</p>
-            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>SQL</span><span>SQL Server</span><span>MongoDB</span>
@@ -1406,7 +1352,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>Git workflows, cloud infrastructure, and development environments tuned for maximum velocity.</p>
-            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>Git</span><span>VS Code</span><span>AWS</span><span>Jupyter</span>
@@ -1417,15 +1362,9 @@ footer {
       <div class="holding-action">Read Intel <div class="holding-action-arrow"></div></div>
     </div>
 
-    <!--
-      ASHUTOSH — ADD MORE ARSENAL HOLDINGS:
-      Copy any holding-card block above and change the content.
-    -->
-
   </div>
 </section>
 
-<!-- ========== TICKER MARQUEE ========== -->
 <div class="ticker-wrapper">
   <div class="ticker-track" id="tickerTrack">
     <span>QUANTUM COMPUTING</span><span class="ticker-dot">&bull;</span>
@@ -1436,7 +1375,6 @@ footer {
     <span>NLP RESEARCH</span><span class="ticker-dot">&bull;</span>
     <span>POST-QUANTUM ENCRYPTION</span><span class="ticker-dot">&bull;</span>
     <span>PRECISION UNDER PRESSURE</span><span class="ticker-dot">&bull;</span>
-    <!-- Duplicated for seamless loop -->
     <span>QUANTUM COMPUTING</span><span class="ticker-dot">&bull;</span>
     <span>CYBERSECURITY</span><span class="ticker-dot">&bull;</span>
     <span>FULL STACK DEV</span><span class="ticker-dot">&bull;</span>
@@ -1448,7 +1386,6 @@ footer {
   </div>
 </div>
 
-<!-- ========== PHILOSOPHY ========== -->
 <section id="philosophy">
   <div class="section-eyebrow reveal">// 003 &mdash; Doctrine</div>
   <h2 class="section-heading reveal">The Phantom Doctrine</h2>
@@ -1469,18 +1406,9 @@ footer {
       <h4>The Power of Arrival</h4>
       <p>There is ambition that announces itself constantly. And there is the other kind &mdash; the kind that moves in silence, letting the work arrive at full volume. The Phantom operates in the second mode.</p>
     </div>
-    <!--
-      ASHUTOSH — ADD MORE PHILOSOPHY CARDS:
-      <div class="phil-card reveal">
-        <h3>Title</h3>
-        <h4>Subtitle</h4>
-        <p>Description.</p>
-      </div>
-    -->
   </div>
 </section>
 
-<!-- ========== PROJECTS (Expandable) ========== -->
 <section id="projects">
   <div class="section-eyebrow reveal">// 004 &mdash; Operations</div>
   <h2 class="section-heading reveal">Projects</h2>
@@ -1500,7 +1428,6 @@ footer {
           <div class="holding-details-inner">
             <p>Participated in Quantum Computing & Communication workshops at IIITM Jabalpur. Gained hands-on exposure to quantum key distribution concepts and lattice-based cryptography principles.</p>
             <p>The system demonstrates end-to-end encrypted communication with certificate-based authentication, simulating how quantum-safe algorithms could protect data in transit.</p>
-            <!-- ASHUTOSH — ADD MORE PROJECT DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>OpenSSL</span><span>Linux</span><span>Bash</span><span>Cryptography</span><span>Quantum Computing</span>
@@ -1524,7 +1451,6 @@ footer {
           <div class="holding-details-inner">
             <p>Flood & rainfall prediction developed in collaboration with CED TIET (VITRAN). Student dropout prediction using supervised learning on institutional data. Energy anomaly detection pipelines for identifying irregular consumption patterns.</p>
             <p>Applied supervised and unsupervised learning techniques with real-world datasets, focusing on scalable prediction architectures and actionable analytics.</p>
-            <!-- ASHUTOSH — ADD MORE PROJECT DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>Python</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Jupyter</span><span>Matplotlib</span>
@@ -1547,7 +1473,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>Processes raw text through preprocessing pipelines, applies TF-IDF and topic modeling algorithms, and generates visual insight reports. Designed for scalability &mdash; capable of ingesting thousands of documents to surface hidden patterns.</p>
-            <!-- ASHUTOSH — ADD MORE PROJECT DETAILS HERE -->
             <div class="holding-tech-label">// Tech Stack</div>
             <div class="holding-tech-tags">
               <span>Python</span><span>NLP</span><span>TF-IDF</span><span>Topic Modeling</span><span>Data Visualization</span>
@@ -1558,15 +1483,9 @@ footer {
       <div class="holding-action">Read Thesis <div class="holding-action-arrow"></div></div>
     </div>
 
-    <!--
-      ASHUTOSH — ADD MORE PROJECTS:
-      Copy any holding-card block above and paste here.
-    -->
-
   </div>
 </section>
 
-<!-- ========== RESEARCH (Expandable) ========== -->
 <section id="research">
   <div class="section-eyebrow reveal">// 005 &mdash; Classified Intel</div>
   <h2 class="section-heading reveal">Research</h2>
@@ -1585,7 +1504,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>Targeting real-world deployment scenarios where lightweight models are critical &mdash; edge devices, smart grids, and IoT-enabled energy infrastructure. The research explores novel architectures that capture both spatial and temporal dependencies in energy consumption data.</p>
-            <!-- ASHUTOSH — ADD MORE RESEARCH DETAILS: findings, methodology, links to papers -->
             <div class="holding-tech-label">// Research Domains</div>
             <div class="holding-tech-tags">
               <span>Deep Learning</span><span>Energy Systems</span><span>Spatio-Temporal</span><span>IoT</span><span>Sustainability</span>
@@ -1608,7 +1526,6 @@ footer {
         <div class="holding-details">
           <div class="holding-details-inner">
             <p>RedFlag identifies and catalogs invisible tracking scripts, fingerprinting techniques, and cross-site surveillance architectures embedded in modern websites. The goal: building tools that give the average user visibility into who is watching them online and how their data flows through the advertising ecosystem.</p>
-            <!-- ASHUTOSH — ADD MORE RESEARCH DETAILS: findings, methodology, links to papers -->
             <div class="holding-tech-label">// Research Domains</div>
             <div class="holding-tech-tags">
               <span>Web Privacy</span><span>Tracking Detection</span><span>Browser Security</span><span>Data Ethics</span>
@@ -1619,15 +1536,9 @@ footer {
       <div class="holding-action">Read Thesis <div class="holding-action-arrow"></div></div>
     </div>
 
-    <!--
-      ASHUTOSH — ADD MORE RESEARCH:
-      Copy any holding-card block above and paste here.
-    -->
-
   </div>
 </section>
 
-<!-- ========== ACHIEVEMENTS ========== -->
 <section id="achievements">
   <div class="section-eyebrow reveal">// 006 &mdash; Decorations</div>
   <h2 class="section-heading reveal">Achievements</h2>
@@ -1675,20 +1586,9 @@ footer {
         <p>Python, Responsible AI, AWS Cloud, Front-End Developer.</p>
       </div>
     </div>
-    <!--
-      ASHUTOSH — ADD MORE ACHIEVEMENTS:
-      <div class="achieve-card reveal">
-        <div class="achieve-icon">EMOJI</div>
-        <div>
-          <h3>Title</h3>
-          <p>Description.</p>
-        </div>
-      </div>
-    -->
   </div>
 </section>
 
-<!-- ========== LEGACY ========== -->
 <section id="legacy">
   <div class="section-eyebrow reveal">// 007 &mdash; Chronicles</div>
   <h2 class="section-heading reveal">Legacy</h2>
@@ -1718,50 +1618,38 @@ footer {
       <h4>KLSD College, Panjab University, Chandigarh</h4>
       <p>Programming, data structures, algorithms, and OOP concepts.</p>
     </div>
-    <!--
-      ASHUTOSH — ADD MORE TIMELINE ITEMS:
-      <div class="tl-item reveal">
-        <div class="tl-date">DATE</div>
-        <h3>Title</h3>
-        <h4>Organization</h4>
-        <p>Description.</p>
-      </div>
-    -->
   </div>
 </section>
 
-<!-- ========== FOOTER ========== -->
 <footer>
   <span>Ashutosh Sharma. Phantom Operative.</span>
   <span class="footer-quote">&ldquo;By order of the Phantom Blinders.&rdquo;</span>
   <span>Patiala, IN // &copy; 2025</span>
 </footer>
 
-<!--
-  ============================================================
-  ASHUTOSH — FUTURE SECTIONS: Add new sections above the footer.
-  ============================================================
--->
-
 <script>
 // ========== LOADER ==========
-// Unmute and play on first user interaction
-// ========== LOADER + AUTOPLAY ==========
-// ========== MUSIC ==========
-const music = document.getElementById('bgMusic');
-const bars = document.getElementById('musicBars');
-const musicLabel = document.getElementById('musicLabel');
-let isPlaying = false;
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('loader').classList.add('done');
+  }, 2200);
+});
+
+// ========== MUSIC (SINGLE DECLARATION — NO DUPLICATES) ==========
+var music = document.getElementById('bgMusic');
+var bars = document.getElementById('musicBars');
+var musicLabel = document.getElementById('musicLabel');
+var isPlaying = false;
 
 function startMusic() {
   if (isPlaying) return;
   music.muted = false;
   music.volume = 1;
-  music.play().then(() => {
+  music.play().then(function() {
     isPlaying = true;
     bars.classList.add('playing');
     musicLabel.textContent = 'Playing';
-  }).catch(() => {});
+  }).catch(function() {});
 }
 
 function toggleMusic() {
@@ -1776,12 +1664,13 @@ function toggleMusic() {
 }
 
 // Auto-start music on ANY user interaction
-['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(evt => {
+['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(function(evt) {
   document.addEventListener(evt, startMusic, { once: true });
 });
+
 // ========== MATRIX RAIN ==========
-const canvas = document.getElementById('matrixCanvas');
-const ctx = canvas.getContext('2d');
+var canvas = document.getElementById('matrixCanvas');
+var ctx = canvas.getContext('2d');
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -1790,20 +1679,20 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-const chars = 'PHANTOM01アイウエオカキクケコ{}[]<>/\\!@#$%^&*QUANTUM';
-const fontSize = 14;
-let columns = Math.floor(canvas.width / fontSize);
-let drops = Array(columns).fill(1);
+var chars = 'PHANTOM01アイウエオカキクケコ{}[]<>/\\!@#$%^&*QUANTUM';
+var fontSize = 14;
+var columns = Math.floor(canvas.width / fontSize);
+var drops = Array(columns).fill(1);
 
 function drawMatrix() {
   ctx.fillStyle = 'rgba(8, 8, 12, 0.055)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.font = fontSize + 'px "Fira Code", monospace';
 
-  for (let i = 0; i < drops.length; i++) {
-    const char = chars[Math.floor(Math.random() * chars.length)];
-    const x = i * fontSize;
-    const y = drops[i] * fontSize;
+  for (var i = 0; i < drops.length; i++) {
+    var char = chars[Math.floor(Math.random() * chars.length)];
+    var x = i * fontSize;
+    var y = drops[i] * fontSize;
 
     ctx.fillStyle = Math.random() > 0.88
       ? 'rgba(200, 151, 62, 0.2)'
@@ -1818,13 +1707,13 @@ function drawMatrix() {
 
 setInterval(drawMatrix, 85);
 
-window.addEventListener('resize', () => {
+window.addEventListener('resize', function() {
   columns = Math.floor(canvas.width / fontSize);
   drops = Array(columns).fill(1);
 });
 
 // ========== PORTRAIT CODE RAIN ==========
-const codeSnippets = [
+var codeSnippets = [
   'const phantom = await init();',
   'if (target.acquired) { fire(); }',
   'quantum.encrypt(payload);',
@@ -1843,17 +1732,17 @@ const codeSnippets = [
   '// by order of the phantom',
 ];
 
-const portraitEl = document.getElementById('portraitCode');
+var portraitEl = document.getElementById('portraitCode');
 if (portraitEl) {
-  let codeText = '';
-  for (let i = 0; i < 30; i++) {
+  var codeText = '';
+  for (var i = 0; i < 30; i++) {
     codeText += codeSnippets[Math.floor(Math.random() * codeSnippets.length)] + '\n';
   }
   portraitEl.textContent = codeText;
 }
 
 // ========== NAVBAR ==========
-window.addEventListener('scroll', () => {
+window.addEventListener('scroll', function() {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
 });
 
@@ -1863,53 +1752,11 @@ function toggleMenu() {
   document.getElementById('navLinks').classList.toggle('open');
 }
 
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', () => {
+document.querySelectorAll('.nav-links a').forEach(function(link) {
+  link.addEventListener('click', function() {
     document.getElementById('hamburger').classList.remove('active');
     document.getElementById('navLinks').classList.remove('open');
   });
-});
-
-// ========== MUSIC ==========
-const music = document.getElementById('bgMusic');
-const bars = document.getElementById('musicBars');
-const musicLabel = document.getElementById('musicLabel');
-let isPlaying = false;
-
-function toggleMusic() {
-  if (isPlaying) {
-    music.pause();
-    bars.classList.remove('playing');
-    musicLabel.textContent = 'Play Soundscape';
-  } else {
-    music.play().catch(() => {});
-    bars.classList.add('playing');
-    musicLabel.textContent = 'Playing';
-  }
-  isPlaying = !isPlaying;
-}
-
-// Attempt autoplay after loader finishes
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    music.play().then(() => {
-      isPlaying = true;
-      bars.classList.add('playing');
-      musicLabel.textContent = 'Playing';
-    }).catch(() => {
-      // Browser blocked autoplay — start on first user click anywhere
-      document.addEventListener('click', function startMusic() {
-        if (!isPlaying) {
-          music.play().then(() => {
-            isPlaying = true;
-            bars.classList.add('playing');
-            musicLabel.textContent = 'Playing';
-          }).catch(() => {});
-        }
-        document.removeEventListener('click', startMusic);
-      }, { once: true });
-    });
-  }, 2500);
 });
 
 // ========== CONTACT MODAL ==========
@@ -1927,46 +1774,45 @@ document.getElementById('contactOverlay').addEventListener('click', function(e) 
   if (e.target === this) closeContact();
 });
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeContact(); });
 
 // ========== HOLDINGS / PROJECT TOGGLE ==========
 function toggleHolding(card) {
-  const wasExpanded = card.classList.contains('expanded');
-  // Close all in same section
-  card.closest('.holdings-grid').querySelectorAll('.holding-card.expanded').forEach(c => {
+  var wasExpanded = card.classList.contains('expanded');
+  card.closest('.holdings-grid').querySelectorAll('.holding-card.expanded').forEach(function(c) {
     c.classList.remove('expanded');
   });
   if (!wasExpanded) card.classList.add('expanded');
 }
 
 // ========== SCROLL REVEAL ==========
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) { observer.observe(el); });
 
 // ========== SMOOTH SCROLL ==========
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    var target = document.querySelector(this.getAttribute('href'));
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
 // ========== ACTIVE NAV ==========
-const allSections = document.querySelectorAll('section[id]');
-window.addEventListener('scroll', () => {
-  let current = '';
-  allSections.forEach(s => {
+var allSections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', function() {
+  var current = '';
+  allSections.forEach(function(s) {
     if (scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
   });
-  document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(a) {
     a.classList.remove('active');
     if (a.getAttribute('href') === '#' + current) a.classList.add('active');
   });
