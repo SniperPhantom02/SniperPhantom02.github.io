@@ -1145,11 +1145,8 @@ footer {
   <div class="music-label" id="musicLabel">Play Soundscape</div>
 </div>
 <!-- 
-  ASHUTOSH: Replace the src below with your own hosted Peaky Blinders theme MP3.
-  Host the .mp3 file in your GitHub repo root or a CDN and update the path.
-  e.g. src="./red-right-hand.mp3" or src="https://your-cdn.com/peaky.mp3"
 -->
-<audio id="bgMusic" loop preload="auto">
+<audio id="bgMusic" loop preload="auto" autoplay muted>
   <source src="./music.mp3" type="audio/mp3">
 </audio>
 
@@ -1748,10 +1745,38 @@ footer {
 
 <script>
 // ========== LOADER ==========
+// Unmute and play on first user interaction
 window.addEventListener('load', () => {
   setTimeout(() => {
-    document.getElementById('loader').classList.add('done');
-  }, 2200);
+    // Try unmuted autoplay first (will fail in most browsers)
+    music.muted = false;
+    music.play().then(() => {
+      isPlaying = true;
+      bars.classList.add('playing');
+      musicLabel.textContent = 'Playing';
+    }).catch(() => {
+      // Muted autoplay is already running — unmute on first interaction
+      music.muted = true;
+      music.play().catch(() => {});
+      
+      function unmute() {
+        music.muted = false;
+        music.currentTime = 0;
+        music.play().then(() => {
+          isPlaying = true;
+          bars.classList.add('playing');
+          musicLabel.textContent = 'Playing';
+        }).catch(() => {});
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+          document.removeEventListener(evt, unmute)
+        );
+      }
+      
+      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
+        document.addEventListener(evt, unmute, { once: true })
+      );
+    });
+  }, 2500);
 });
 
 // ========== MATRIX RAIN ==========
