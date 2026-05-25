@@ -1066,7 +1066,7 @@ footer {
   .holding-card { grid-template-columns: 50px 1fr; gap: 1.5rem; }
   .holding-action { display: none; }
   .holding-details { grid-column: 1 / -1; }
-  .music-player { right: 4.5rem; }
+  .music-player { bottom: 1rem; left: 1rem; }
 }
 
 @media (max-width: 768px) {
@@ -1102,7 +1102,7 @@ footer {
   .holding-card { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
   .holding-num { font-size: 2rem; }
 
-  .music-player { right: 3.5rem; top: 1.2rem; }
+  .music-player { bottom: 1rem; left: 1rem; }
   .music-label { display: none; }
 }
 
@@ -1150,7 +1150,7 @@ footer {
   e.g. src="./red-right-hand.mp3" or src="https://your-cdn.com/peaky.mp3"
 -->
 <audio id="bgMusic" loop preload="auto">
-  <source src="./peaky-theme.mp3" type="audio/mpeg">
+  <source src="./music.mp3" type="audio/mp3">
 </audio>
 
 <!-- ========== CONTACT MODAL ========== -->
@@ -1863,6 +1863,29 @@ function toggleMusic() {
   }
   isPlaying = !isPlaying;
 }
+
+// Attempt autoplay after loader finishes
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    music.play().then(() => {
+      isPlaying = true;
+      bars.classList.add('playing');
+      musicLabel.textContent = 'Playing';
+    }).catch(() => {
+      // Browser blocked autoplay — start on first user click anywhere
+      document.addEventListener('click', function startMusic() {
+        if (!isPlaying) {
+          music.play().then(() => {
+            isPlaying = true;
+            bars.classList.add('playing');
+            musicLabel.textContent = 'Playing';
+          }).catch(() => {});
+        }
+        document.removeEventListener('click', startMusic);
+      }, { once: true });
+    });
+  }, 2500);
+});
 
 // ========== CONTACT MODAL ==========
 function openContact() {
