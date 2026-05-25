@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ashutosh Sharma — Quantum Computing, Cybersecurity, Full Stack Development. By order of the Phantom.">
 <title>PHANTOM. | Ashutosh Sharma</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Fira+Code:wght@300;400;500;600&family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Fira+Code:wght@300;400;500;600&family=Bebas+Neue&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -12,14 +13,17 @@
   --gold: #C8973E;
   --gold-light: #D4A84B;
   --gold-dark: #A07830;
-  --bg-deep: #0A0A0F;
-  --bg-card: rgba(14, 14, 20, 0.85);
+  --gold-glow: rgba(200, 151, 62, 0.15);
+  --bg-deep: #08080C;
+  --bg-card: rgba(12, 12, 18, 0.9);
+  --bg-card-hover: rgba(18, 18, 26, 0.95);
   --text-primary: #E8E0D0;
-  --text-muted: #8A8070;
+  --text-secondary: #B8AFA0;
+  --text-muted: #6A6258;
   --green-terminal: #00FF41;
-  --green-dim: #0A3A12;
   --red-accent: #8B1A1A;
-  --smoke: rgba(200, 151, 62, 0.03);
+  --border-subtle: rgba(200, 151, 62, 0.08);
+  --border-hover: rgba(200, 151, 62, 0.25);
 }
 
 html { scroll-behavior: smooth; }
@@ -29,52 +33,155 @@ body {
   background: var(--bg-deep);
   color: var(--text-primary);
   overflow-x: hidden;
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='2' fill='%23C8973E'/%3E%3Ccircle cx='12' cy='12' r='8' fill='none' stroke='%23C8973E' stroke-width='0.8'/%3E%3Cline x1='12' y1='0' x2='12' y2='7' stroke='%23C8973E' stroke-width='0.5'/%3E%3Cline x1='12' y1='17' x2='12' y2='24' stroke='%23C8973E' stroke-width='0.5'/%3E%3Cline x1='0' y1='12' x2='7' y2='12' stroke='%23C8973E' stroke-width='0.5'/%3E%3Cline x1='17' y1='12' x2='24' y2='12' stroke='%23C8973E' stroke-width='0.5'/%3E%3C/svg%3E") 12 12, default;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='2' fill='%23C8973E'/%3E%3Ccircle cx='12' cy='12' r='8' fill='none' stroke='%23C8973E' stroke-width='.7'/%3E%3Cline x1='12' y1='0' x2='12' y2='7' stroke='%23C8973E' stroke-width='.4'/%3E%3Cline x1='12' y1='17' x2='12' y2='24' stroke='%23C8973E' stroke-width='.4'/%3E%3Cline x1='0' y1='12' x2='7' y2='12' stroke='%23C8973E' stroke-width='.4'/%3E%3Cline x1='17' y1='12' x2='24' y2='12' stroke='%23C8973E' stroke-width='.4'/%3E%3C/svg%3E") 12 12, default;
 }
 
-/* ========== DYNAMIC BACKGROUND ========== */
-.bg-matrix {
+a { cursor: pointer; }
+
+/* ========== LOADING SCREEN ========== */
+.loader {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  z-index: 0;
-  pointer-events: none;
+  background: var(--bg-deep);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s, visibility 0.8s;
 }
 
+.loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+
+.loader-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 4rem;
+  letter-spacing: 12px;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+
+.loader-bar-track {
+  width: 200px; height: 1px;
+  background: rgba(200,151,62,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.loader-bar {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+  animation: loaderFill 2s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+
+@keyframes loaderFill { to { width: 100%; } }
+
+.loader-text {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  margin-top: 1.5rem;
+}
+
+/* ========== MATRIX BG ========== */
+.bg-matrix {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
 .bg-matrix canvas { width: 100%; height: 100%; }
 
 .fog-overlay {
-  position: fixed;
-  top: 0; left: 0;
+  position: fixed; top: 0; left: 0;
   width: 100%; height: 100%;
-  z-index: 1;
-  pointer-events: none;
+  z-index: 1; pointer-events: none;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(200,151,62,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(139,26,26,0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(0,255,65,0.02) 0%, transparent 40%);
-  animation: fogDrift 20s ease-in-out infinite alternate;
+    radial-gradient(ellipse at 15% 50%, rgba(200,151,62,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 15%, rgba(139,26,26,0.04) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 85%, rgba(0,255,65,0.02) 0%, transparent 40%);
+  animation: fogDrift 25s ease-in-out infinite alternate;
 }
 
 @keyframes fogDrift {
-  0% { opacity: 0.6; transform: translateX(-2%); }
+  0% { opacity: 0.5; transform: translateX(-3%); }
   50% { opacity: 1; }
-  100% { opacity: 0.7; transform: translateX(2%); }
+  100% { opacity: 0.6; transform: translateX(3%); }
 }
 
 .scanlines {
-  position: fixed;
-  top: 0; left: 0;
+  position: fixed; top: 0; left: 0;
   width: 100%; height: 100%;
-  z-index: 2;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.08) 2px,
-    rgba(0,0,0,0.08) 4px
-  );
+  z-index: 2; pointer-events: none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
+}
+
+/* Film grain */
+.grain {
+  position: fixed; top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  z-index: 3; pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grainMove 0.5s steps(4) infinite;
+}
+
+@keyframes grainMove {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-2%,-1%); }
+  50% { transform: translate(1%,2%); }
+  75% { transform: translate(-1%,-2%); }
+  100% { transform: translate(2%,1%); }
+}
+
+/* ========== MUSIC PLAYER ========== */
+.music-player {
+  position: fixed;
+  top: 1.5rem; right: 6rem;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+
+.music-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.music-bars span {
+  display: block;
+  width: 2px;
+  background: var(--gold);
+  border-radius: 1px;
+  transition: height 0.2s;
+}
+
+.music-bars.playing span:nth-child(1) { animation: bar1 0.6s ease-in-out infinite alternate; }
+.music-bars.playing span:nth-child(2) { animation: bar2 0.5s ease-in-out infinite alternate 0.1s; }
+.music-bars.playing span:nth-child(3) { animation: bar3 0.7s ease-in-out infinite alternate 0.2s; }
+.music-bars.playing span:nth-child(4) { animation: bar4 0.4s ease-in-out infinite alternate 0.15s; }
+
+.music-bars:not(.playing) span { height: 3px !important; }
+
+@keyframes bar1 { from { height: 4px; } to { height: 16px; } }
+@keyframes bar2 { from { height: 6px; } to { height: 12px; } }
+@keyframes bar3 { from { height: 3px; } to { height: 14px; } }
+@keyframes bar4 { from { height: 5px; } to { height: 10px; } }
+
+.music-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }
 
 /* ========== NAVBAR ========== */
@@ -86,54 +193,48 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(10, 10, 15, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(200, 151, 62, 0.15);
-  transition: background 0.4s;
+  background: rgba(8, 8, 12, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.5s;
 }
 
-nav.scrolled { background: rgba(10, 10, 15, 0.85); }
+nav.scrolled {
+  background: rgba(8, 8, 12, 0.9);
+  padding: 0.8rem 3rem;
+}
 
 .nav-brand {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.4rem;
-  letter-spacing: 6px;
+  font-size: 2rem;
+  letter-spacing: 8px;
   color: var(--gold);
   text-decoration: none;
-  position: relative;
 }
-
-.nav-brand::after {
-  content: '_';
-  animation: blink 1s infinite;
-  color: var(--green-terminal);
-}
-
-@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 
 .nav-links { display: flex; gap: 2.5rem; align-items: center; }
 
 .nav-links a {
   font-family: 'Fira Code', monospace;
-  font-size: 0.75rem;
-  letter-spacing: 4px;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--text-muted);
   text-decoration: none;
-  position: relative;
   transition: color 0.3s;
+  position: relative;
 }
 
-.nav-links a:hover, .nav-links a.active { color: var(--gold); }
+.nav-links a:hover { color: var(--gold); }
 
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: -4px; left: 0;
+  bottom: -6px; left: 0;
   width: 0; height: 1px;
   background: var(--gold);
-  transition: width 0.3s;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-links a:hover::after { width: 100%; }
@@ -148,7 +249,7 @@ nav.scrolled { background: rgba(10, 10, 15, 0.85); }
 
 .hamburger span {
   display: block;
-  width: 28px; height: 2px;
+  width: 28px; height: 1.5px;
   background: var(--gold);
   transition: all 0.3s;
 }
@@ -163,95 +264,154 @@ nav.scrolled { background: rgba(10, 10, 15, 0.85); }
   z-index: 5;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 8rem 6rem 4rem;
+  align-items: center;
+  padding: 0 8rem;
 }
 
-.hero-content { max-width: 900px; }
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.hero-left { max-width: 700px; }
 
 .hero-pre {
   font-family: 'Fira Code', monospace;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--green-terminal);
   letter-spacing: 3px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   opacity: 0;
-  animation: typeIn 0.8s 0.5s forwards;
+  animation: typeIn 0.6s 2.5s forwards;
 }
 
 .hero-pre::before { content: '> '; color: var(--text-muted); }
 
 .hero-name {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
   font-weight: 900;
-  line-height: 0.95;
+  line-height: 0.92;
   color: var(--text-primary);
   margin-bottom: 1.5rem;
   opacity: 0;
-  animation: fadeSlideUp 1s 0.8s forwards;
+  animation: fadeSlideUp 1.2s 2.8s forwards;
 }
 
-.hero-name span {
-  display: block;
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 400;
   color: var(--gold);
   font-style: italic;
-  font-weight: 400;
-  font-size: 0.45em;
-  letter-spacing: 6px;
-  margin-top: 0.5rem;
-}
-
-.hero-tagline {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  max-width: 550px;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0.8rem;
   opacity: 0;
-  animation: fadeSlideUp 1s 1.2s forwards;
+  animation: fadeSlideUp 1s 3.2s forwards;
 }
 
-.hero-cta {
-  display: inline-flex;
+.hero-sub {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeSlideUp 1s 3.5s forwards;
+}
+
+.hero-scroll-cue {
+  display: flex;
   align-items: center;
   gap: 1rem;
   font-family: 'Fira Code', monospace;
-  font-size: 0.8rem;
-  letter-spacing: 3px;
-  color: var(--gold);
-  text-decoration: none;
-  border: 1px solid var(--gold-dark);
-  padding: 1rem 2.5rem;
-  transition: all 0.4s;
-  opacity: 0;
-  animation: fadeSlideUp 1s 1.5s forwards;
-}
-
-.hero-cta:hover {
-  background: rgba(200, 151, 62, 0.1);
-  border-color: var(--gold);
-  letter-spacing: 5px;
-}
-
-.hero-scroll {
-  position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Fira Code', monospace;
   font-size: 0.65rem;
-  color: var(--text-muted);
   letter-spacing: 4px;
-  writing-mode: vertical-rl;
-  animation: float 3s ease-in-out infinite;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fadeSlideUp 1s 4s forwards;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
+.hero-scroll-line {
+  width: 50px; height: 1px;
+  background: var(--gold-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-scroll-line::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--gold);
+  animation: scrollLinePulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollLinePulse {
+  0% { left: -100%; }
+  50% { left: 0; }
+  100% { left: 100%; }
+}
+
+/* Hero image/portrait area */
+.hero-portrait {
+  width: 320px; height: 420px;
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeSlideUp 1.2s 3s forwards;
+}
+
+.hero-portrait-inner {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(200,151,62,0.08) 0%, rgba(8,8,12,0.9) 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.hero-portrait-code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: var(--green-terminal);
+  opacity: 0.4;
+  line-height: 1.6;
+  padding: 2rem;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.hero-portrait-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  letter-spacing: 8px;
+  color: rgba(200,151,62,0.08);
+  position: absolute;
+  bottom: 2rem; right: 2rem;
+  line-height: 1;
+  writing-mode: vertical-rl;
+}
+
+.hero-portrait::after {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border: 1px solid var(--gold-dark);
+  transform: translate(8px, 8px);
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 @keyframes typeIn {
@@ -260,7 +420,7 @@ nav.scrolled { background: rgba(10, 10, 15, 0.85); }
 }
 
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -268,358 +428,395 @@ nav.scrolled { background: rgba(10, 10, 15, 0.85); }
 section {
   position: relative;
   z-index: 5;
-  padding: 6rem 6rem;
+  padding: 8rem 8rem;
 }
 
-.section-label {
+.section-eyebrow {
   font-family: 'Fira Code', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 6px;
-  color: var(--gold-dark);
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  color: var(--text-muted);
   text-transform: uppercase;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
 }
 
-.section-title {
+.section-heading {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 3rem;
-  position: relative;
+  margin-bottom: 1rem;
 }
 
-.section-title::after {
-  content: '';
-  display: block;
-  width: 60px; height: 2px;
-  background: var(--gold);
-  margin-top: 1rem;
+.section-heading-sub {
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 4rem;
 }
 
-/* ========== ABOUT ========== */
-.about-grid {
+/* ========== ABOUT / DOSSIER ========== */
+.dossier-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 5rem;
   align-items: start;
 }
 
-.about-text {
+.dossier-text p {
   font-size: 1.15rem;
-  line-height: 1.9;
-  color: var(--text-muted);
+  line-height: 2;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
 }
 
-.about-text p { margin-bottom: 1.5rem; }
-
-.about-quote {
+.dossier-quote {
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: var(--gold-light);
   border-left: 2px solid var(--gold-dark);
-  padding-left: 1.5rem;
-  margin: 2rem 0;
-  line-height: 1.8;
+  padding: 1rem 0 1rem 2rem;
+  margin: 2.5rem 0;
+  line-height: 1.9;
 }
 
-.about-stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-.stat-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(200, 151, 62, 0.1);
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s;
-}
-
-.stat-card:hover { border-color: rgba(200, 151, 62, 0.3); }
-
-.stat-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px; height: 100%;
-  background: var(--gold-dark);
-}
-
-.stat-number {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 2.5rem;
-  color: var(--gold);
-  line-height: 1;
-}
-
-.stat-label {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  margin-top: 0.5rem;
-}
-
-/* ========== ARSENAL ========== */
-.arsenal-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.arsenal-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(200, 151, 62, 0.08);
-  padding: 2.5rem 2rem;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s;
-}
-
-.arsenal-card:hover {
-  border-color: rgba(200, 151, 62, 0.25);
-  transform: translateY(-4px);
-}
-
-.arsenal-card::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%; height: 2px;
-  background: linear-gradient(90deg, var(--gold-dark), transparent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s;
-}
-
-.arsenal-card:hover::after { transform: scaleX(1); }
-
-.arsenal-icon {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--green-terminal);
-  font-family: 'Fira Code', monospace;
-}
-
-.arsenal-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.arsenal-card p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.arsenal-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1.2rem;
-}
-
-.arsenal-tags span {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 1px;
-  padding: 0.3rem 0.8rem;
-  border: 1px solid rgba(0, 255, 65, 0.15);
-  color: var(--green-terminal);
-  opacity: 0.7;
-}
-
-/* ========== ACHIEVEMENTS ========== */
-.achievements-list {
+.dossier-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
 }
 
-.achievement-item {
+.d-stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 2.2rem;
+  position: relative;
+  transition: border-color 0.4s;
+}
+
+.d-stat:hover { border-color: var(--border-hover); }
+
+.d-stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 0;
+  background: var(--gold);
+  transition: height 0.5s;
+}
+
+.d-stat:hover::before { height: 100%; }
+
+.d-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.8rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.d-stat-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  text-transform: uppercase;
+}
+
+/* ========== HOLDINGS (Arsenal) ========== */
+.holdings-grid { display: grid; gap: 0; }
+
+.holding-card {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  gap: 3rem;
+  align-items: start;
+  padding: 3.5rem 3rem;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.holding-card:first-child { border-top: 1px solid var(--border-subtle); }
+
+.holding-card:hover { background: rgba(200, 151, 62, 0.02); }
+
+.holding-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  color: var(--gold-dark);
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.holding-meta {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.holding-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.holding-code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  color: var(--gold-dark);
+  opacity: 0.5;
+}
+
+.holding-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.holding-card h3 span {
+  display: block;
+  font-family: 'Crimson Text', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+
+.holding-card p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-top: 1rem;
+  max-width: 600px;
+}
+
+.holding-action {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.holding-card:hover .holding-action { color: var(--gold); }
+
+.holding-action-arrow {
+  width: 20px; height: 1px;
+  background: var(--gold-dark);
+  position: relative;
+  transition: width 0.3s;
+}
+
+.holding-card:hover .holding-action-arrow { width: 35px; background: var(--gold); }
+
+/* Holding expanded details */
+.holding-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  grid-column: 2 / -1;
+}
+
+.holding-card.expanded .holding-details { max-height: 500px; }
+
+.holding-details-inner {
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 1.5rem;
+}
+
+.holding-details-inner p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+  max-width: 100%;
+}
+
+.holding-tech-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  color: var(--gold-dark);
+  margin: 1.5rem 0 0.8rem;
+  text-transform: uppercase;
+}
+
+.holding-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.holding-tech-tags span {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(0,255,65,0.12);
+  color: var(--green-terminal);
+  opacity: 0.6;
+}
+
+/* ========== TICKER / MARQUEE ========== */
+.ticker-wrapper {
+  position: relative;
+  z-index: 5;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+  padding: 1.2rem 0;
+  background: rgba(200, 151, 62, 0.015);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 30s linear infinite;
+}
+
+.ticker-track span {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 2rem;
+}
+
+.ticker-track .ticker-dot {
+  color: var(--gold);
+  padding: 0 0.5rem;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ========== PHILOSOPHY CARDS ========== */
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.phil-card {
+  padding: 3rem 2.5rem;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  transition: all 0.5s;
+  position: relative;
+  overflow: hidden;
+}
+
+.phil-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s;
+}
+
+.phil-card:hover::before { transform: scaleX(1); }
+
+.phil-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+}
+
+.phil-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.phil-card h4 {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--gold-dark);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.phil-card p {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.9;
+  font-style: italic;
+}
+
+/* ========== ACHIEVEMENTS ========== */
+.achieve-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.achieve-card {
   display: flex;
   gap: 1.5rem;
   align-items: flex-start;
   padding: 2rem;
   background: var(--bg-card);
-  border: 1px solid rgba(200, 151, 62, 0.08);
-  transition: all 0.3s;
+  border: 1px solid var(--border-subtle);
+  transition: all 0.4s;
 }
 
-.achievement-item:hover {
-  border-color: rgba(200, 151, 62, 0.2);
-  background: rgba(14, 14, 20, 0.95);
+.achieve-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
 }
 
-.achievement-icon {
-  font-size: 1.8rem;
+.achieve-icon {
+  font-size: 1.6rem;
   flex-shrink: 0;
-  width: 50px;
-  height: 50px;
+  width: 48px; height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(200, 151, 62, 0.2);
+  border: 1px solid rgba(200,151,62,0.15);
   color: var(--gold);
 }
 
-.achievement-item h3 {
+.achieve-card h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: var(--text-primary);
   margin-bottom: 0.4rem;
 }
 
-.achievement-item p {
+.achieve-card p {
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.6;
 }
 
-/* ========== PROJECTS & RESEARCH CARDS ========== */
-.pr-grid {
-  display: grid;
-  gap: 2rem;
-}
-
-.pr-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(200, 151, 62, 0.08);
-  transition: all 0.3s;
-  overflow: hidden;
-}
-
-.pr-card:hover { border-color: rgba(200, 151, 62, 0.25); }
-
-.pr-card-header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 2rem;
-  align-items: center;
-  padding: 2.5rem;
-  cursor: pointer;
-  user-select: none;
-}
-
-.pr-card-header:hover { background: rgba(200, 151, 62, 0.03); }
-
-.pr-year {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 3rem;
-  color: var(--gold-dark);
-  opacity: 0.5;
-  line-height: 1;
-}
-
-.pr-card-header h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  color: var(--text-primary);
-  margin-bottom: 0.4rem;
-}
-
-.pr-card-header .pr-subtitle {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  letter-spacing: 1px;
-}
-
-.pr-status {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  padding: 0.4rem 1rem;
-  border: 1px solid;
-  white-space: nowrap;
-  height: fit-content;
-}
-
-.status-active { border-color: var(--green-terminal); color: var(--green-terminal); }
-.status-progress { border-color: var(--gold); color: var(--gold); }
-
-.pr-toggle {
-  font-family: 'Fira Code', monospace;
-  font-size: 1.2rem;
-  color: var(--gold);
-  transition: transform 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border: 1px solid rgba(200, 151, 62, 0.2);
-  flex-shrink: 0;
-}
-
-.pr-card.expanded .pr-toggle { transform: rotate(45deg); }
-
-.pr-card-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s;
-  padding: 0 2.5rem;
-}
-
-.pr-card.expanded .pr-card-body {
-  max-height: 800px;
-  padding: 0 2.5rem 2.5rem;
-}
-
-.pr-details {
-  border-top: 1px solid rgba(200, 151, 62, 0.1);
-  padding-top: 2rem;
-}
-
-.pr-details p {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 1rem;
-}
-
-.pr-details .pr-tech-label {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.7rem;
-  letter-spacing: 3px;
-  color: var(--gold-dark);
-  margin-bottom: 0.8rem;
-  margin-top: 1.5rem;
-}
-
-.pr-details .pr-tech-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.pr-details .pr-tech-tags span {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 1px;
-  padding: 0.3rem 0.8rem;
-  border: 1px solid rgba(0, 255, 65, 0.15);
-  color: var(--green-terminal);
-  opacity: 0.7;
-}
-
-/* === SPACE FOR FUTURE DETAILS === */
-.pr-details .future-content {
-  /* 
-    ASHUTOSH: Add more details here later.
-    Just add <div class="future-content"><p>Your text</p></div>
-    inside any .pr-details block.
-  */
-  margin-top: 1rem;
-}
-
-/* ========== LEGACY (Timeline) ========== */
+/* ========== LEGACY TIMELINE ========== */
 .legacy-timeline {
   position: relative;
   padding-left: 3rem;
@@ -633,50 +830,50 @@ section {
   background: linear-gradient(180deg, var(--gold-dark), transparent);
 }
 
-.timeline-item {
+.tl-item {
   position: relative;
-  margin-bottom: 3rem;
-  padding-left: 2rem;
+  margin-bottom: 3.5rem;
+  padding-left: 2.5rem;
 }
 
-.timeline-item::before {
+.tl-item::before {
   content: '';
   position: absolute;
   left: -3.35rem; top: 0.5rem;
-  width: 8px; height: 8px;
-  border: 2px solid var(--gold);
+  width: 7px; height: 7px;
+  border: 1.5px solid var(--gold);
   background: var(--bg-deep);
   transform: rotate(45deg);
 }
 
-.timeline-date {
+.tl-date {
   font-family: 'Fira Code', monospace;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   letter-spacing: 3px;
   color: var(--gold-dark);
   margin-bottom: 0.5rem;
 }
 
-.timeline-item h3 {
+.tl-item h3 {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
   color: var(--text-primary);
   margin-bottom: 0.3rem;
 }
 
-.timeline-item h4 {
+.tl-item h4 {
   font-family: 'Fira Code', monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   letter-spacing: 2px;
   color: var(--gold);
   font-weight: 400;
   margin-bottom: 0.8rem;
 }
 
-.timeline-item p {
+.tl-item p {
   font-size: 0.95rem;
   color: var(--text-muted);
-  line-height: 1.7;
+  line-height: 1.8;
 }
 
 /* ========== CONTACT MODAL ========== */
@@ -684,142 +881,123 @@ section {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background: rgba(5, 5, 10, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(5,5,8,0.94);
+  backdrop-filter: blur(25px);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s;
+  transition: opacity 0.5s;
 }
 
-.contact-overlay.active {
-  opacity: 1;
-  pointer-events: all;
-}
+.contact-overlay.active { opacity: 1; pointer-events: all; }
 
 .contact-modal {
-  max-width: 500px;
+  max-width: 480px;
   width: 90%;
-  padding: 3rem;
-  border: 1px solid rgba(200, 151, 62, 0.2);
-  background: rgba(14, 14, 20, 0.95);
-  position: relative;
-  transform: translateY(30px) scale(0.95);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 3.5rem;
+  border: 1px solid rgba(200,151,62,0.15);
+  background: rgba(12,12,18,0.95);
+  transform: translateY(30px) scale(0.96);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.contact-overlay.active .contact-modal {
-  transform: translateY(0) scale(1);
-}
+.contact-overlay.active .contact-modal { transform: translateY(0) scale(1); }
 
-.contact-modal-close {
+.contact-close {
   position: absolute;
   top: 1.5rem; right: 1.5rem;
-  background: none;
-  border: 1px solid rgba(200, 151, 62, 0.2);
+  background: none; border: 1px solid rgba(200,151,62,0.15);
   color: var(--text-muted);
   width: 36px; height: 36px;
-  font-family: 'Fira Code', monospace;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: 'Fira Code', monospace;
+  display: flex; align-items: center; justify-content: center;
 }
 
-.contact-modal-close:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-}
+.contact-close:hover { color: var(--gold); border-color: var(--gold); }
 
 .contact-modal h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--text-primary);
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.5rem;
 }
 
-.contact-modal .modal-subtitle {
+.contact-modal .modal-sub {
   font-family: 'Fira Code', monospace;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   margin-bottom: 2.5rem;
 }
 
-.contact-grid {
+.c-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
-.contact-card {
+.c-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.7rem;
   padding: 1.5rem 1rem;
-  border: 1px solid rgba(200, 151, 62, 0.1);
-  background: rgba(10, 10, 15, 0.6);
+  border: 1px solid var(--border-subtle);
+  background: rgba(8,8,12,0.6);
   text-decoration: none;
   transition: all 0.3s;
 }
 
-.contact-card:hover {
+.c-card:hover {
   border-color: var(--gold);
-  background: rgba(200, 151, 62, 0.06);
+  background: rgba(200,151,62,0.04);
   transform: translateY(-3px);
 }
 
-.contact-card-icon {
-  width: 44px; height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(200, 151, 62, 0.25);
+.c-card-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(200,151,62,0.2);
   color: var(--gold);
   font-family: 'Fira Code', monospace;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
 }
 
-.contact-card-label {
+.c-card-label {
   font-family: 'Fira Code', monospace;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   letter-spacing: 2px;
   color: var(--text-muted);
   text-transform: uppercase;
 }
 
-.contact-card:hover .contact-card-label { color: var(--gold); }
+.c-card:hover .c-card-label { color: var(--gold); }
 
-/* Gmail card spans full width */
-.contact-card.full-width {
+.c-card.full-width {
   grid-column: 1 / -1;
   flex-direction: row;
   justify-content: center;
-}
-
-.contact-card.full-width .contact-card-label {
-  font-size: 0.75rem;
+  gap: 1rem;
 }
 
 /* ========== FOOTER ========== */
 footer {
   position: relative;
   z-index: 5;
-  padding: 3rem 6rem;
-  border-top: 1px solid rgba(200, 151, 62, 0.1);
+  padding: 2.5rem 8rem;
+  border-top: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Fira Code', monospace;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   letter-spacing: 2px;
 }
@@ -831,11 +1009,11 @@ footer {
   color: var(--gold-dark);
 }
 
-/* ========== SCROLL REVEAL ========== */
+/* ========== SCROLL ANIMATIONS ========== */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(50px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.visible {
@@ -843,185 +1021,183 @@ footer {
   transform: translateY(0);
 }
 
-/* ========== GLITCH TEXT ========== */
-.glitch { position: relative; }
-
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glitch::before {
-  animation: glitch1 3s infinite;
-  color: var(--green-terminal);
-  z-index: -1;
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.glitch::after {
-  animation: glitch2 3s infinite;
-  color: var(--red-accent);
-  z-index: -2;
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes glitch1 {
-  0%, 93%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-  94% { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 1px); }
-  96% { clip-path: inset(50% 0 20% 0); transform: translate(3px, -1px); }
-  98% { clip-path: inset(70% 0 5% 0); transform: translate(-2px, 2px); }
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-@keyframes glitch2 {
-  0%, 91%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-  92% { clip-path: inset(40% 0 30% 0); transform: translate(3px, -1px); }
-  95% { clip-path: inset(10% 0 70% 0); transform: translate(-3px, 2px); }
-  97% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
-}
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
-  section { padding: 5rem 3rem; }
-  .hero { padding: 7rem 3rem 4rem; }
-  nav { padding: 1rem 2rem; }
+  section, .hero { padding-left: 3rem; padding-right: 3rem; }
   footer { padding: 2rem 3rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .achievements-list { grid-template-columns: 1fr; }
-  .pr-card-header { grid-template-columns: 1fr; gap: 1rem; }
-  .pr-year { font-size: 2rem; }
+  .hero-content { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-portrait { display: none; }
+  .dossier-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .philosophy-grid { grid-template-columns: 1fr; }
+  .achieve-grid { grid-template-columns: 1fr; }
+  .holding-card { grid-template-columns: 50px 1fr; gap: 1.5rem; }
+  .holding-action { display: none; }
+  .holding-details { grid-column: 1 / -1; }
+  .music-player { right: 4.5rem; }
 }
 
 @media (max-width: 768px) {
-  section { padding: 4rem 1.5rem; }
-  .hero { padding: 6rem 1.5rem 3rem; }
+  section { padding: 5rem 1.5rem; }
+  .hero { padding: 0 1.5rem; }
   nav { padding: 1rem 1.5rem; }
   footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
 
   .nav-links {
     position: fixed;
     top: 0; right: -100%;
-    width: 75%;
+    width: 80%;
     height: 100vh;
-    background: rgba(10, 10, 15, 0.97);
-    backdrop-filter: blur(20px);
+    background: rgba(8,8,12,0.98);
+    backdrop-filter: blur(25px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2.5rem;
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    border-left: 1px solid rgba(200, 151, 62, 0.15);
+    border-left: 1px solid var(--border-subtle);
   }
 
   .nav-links.open { right: 0; }
-  .nav-links a { font-size: 0.9rem; letter-spacing: 6px; }
+  .nav-links a { font-size: 0.85rem; letter-spacing: 5px; }
   .hamburger { display: flex; }
-  .nav-brand { font-size: 1.8rem; }
-  .hero-name { font-size: clamp(2.5rem, 12vw, 4rem); }
-  .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .arsenal-grid { grid-template-columns: 1fr; }
-  .stat-card { padding: 1.5rem; }
-  .stat-number { font-size: 2rem; }
-  .achievement-item { padding: 1.5rem; }
-  .contact-grid { grid-template-columns: 1fr 1fr; }
-  .pr-card-header { padding: 1.5rem; }
-  .pr-card.expanded .pr-card-body { padding: 0 1.5rem 1.5rem; }
+
+  .hero-name { font-size: clamp(2.8rem, 12vw, 4rem); }
+  .dossier-stats { grid-template-columns: 1fr; }
+  .c-grid { grid-template-columns: 1fr; }
+  .contact-modal { padding: 2.5rem 1.5rem; }
+
+  .holding-card { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+  .holding-num { font-size: 2rem; }
+
+  .music-player { right: 3.5rem; top: 1.2rem; }
+  .music-label { display: none; }
 }
 
 @media (max-width: 480px) {
-  .about-stats { grid-template-columns: 1fr; }
-  .hero-cta { width: 100%; justify-content: center; }
-  .achievement-item { flex-direction: column; }
-  section { padding: 3rem 1rem; }
-  .hero { padding: 5rem 1rem 3rem; }
+  section { padding: 4rem 1rem; }
+  .hero { padding: 0 1rem; }
   nav { padding: 0.8rem 1rem; }
-  footer { padding: 1.5rem 1rem; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .contact-modal { padding: 2rem 1.5rem; }
+  .achieve-card { flex-direction: column; padding: 1.5rem; }
 }
 
-/* ========== CUSTOM SCROLLBAR ========== */
-::-webkit-scrollbar { width: 6px; }
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dark); }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+::selection { background: rgba(200,151,62,0.25); color: var(--text-primary); }
 </style>
 </head>
 <body>
 
-<!-- Dynamic Background -->
-<div class="bg-matrix">
-  <canvas id="matrixCanvas"></canvas>
+<!-- ========== LOADING SCREEN ========== -->
+<div class="loader" id="loader">
+  <div class="loader-brand">PHANTOM.</div>
+  <div class="loader-bar-track"><div class="loader-bar"></div></div>
+  <div class="loader-text">By order of the Phantom</div>
 </div>
+
+<!-- ========== BACKGROUNDS ========== -->
+<div class="bg-matrix"><canvas id="matrixCanvas"></canvas></div>
 <div class="fog-overlay"></div>
 <div class="scanlines"></div>
+<div class="grain"></div>
 
-<!-- ============================================================
-     CONTACT MODAL — pops up when "Contact" is clicked in navbar
-     ============================================================ -->
+<!-- ========== MUSIC PLAYER ========== -->
+<div class="music-player" id="musicPlayer" onclick="toggleMusic()">
+  <div class="music-bars" id="musicBars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <div class="music-label" id="musicLabel">Play Soundscape</div>
+</div>
+<!-- 
+  ASHUTOSH: Replace the src below with your own hosted Peaky Blinders theme MP3.
+  Host the .mp3 file in your GitHub repo root or a CDN and update the path.
+  e.g. src="./red-right-hand.mp3" or src="https://your-cdn.com/peaky.mp3"
+-->
+<audio id="bgMusic" loop preload="auto">
+  <source src="./peaky-theme.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ========== CONTACT MODAL ========== -->
 <div class="contact-overlay" id="contactOverlay">
-  <div class="contact-modal">
-    <button class="contact-modal-close" onclick="closeContact()">&times;</button>
+  <div class="contact-modal" style="position:relative;">
+    <button class="contact-close" onclick="closeContact()">&times;</button>
     <h3>Establish Connection</h3>
-    <p class="modal-subtitle">// choose your channel</p>
-    <div class="contact-grid">
-
-      <!-- Gmail -->
-      <a href="mailto:sharmaashutosh2610@gmail.com" class="contact-card full-width">
-        <div class="contact-card-icon">@</div>
-        <div class="contact-card-label">sharmaashutosh2610@gmail.com</div>
+    <p class="modal-sub">// select channel</p>
+    <div class="c-grid">
+      <a href="mailto:sharmaashutosh2610@gmail.com" class="c-card full-width">
+        <div class="c-card-icon">@</div>
+        <div class="c-card-label">sharmaashutosh2610@gmail.com</div>
       </a>
-
-      <!-- GitHub -->
-      <a href="https://github.com/SniperPhantom02" target="_blank" class="contact-card">
-        <div class="contact-card-icon">&lt;/&gt;</div>
-        <div class="contact-card-label">GitHub</div>
+      <a href="https://github.com/SniperPhantom02" target="_blank" class="c-card">
+        <div class="c-card-icon">&lt;/&gt;</div>
+        <div class="c-card-label">GitHub</div>
       </a>
-
-      <!-- LinkedIn -->
-      <a href="https://www.linkedin.com/in/ashutosh-sharma-8472911a7/" target="_blank" class="contact-card">
-        <div class="contact-card-icon">in</div>
-        <div class="contact-card-label">LinkedIn</div>
+      <a href="https://www.linkedin.com/in/ashutosh-sharma-8472911a7/" target="_blank" class="c-card">
+        <div class="c-card-icon">in</div>
+        <div class="c-card-label">LinkedIn</div>
       </a>
-
-      <!-- X (Twitter) — ASHUTOSH: Replace # with your X profile URL -->
-      <a href="https://x.com/be_a_sharma_" target="_blank" class="contact-card">
-        <div class="contact-card-icon">X</div>
-        <div class="contact-card-label">X / Twitter</div>
+      <!-- ASHUTOSH: Replace # with your X (Twitter) URL -->
+      <a href="#" target="_blank" class="c-card">
+        <div class="c-card-icon">X</div>
+        <div class="c-card-label">X / Twitter</div>
       </a>
-
-      <!-- Instagram — ASHUTOSH: Replace # with your Instagram profile URL -->
-      <a href="https://www.instagram.com/sharma_ashutosh1407?igsh=NGU3ZTM0Y21uMnd4" target="_blank" class="contact-card">
-        <div class="contact-card-icon">IG</div>
-        <div class="contact-card-label">Instagram</div>
+      <!-- ASHUTOSH: Replace # with your Instagram URL -->
+      <a href="#" target="_blank" class="c-card">
+        <div class="c-card-icon">IG</div>
+        <div class="c-card-label">Instagram</div>
       </a>
-
       <!--
-        ============================================================
-        ASHUTOSH — ADD MORE CONTACT LINKS HERE
-        Copy this template and paste below:
-
-        <a href="YOUR_URL" target="_blank" class="contact-card">
-          <div class="contact-card-icon">ICON</div>
-          <div class="contact-card-label">LABEL</div>
+        ASHUTOSH — ADD MORE CONTACT LINKS:
+        <a href="URL" target="_blank" class="c-card">
+          <div class="c-card-icon">ICON</div>
+          <div class="c-card-label">LABEL</div>
         </a>
-
-        Use class="contact-card full-width" to span the full row.
-        ============================================================
       -->
-
     </div>
   </div>
 </div>
 
-<!-- ========== NAVIGATION ========== -->
+<!-- ========== NAVBAR ========== -->
 <nav id="navbar">
-  <a href="#" class="nav-brand glitch" data-text="PHANTOM">PHANTOM</a>
+  <a href="#hero" class="nav-brand">PHANTOM.</a>
   <div class="nav-links" id="navLinks">
     <a href="#arsenal">Arsenal</a>
+    <a href="#projects">Projects</a>
     <a href="#research">Research</a>
     <a href="#legacy">Legacy</a>
-    <a href="javascript:void(0)" onclick="openContact()" class="active">Contact</a>
+    <a href="javascript:void(0)" onclick="openContact()">Contact</a>
   </div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -1029,451 +1205,552 @@ footer {
 </nav>
 
 <!-- ========== HERO ========== -->
-<section class="hero" id="home">
+<section class="hero" id="hero">
   <div class="hero-content">
-    <div class="hero-pre">initializing phantom protocol...</div>
-    <h1 class="hero-name">
-      Ashutosh Sharma
-      <span>// by order of the phantom</span>
-    </h1>
-    <p class="hero-tagline">
-      MCA @ Thapar Institute &mdash; Quantum Computing &bull; Cybersecurity &bull; Full Stack Development &bull; Competitive Shooter
-    </p>
-    <a href="#arsenal" class="hero-cta">EXPLORE ARSENAL &rarr;</a>
+    <div class="hero-left">
+      <div class="hero-pre">initializing phantom protocol...</div>
+      <h1 class="hero-name">Ashutosh<br>Sharma.</h1>
+      <h2 class="hero-title">The Phantom Operative.</h2>
+      <h3 class="hero-sub">Quantum &bull; Security &bull; Full Stack &bull; Precision</h3>
+      <div class="hero-scroll-cue">
+        <div class="hero-scroll-line"></div>
+        Scroll to Explore
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <div class="hero-portrait-inner">
+        <div class="hero-portrait-code" id="portraitCode"></div>
+        <div class="hero-portrait-label">P.H.</div>
+      </div>
+    </div>
   </div>
-  <div class="hero-scroll">SCROLL</div>
 </section>
 
-<!-- ========== ABOUT ========== -->
+<!-- ========== ABOUT / DOSSIER ========== -->
 <section id="about">
-  <div class="reveal">
-    <div class="section-label">// 001 &mdash; DOSSIER</div>
-    <h2 class="section-title">About the Phantom</h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p>
-        MCA student at Thapar Institute of Engineering and Technology with a strong foundation in computer science and hands-on experience building web and data-driven applications. Passionate about full stack development, problem-solving, and developing scalable real-world solutions through projects and hackathons.
-      </p>
-      <p>
-        From the shooting range to the command line, every discipline demands the same thing: precision under pressure, total focus, and zero tolerance for error.
-      </p>
-      <div class="about-quote">
+  <div class="section-eyebrow reveal">// 001 &mdash; Dossier</div>
+  <h2 class="section-heading reveal">About the Phantom</h2>
+  <p class="section-heading-sub reveal">Classified personnel file</p>
+  <div class="dossier-grid">
+    <div class="dossier-text">
+      <p class="reveal">MCA student at Thapar Institute of Engineering and Technology with a strong foundation in computer science and hands-on experience building web and data-driven applications. Passionate about full stack development, problem-solving, and developing scalable real-world solutions through projects and hackathons.</p>
+      <p class="reveal">From the shooting range to the command line, every discipline demands the same thing: precision under pressure, total focus, and zero tolerance for error.</p>
+      <div class="dossier-quote reveal">
         &ldquo;In competitive shooting, a millisecond of hesitation or a single heartbeat out of sync means a missed target. I apply that same uncompromising precision to my code and security architectures.&rdquo;
       </div>
       <!--
-        ============================================================
-        ASHUTOSH — ADD MORE ABOUT CONTENT HERE
-        Just add <p>Your paragraph text here</p> blocks.
-        ============================================================
+        ASHUTOSH — ADD MORE ABOUT PARAGRAPHS:
+        <p class="reveal">Your text here.</p>
       -->
     </div>
-    <div class="about-stats reveal">
-      <!-- BCA Score removed as requested -->
-      <div class="stat-card">
-        <div class="stat-number">5+</div>
-        <div class="stat-label">Projects Deployed</div>
+    <div class="dossier-stats">
+      <div class="d-stat reveal stagger-1">
+        <div class="d-stat-num">5+</div>
+        <div class="d-stat-label">Projects Deployed</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">2</div>
-        <div class="stat-label">Publications In Progress</div>
+      <div class="d-stat reveal stagger-2">
+        <div class="d-stat-num">2</div>
+        <div class="d-stat-label">Publications</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">&infin;</div>
-        <div class="stat-label">Lines of Code</div>
+      <div class="d-stat reveal stagger-3">
+        <div class="d-stat-num">&infin;</div>
+        <div class="d-stat-label">Lines of Code</div>
+      </div>
+      <div class="d-stat reveal stagger-4">
+        <div class="d-stat-num">&#x1F3AF;</div>
+        <div class="d-stat-label">National Shooter</div>
       </div>
       <!--
-        ============================================================
-        ASHUTOSH — ADD MORE STAT CARDS HERE
-        Template:
-        <div class="stat-card">
-          <div class="stat-number">NUMBER</div>
-          <div class="stat-label">LABEL TEXT</div>
+        ASHUTOSH — ADD MORE STAT CARDS:
+        <div class="d-stat reveal">
+          <div class="d-stat-num">VALUE</div>
+          <div class="d-stat-label">LABEL</div>
         </div>
-        ============================================================
       -->
     </div>
   </div>
 </section>
 
-<!-- ========== ARSENAL (Skills) ========== -->
+<!-- ========== ARSENAL (Holdings-style) ========== -->
 <section id="arsenal">
-  <div class="reveal">
-    <div class="section-label">// 002 &mdash; WEAPONS</div>
-    <h2 class="section-title">Arsenal</h2>
-  </div>
-  <div class="arsenal-grid">
-    <div class="arsenal-card reveal">
-      <div class="arsenal-icon">&lt;/&gt;</div>
-      <h3>Frontend Warfare</h3>
-      <p>Crafting pixel-perfect interfaces with surgical precision. Every element placed with intent, every animation tuned for impact.</p>
-      <div class="arsenal-tags">
-        <span>HTML5</span><span>CSS3</span><span>JavaScript ES6+</span>
-      </div>
-    </div>
-    <div class="arsenal-card reveal">
-      <div class="arsenal-icon">&#123;&#125;</div>
-      <h3>Backend Operations</h3>
-      <p>Server-side logic and API architectures. Building the invisible infrastructure that powers everything.</p>
-      <div class="arsenal-tags">
-        <span>Node.js</span><span>Python</span><span>Bash</span>
-      </div>
-    </div>
-    <div class="arsenal-card reveal">
-      <div class="arsenal-icon">&#x26A0;</div>
-      <h3>Data & Intelligence</h3>
-      <p>Machine learning pipelines, prediction models, and data analytics that transform noise into actionable intelligence.</p>
-      <div class="arsenal-tags">
-        <span>ML/AI</span><span>NLP</span><span>TF-IDF</span><span>Analytics</span>
-      </div>
-    </div>
-    <div class="arsenal-card reveal">
-      <div class="arsenal-icon">&#x1F512;</div>
-      <h3>Quantum & Security</h3>
-      <p>Quantum-safe communication channels, encryption workflows, and security architectures built for the post-quantum era.</p>
-      <div class="arsenal-tags">
-        <span>OpenSSL</span><span>Linux</span><span>Quantum Computing</span>
-      </div>
-    </div>
-    <div class="arsenal-card reveal">
-      <div class="arsenal-icon">&#x2697;</div>
-      <h3>Databases & Systems</h3>
-      <p>Structured data systems, query optimization, and database architectures that scale without breaking a sweat.</p>
-      <div class="arsenal-tags">
-        <span>SQL</span><span>SQL Server</span><span>MongoDB</span>
-      </div>
-    </div>
-    <div class="arsenal-card reveal">
-      <div class="arsenal-icon">&#x2699;</div>
-      <h3>Tools & Ops</h3>
-      <p>Version control mastery, cloud deployment, and the toolchain that keeps operations running at peak performance.</p>
-      <div class="arsenal-tags">
-        <span>Git</span><span>VS Code</span><span>AWS</span><span>Jupyter</span>
-      </div>
-    </div>
-    <!--
-      ============================================================
-      ASHUTOSH — ADD MORE ARSENAL CARDS HERE
-      Template:
-      <div class="arsenal-card reveal">
-        <div class="arsenal-icon">ICON</div>
-        <h3>Skill Name</h3>
-        <p>Description of skill.</p>
-        <div class="arsenal-tags">
-          <span>Tag1</span><span>Tag2</span>
+  <div class="section-eyebrow reveal">// 002 &mdash; Strategic Assets</div>
+  <h2 class="section-heading reveal">The Arsenal</h2>
+  <p class="section-heading-sub reveal">Operational capabilities & technical stack</p>
+  <div class="holdings-grid">
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">01</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Frontend</span>
+          <span class="holding-code">PH.0001</span>
+        </div>
+        <h3>Frontend Warfare <span>Pixel-perfect interface engineering</span></h3>
+        <p>Crafting interfaces with surgical precision. Every element placed with intent, every animation tuned for maximum impact and user immersion.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>From responsive layouts to complex animations, I build frontends that feel alive. The goal is never just functional &mdash; it's memorable.</p>
+            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>HTML5</span><span>CSS3</span><span>JavaScript ES6+</span><span>Responsive Design</span>
+            </div>
+          </div>
         </div>
       </div>
-      ============================================================
+      <div class="holding-action">Read Intel <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">02</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Backend</span>
+          <span class="holding-code">PH.0002</span>
+        </div>
+        <h3>Backend Operations <span>Server-side logic & API architecture</span></h3>
+        <p>Building the invisible infrastructure that powers everything. Scalable, secure, and built to handle whatever gets thrown at it.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>APIs that scale, servers that hold, authentication that locks. The backend is where reliability lives.</p>
+            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>Node.js</span><span>Python</span><span>Bash</span><span>REST APIs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Intel <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">03</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Intelligence</span>
+          <span class="holding-code">PH.0003</span>
+        </div>
+        <h3>Data & Intelligence <span>ML pipelines & analytics</span></h3>
+        <p>Machine learning pipelines, prediction models, and data analytics that transform noise into actionable intelligence.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>From raw data to deployed models &mdash; NLP, forecasting, anomaly detection across real-world datasets.</p>
+            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>ML/AI</span><span>NLP</span><span>TF-IDF</span><span>Pandas</span><span>Scikit-learn</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Intel <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">04</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Security</span>
+          <span class="holding-code">PH.0004</span>
+        </div>
+        <h3>Quantum & Security <span>Post-quantum encryption architectures</span></h3>
+        <p>Quantum-safe communication channels, encryption workflows, and security architectures built for the post-quantum era.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>Exploring lattice-based cryptography, quantum key distribution, and building systems that survive the quantum threat.</p>
+            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>OpenSSL</span><span>Linux</span><span>Quantum Computing</span><span>Cryptography</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Intel <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">05</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Data Systems</span>
+          <span class="holding-code">PH.0005</span>
+        </div>
+        <h3>Databases & Systems <span>Structured data at scale</span></h3>
+        <p>Query optimization, schema design, and database architectures that scale without breaking a sweat.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>Relational and non-relational databases, optimized queries, and data pipelines built for production workloads.</p>
+            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>SQL</span><span>SQL Server</span><span>MongoDB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Intel <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">06</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">DevOps</span>
+          <span class="holding-code">PH.0006</span>
+        </div>
+        <h3>Tools & Operations <span>Version control, cloud, deployment</span></h3>
+        <p>The toolchain that keeps operations running at peak performance &mdash; from local dev to cloud deployment.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>Git workflows, cloud infrastructure, and development environments tuned for maximum velocity.</p>
+            <!-- ASHUTOSH — ADD MORE DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>Git</span><span>VS Code</span><span>AWS</span><span>Jupyter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Intel <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <!--
+      ASHUTOSH — ADD MORE ARSENAL HOLDINGS:
+      Copy any holding-card block above and change the content.
     -->
+
+  </div>
+</section>
+
+<!-- ========== TICKER MARQUEE ========== -->
+<div class="ticker-wrapper">
+  <div class="ticker-track" id="tickerTrack">
+    <span>QUANTUM COMPUTING</span><span class="ticker-dot">&bull;</span>
+    <span>CYBERSECURITY</span><span class="ticker-dot">&bull;</span>
+    <span>FULL STACK DEV</span><span class="ticker-dot">&bull;</span>
+    <span>COMPETITIVE SHOOTER</span><span class="ticker-dot">&bull;</span>
+    <span>MACHINE LEARNING</span><span class="ticker-dot">&bull;</span>
+    <span>NLP RESEARCH</span><span class="ticker-dot">&bull;</span>
+    <span>POST-QUANTUM ENCRYPTION</span><span class="ticker-dot">&bull;</span>
+    <span>PRECISION UNDER PRESSURE</span><span class="ticker-dot">&bull;</span>
+    <!-- Duplicated for seamless loop -->
+    <span>QUANTUM COMPUTING</span><span class="ticker-dot">&bull;</span>
+    <span>CYBERSECURITY</span><span class="ticker-dot">&bull;</span>
+    <span>FULL STACK DEV</span><span class="ticker-dot">&bull;</span>
+    <span>COMPETITIVE SHOOTER</span><span class="ticker-dot">&bull;</span>
+    <span>MACHINE LEARNING</span><span class="ticker-dot">&bull;</span>
+    <span>NLP RESEARCH</span><span class="ticker-dot">&bull;</span>
+    <span>POST-QUANTUM ENCRYPTION</span><span class="ticker-dot">&bull;</span>
+    <span>PRECISION UNDER PRESSURE</span><span class="ticker-dot">&bull;</span>
+  </div>
+</div>
+
+<!-- ========== PHILOSOPHY ========== -->
+<section id="philosophy">
+  <div class="section-eyebrow reveal">// 003 &mdash; Doctrine</div>
+  <h2 class="section-heading reveal">The Phantom Doctrine</h2>
+  <p class="section-heading-sub reveal">Principles that govern the operation</p>
+  <div class="philosophy-grid">
+    <div class="phil-card reveal stagger-1">
+      <h3>Precision</h3>
+      <h4>The Shooter's Discipline</h4>
+      <p>In competitive shooting, you train your heartbeat to be a metronome. You learn that the difference between gold and nothing is a single breath taken wrong. That discipline doesn't leave you at the range &mdash; it follows you into every line of code.</p>
+    </div>
+    <div class="phil-card reveal stagger-2">
+      <h3>Architecture</h3>
+      <h4>The Builder's Instinct</h4>
+      <p>Before a single line is written, the system must be understood completely. The data flow, the failure points, the user's invisible frustrations. Build the structure first. The code follows.</p>
+    </div>
+    <div class="phil-card reveal stagger-3">
+      <h3>Silence</h3>
+      <h4>The Power of Arrival</h4>
+      <p>There is ambition that announces itself constantly. And there is the other kind &mdash; the kind that moves in silence, letting the work arrive at full volume. The Phantom operates in the second mode.</p>
+    </div>
+    <!--
+      ASHUTOSH — ADD MORE PHILOSOPHY CARDS:
+      <div class="phil-card reveal">
+        <h3>Title</h3>
+        <h4>Subtitle</h4>
+        <p>Description.</p>
+      </div>
+    -->
+  </div>
+</section>
+
+<!-- ========== PROJECTS (Expandable) ========== -->
+<section id="projects">
+  <div class="section-eyebrow reveal">// 004 &mdash; Operations</div>
+  <h2 class="section-heading reveal">Projects</h2>
+  <p class="section-heading-sub reveal">Deployed operations & built systems</p>
+  <div class="holdings-grid">
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">01</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Security</span>
+          <span class="holding-code">OP.001</span>
+        </div>
+        <h3>Quantum-Safe Communication Channel <span>Post-quantum encryption simulation</span></h3>
+        <p>Designed and implemented a secure communication system using OpenSSL and Linux, simulating real-world encryption workflows for the post-quantum era.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>Participated in Quantum Computing & Communication workshops at IIITM Jabalpur. Gained hands-on exposure to quantum key distribution concepts and lattice-based cryptography principles.</p>
+            <p>The system demonstrates end-to-end encrypted communication with certificate-based authentication, simulating how quantum-safe algorithms could protect data in transit.</p>
+            <!-- ASHUTOSH — ADD MORE PROJECT DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>OpenSSL</span><span>Linux</span><span>Bash</span><span>Cryptography</span><span>Quantum Computing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Thesis <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">02</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">ML/AI</span>
+          <span class="holding-code">OP.002</span>
+        </div>
+        <h3>Data Analytics & ML Projects <span>Prediction models across domains</span></h3>
+        <p>Built and deployed multiple ML models spanning flood prediction, student dropout prediction, and energy anomaly detection.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>Flood & rainfall prediction developed in collaboration with CED TIET (VITRAN). Student dropout prediction using supervised learning on institutional data. Energy anomaly detection pipelines for identifying irregular consumption patterns.</p>
+            <p>Applied supervised and unsupervised learning techniques with real-world datasets, focusing on scalable prediction architectures and actionable analytics.</p>
+            <!-- ASHUTOSH — ADD MORE PROJECT DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>Python</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Jupyter</span><span>Matplotlib</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Thesis <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">03</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">NLP</span>
+          <span class="holding-code">OP.003</span>
+        </div>
+        <h3>Thapar Topic Trend Miner <span>NLP-powered trend detection</span></h3>
+        <p>A topic trend mining system that analyzes and detects emerging trends from large text datasets using advanced NLP techniques.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>Processes raw text through preprocessing pipelines, applies TF-IDF and topic modeling algorithms, and generates visual insight reports. Designed for scalability &mdash; capable of ingesting thousands of documents to surface hidden patterns.</p>
+            <!-- ASHUTOSH — ADD MORE PROJECT DETAILS HERE -->
+            <div class="holding-tech-label">// Tech Stack</div>
+            <div class="holding-tech-tags">
+              <span>Python</span><span>NLP</span><span>TF-IDF</span><span>Topic Modeling</span><span>Data Visualization</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Thesis <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <!--
+      ASHUTOSH — ADD MORE PROJECTS:
+      Copy any holding-card block above and paste here.
+    -->
+
+  </div>
+</section>
+
+<!-- ========== RESEARCH (Expandable) ========== -->
+<section id="research">
+  <div class="section-eyebrow reveal">// 005 &mdash; Classified Intel</div>
+  <h2 class="section-heading reveal">Research</h2>
+  <p class="section-heading-sub reveal">Active publications & ongoing investigations</p>
+  <div class="holdings-grid">
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">R1</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Deep Learning</span>
+          <span class="holding-code">RES.001 &mdash; IN PROGRESS</span>
+        </div>
+        <h3>STEAL-Net: Energy Demand Forecasting <span>Spatio-Temporal Energy-Aware Lightweight Network</span></h3>
+        <p>A lightweight network architecture for scalable and sustainable energy demand forecasting, balancing prediction accuracy with computational efficiency.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>Targeting real-world deployment scenarios where lightweight models are critical &mdash; edge devices, smart grids, and IoT-enabled energy infrastructure. The research explores novel architectures that capture both spatial and temporal dependencies in energy consumption data.</p>
+            <!-- ASHUTOSH — ADD MORE RESEARCH DETAILS: findings, methodology, links to papers -->
+            <div class="holding-tech-label">// Research Domains</div>
+            <div class="holding-tech-tags">
+              <span>Deep Learning</span><span>Energy Systems</span><span>Spatio-Temporal</span><span>IoT</span><span>Sustainability</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Thesis <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <div class="holding-card reveal" onclick="toggleHolding(this)">
+      <div class="holding-num">R2</div>
+      <div>
+        <div class="holding-meta">
+          <span class="holding-tag">Privacy</span>
+          <span class="holding-code">RES.002 &mdash; IN PROGRESS</span>
+        </div>
+        <h3>RedFlag &mdash; Third-Party Web Tracking Detection <span>User privacy & surveillance detection</span></h3>
+        <p>Research publication focused on detecting third-party web tracking mechanisms that compromise user privacy across the modern web.</p>
+        <div class="holding-details">
+          <div class="holding-details-inner">
+            <p>RedFlag identifies and catalogs invisible tracking scripts, fingerprinting techniques, and cross-site surveillance architectures embedded in modern websites. The goal: building tools that give the average user visibility into who is watching them online and how their data flows through the advertising ecosystem.</p>
+            <!-- ASHUTOSH — ADD MORE RESEARCH DETAILS: findings, methodology, links to papers -->
+            <div class="holding-tech-label">// Research Domains</div>
+            <div class="holding-tech-tags">
+              <span>Web Privacy</span><span>Tracking Detection</span><span>Browser Security</span><span>Data Ethics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="holding-action">Read Thesis <div class="holding-action-arrow"></div></div>
+    </div>
+
+    <!--
+      ASHUTOSH — ADD MORE RESEARCH:
+      Copy any holding-card block above and paste here.
+    -->
+
   </div>
 </section>
 
 <!-- ========== ACHIEVEMENTS ========== -->
 <section id="achievements">
-  <div class="reveal">
-    <div class="section-label">// 003 &mdash; DECORATIONS</div>
-    <h2 class="section-title">Achievements</h2>
-  </div>
-  <div class="achievements-list">
-    <div class="achievement-item reveal">
-      <div class="achievement-icon">&#x1F3AF;</div>
+  <div class="section-eyebrow reveal">// 006 &mdash; Decorations</div>
+  <h2 class="section-heading reveal">Achievements</h2>
+  <p class="section-heading-sub reveal">Medals, honors, and battle scars</p>
+  <div class="achieve-grid">
+    <div class="achieve-card reveal stagger-1">
+      <div class="achieve-icon">&#x1F3AF;</div>
       <div>
         <h3>National Level Finalist &mdash; 50m Rifle Shooting</h3>
-        <p>Competing at the highest level of precision shooting across India. One breath, one shot, one chance.</p>
+        <p>Competing at the highest level of precision shooting across India.</p>
       </div>
     </div>
-    <div class="achievement-item reveal">
-      <div class="achievement-icon">&#x1F3C6;</div>
+    <div class="achieve-card reveal stagger-2">
+      <div class="achieve-icon">&#x1F3C6;</div>
       <div>
         <h3>Gold Medalist &mdash; Rifle Shooting (URJA, TIET)</h3>
-        <p>Claimed gold in the inter-college rifle shooting competition at Thapar Institute.</p>
+        <p>Claimed gold in inter-college rifle shooting at Thapar Institute.</p>
       </div>
     </div>
-    <div class="achievement-item reveal">
-      <div class="achievement-icon">&#x1F4BB;</div>
+    <div class="achieve-card reveal stagger-3">
+      <div class="achieve-icon">&#x1F4BB;</div>
       <div>
         <h3>Finalist &mdash; Hackowasp 8.0 (TIET)</h3>
-        <p>Competed among the best in Thapar's flagship hackathon, building innovative solutions under pressure.</p>
+        <p>Competed among the best in Thapar's flagship hackathon.</p>
       </div>
     </div>
-    <div class="achievement-item reveal">
-      <div class="achievement-icon">&#x2B50;</div>
+    <div class="achieve-card reveal stagger-4">
+      <div class="achieve-icon">&#x2B50;</div>
       <div>
         <h3>Best NCC Cadet &mdash; 2 Consecutive Years</h3>
-        <p>Recognized for outstanding leadership, discipline, and commitment in the National Cadet Corps.</p>
+        <p>Outstanding leadership and discipline in the National Cadet Corps.</p>
       </div>
     </div>
-    <div class="achievement-item reveal">
-      <div class="achievement-icon">&#x1F3CF;</div>
+    <div class="achieve-card reveal stagger-5">
+      <div class="achieve-icon">&#x1F3CF;</div>
       <div>
         <h3>Vice-Captain &mdash; School Cricket Team</h3>
-        <p>Led from the front on and off the field, building team cohesion and competitive strategy.</p>
+        <p>Led from the front on and off the field.</p>
       </div>
     </div>
-    <div class="achievement-item reveal">
-      <div class="achievement-icon">&#x1F4DC;</div>
+    <div class="achieve-card reveal stagger-6">
+      <div class="achieve-icon">&#x1F4DC;</div>
       <div>
         <h3>Certified &mdash; AWS, Google AI, Coding Ninjas</h3>
-        <p>Python Programming, Responsible AI (Google), AWS Cloud Foundation, Front-End Developer certifications.</p>
+        <p>Python, Responsible AI, AWS Cloud, Front-End Developer.</p>
       </div>
     </div>
     <!--
-      ============================================================
-      ASHUTOSH — ADD MORE ACHIEVEMENTS HERE
-      Template:
-      <div class="achievement-item reveal">
-        <div class="achievement-icon">EMOJI</div>
+      ASHUTOSH — ADD MORE ACHIEVEMENTS:
+      <div class="achieve-card reveal">
+        <div class="achieve-icon">EMOJI</div>
         <div>
-          <h3>Achievement Title</h3>
-          <p>Description of achievement.</p>
+          <h3>Title</h3>
+          <p>Description.</p>
         </div>
       </div>
-      ============================================================
     -->
   </div>
 </section>
 
-<!-- ========== PROJECTS (Clickable / Expandable) ========== -->
-<section id="projects">
-  <div class="reveal">
-    <div class="section-label">// 004 &mdash; OPERATIONS</div>
-    <h2 class="section-title">Projects</h2>
-  </div>
-  <div class="pr-grid">
-
-    <!-- PROJECT 1: Quantum-Safe Communication Channel -->
-    <div class="pr-card reveal" onclick="toggleCard(this)">
-      <div class="pr-card-header">
-        <div class="pr-year">2025</div>
-        <div>
-          <h3>Quantum-Safe Communication Channel</h3>
-          <div class="pr-subtitle">Secure encryption simulation on Linux</div>
-        </div>
-        <div class="pr-toggle">+</div>
-      </div>
-      <div class="pr-card-body">
-        <div class="pr-details">
-          <p>Designed and implemented a secure communication system using OpenSSL and Linux, simulating real-world encryption workflows for the post-quantum era.</p>
-          <p>Participated in Quantum Computing & Communication workshops at IIITM Jabalpur, gaining hands-on exposure to quantum key distribution concepts and lattice-based cryptography.</p>
-          <!--
-            ASHUTOSH — ADD MORE PROJECT DETAILS HERE
-            Just add <p>Your text</p> blocks.
-          -->
-          <div class="pr-tech-label">// TECH STACK</div>
-          <div class="pr-tech-tags">
-            <span>OpenSSL</span><span>Linux</span><span>Bash</span><span>Cryptography</span><span>Quantum Computing</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 2: Data Analytics & Machine Learning -->
-    <div class="pr-card reveal" onclick="toggleCard(this)">
-      <div class="pr-card-header">
-        <div class="pr-year">2025</div>
-        <div>
-          <h3>Data Analytics & Machine Learning Projects</h3>
-          <div class="pr-subtitle">Prediction models across multiple domains</div>
-        </div>
-        <div class="pr-toggle">+</div>
-      </div>
-      <div class="pr-card-body">
-        <div class="pr-details">
-          <p>Built and deployed multiple ML models spanning flood & rainfall prediction (CED TIET &ndash; VITRAN collaboration), student dropout prediction systems, and energy anomaly detection pipelines.</p>
-          <p>Applied supervised and unsupervised learning techniques with real-world datasets, focusing on scalable prediction architectures and actionable analytics.</p>
-          <!--
-            ASHUTOSH — ADD MORE PROJECT DETAILS HERE
-            Just add <p>Your text</p> blocks.
-          -->
-          <div class="pr-tech-label">// TECH STACK</div>
-          <div class="pr-tech-tags">
-            <span>Python</span><span>Scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Jupyter</span><span>Data Viz</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 3: Thapar Topic Trend Miner -->
-    <div class="pr-card reveal" onclick="toggleCard(this)">
-      <div class="pr-card-header">
-        <div class="pr-year">2025</div>
-        <div>
-          <h3>Thapar Topic Trend Miner</h3>
-          <div class="pr-subtitle">NLP-powered trend detection from text datasets</div>
-        </div>
-        <div class="pr-toggle">+</div>
-      </div>
-      <div class="pr-card-body">
-        <div class="pr-details">
-          <p>Built a topic trend mining system using NLP techniques to analyze and detect emerging trends from large text datasets. The system processes raw text through preprocessing pipelines, applies TF-IDF and topic modeling algorithms, and generates visual insight reports.</p>
-          <p>Designed for scalability &mdash; capable of ingesting and analyzing thousands of documents to surface hidden patterns and emerging research directions.</p>
-          <!--
-            ASHUTOSH — ADD MORE PROJECT DETAILS HERE
-            Just add <p>Your text</p> blocks.
-          -->
-          <div class="pr-tech-label">// TECH STACK</div>
-          <div class="pr-tech-tags">
-            <span>Python</span><span>NLP</span><span>TF-IDF</span><span>Topic Modeling</span><span>Data Visualization</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--
-      ============================================================
-      ASHUTOSH — ADD MORE PROJECTS HERE
-      Copy a full <div class="pr-card reveal" onclick="toggleCard(this)">
-      block from above and paste here. Change the content inside.
-      ============================================================
-    -->
-
-  </div>
-</section>
-
-<!-- ========== RESEARCH (Clickable / Expandable) ========== -->
-<section id="research">
-  <div class="reveal">
-    <div class="section-label">// 005 &mdash; CLASSIFIED INTEL</div>
-    <h2 class="section-title">Research</h2>
-  </div>
-  <div class="pr-grid">
-
-    <!-- RESEARCH 1: STEAL-Net -->
-    <div class="pr-card reveal" onclick="toggleCard(this)">
-      <div class="pr-card-header">
-        <div class="pr-year">2025</div>
-        <div>
-          <h3>STEAL-Net: Energy Demand Forecasting</h3>
-          <div class="pr-subtitle">Spatio-Temporal Energy-Aware Lightweight Network</div>
-        </div>
-        <div class="pr-status status-progress">IN PROGRESS</div>
-        <div class="pr-toggle">+</div>
-      </div>
-      <div class="pr-card-body">
-        <div class="pr-details">
-          <p>A Spatio-Temporal Energy-Aware Lightweight Network designed for scalable and sustainable energy demand forecasting. The research focuses on building a network architecture that balances prediction accuracy with computational efficiency.</p>
-          <p>Targeting real-world deployment scenarios where lightweight models are critical &mdash; edge devices, smart grids, and IoT-enabled energy infrastructure.</p>
-          <!--
-            ASHUTOSH — ADD MORE RESEARCH DETAILS HERE
-            Add findings, methodology, links to papers, etc.
-            Just add <p>Your text</p> blocks.
-          -->
-          <div class="pr-tech-label">// DOMAINS</div>
-          <div class="pr-tech-tags">
-            <span>Deep Learning</span><span>Energy Systems</span><span>Spatio-Temporal</span><span>IoT</span><span>Sustainability</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RESEARCH 2: RedFlag -->
-    <div class="pr-card reveal" onclick="toggleCard(this)">
-      <div class="pr-card-header">
-        <div class="pr-year">2025</div>
-        <div>
-          <h3>RedFlag &mdash; Third-Party Web Tracking Detection</h3>
-          <div class="pr-subtitle">User privacy & surveillance detection</div>
-        </div>
-        <div class="pr-status status-progress">IN PROGRESS</div>
-        <div class="pr-toggle">+</div>
-      </div>
-      <div class="pr-card-body">
-        <div class="pr-details">
-          <p>Research publication focused on detecting third-party web tracking mechanisms that compromise user privacy. RedFlag identifies and catalogs invisible tracking scripts, fingerprinting techniques, and cross-site surveillance architectures embedded in modern websites.</p>
-          <p>The goal: building tools that give the average user visibility into who is watching them online and how their data flows through the advertising ecosystem.</p>
-          <!--
-            ASHUTOSH — ADD MORE RESEARCH DETAILS HERE
-            Add findings, methodology, links to papers, etc.
-            Just add <p>Your text</p> blocks.
-          -->
-          <div class="pr-tech-label">// DOMAINS</div>
-          <div class="pr-tech-tags">
-            <span>Web Privacy</span><span>Tracking Detection</span><span>Browser Security</span><span>Data Ethics</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!--
-      ============================================================
-      ASHUTOSH — ADD MORE RESEARCH HERE
-      Copy a full <div class="pr-card reveal" onclick="toggleCard(this)">
-      block from above and paste here. Change the content inside.
-      ============================================================
-    -->
-
-  </div>
-</section>
-
-<!-- ========== LEGACY (Experience + Education) ========== -->
+<!-- ========== LEGACY ========== -->
 <section id="legacy">
-  <div class="reveal">
-    <div class="section-label">// 006 &mdash; CHRONICLES</div>
-    <h2 class="section-title">Legacy</h2>
-  </div>
+  <div class="section-eyebrow reveal">// 007 &mdash; Chronicles</div>
+  <h2 class="section-heading reveal">Legacy</h2>
+  <p class="section-heading-sub reveal">The operational history</p>
   <div class="legacy-timeline">
-    <div class="timeline-item reveal">
-      <div class="timeline-date">2025 &mdash; 2027 (Expected)</div>
+    <div class="tl-item reveal">
+      <div class="tl-date">2025 &mdash; 2027 (Expected)</div>
       <h3>Master of Computer Applications</h3>
       <h4>Thapar Institute of Engineering & Technology, Patiala</h4>
-      <p>Focus areas: Software Engineering, AI, Cloud & Quantum Computing. Engaged in cutting-edge research and hackathon culture.</p>
+      <p>Focus: Software Engineering, AI, Cloud & Quantum Computing. Research and hackathon culture.</p>
     </div>
-    <div class="timeline-item reveal">
-      <div class="timeline-date">May 2024 &mdash; Mar 2025</div>
+    <div class="tl-item reveal">
+      <div class="tl-date">May 2024 &mdash; Mar 2025</div>
       <h3>Ajanta Pharma Ltd.</h3>
       <h4>Mumbai</h4>
-      <p>Collaborated with cross-functional teams to support technology-driven workflows. Worked with data handling and reporting processes to enhance operational decision-making.</p>
+      <p>Cross-functional tech workflows, data handling, and reporting for operational decision-making.</p>
     </div>
-    <div class="timeline-item reveal">
-      <div class="timeline-date">Feb 2023 &mdash; Nov 2023</div>
+    <div class="tl-item reveal">
+      <div class="tl-date">Feb 2023 &mdash; Nov 2023</div>
       <h3>Aimil Pharmaceuticals Ltd.</h3>
       <h4>New Delhi</h4>
-      <p>Assisted in business operations and documentation. Gained exposure to structured data systems and organizational workflows in a fast-paced environment.</p>
+      <p>Business operations, documentation, and structured data systems in a fast-paced environment.</p>
     </div>
-    <div class="timeline-item reveal">
-      <div class="timeline-date">2019 &mdash; 2022</div>
+    <div class="tl-item reveal">
+      <div class="tl-date">2019 &mdash; 2022</div>
       <h3>Bachelor of Computer Applications</h3>
       <h4>KLSD College, Panjab University, Chandigarh</h4>
-      <p>Built the foundation in programming, data structures, algorithms, and OOP concepts.</p>
+      <p>Programming, data structures, algorithms, and OOP concepts.</p>
     </div>
     <!--
-      ============================================================
-      ASHUTOSH — ADD MORE LEGACY / TIMELINE ITEMS HERE
-      Template:
-      <div class="timeline-item reveal">
-        <div class="timeline-date">DATE RANGE</div>
+      ASHUTOSH — ADD MORE TIMELINE ITEMS:
+      <div class="tl-item reveal">
+        <div class="tl-date">DATE</div>
         <h3>Title</h3>
         <h4>Organization</h4>
         <p>Description.</p>
       </div>
-      ============================================================
     -->
   </div>
 </section>
 
 <!-- ========== FOOTER ========== -->
 <footer>
-  <span>&copy; 2025 PHANTOM. All rights reserved.</span>
+  <span>Ashutosh Sharma. Phantom Operative.</span>
   <span class="footer-quote">&ldquo;By order of the Phantom Blinders.&rdquo;</span>
+  <span>Patiala, IN // &copy; 2025</span>
 </footer>
 
 <!--
   ============================================================
-  ASHUTOSH — FUTURE SECTIONS
-  Add new sections here before the footer.
-  Use the same pattern:
-  <section id="your-id">
-    <div class="reveal">
-      <div class="section-label">// NUMBER — LABEL</div>
-      <h2 class="section-title">Title</h2>
-    </div>
-    YOUR CONTENT HERE
-  </section>
+  ASHUTOSH — FUTURE SECTIONS: Add new sections above the footer.
   ============================================================
 -->
 
 <script>
-// ========== MATRIX RAIN BACKGROUND ==========
+// ========== LOADER ==========
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('done');
+  }, 2200);
+});
+
+// ========== MATRIX RAIN ==========
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -1484,13 +1761,13 @@ function resizeCanvas() {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 
-const chars = 'PHANTOM01アイウエオカキクケコサシスセソ{}[]<>/\\|!@#$%^&*QUANTUM';
+const chars = 'PHANTOM01アイウエオカキクケコ{}[]<>/\\!@#$%^&*QUANTUM';
 const fontSize = 14;
 let columns = Math.floor(canvas.width / fontSize);
 let drops = Array(columns).fill(1);
 
 function drawMatrix() {
-  ctx.fillStyle = 'rgba(10, 10, 15, 0.06)';
+  ctx.fillStyle = 'rgba(8, 8, 12, 0.055)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.font = fontSize + 'px "Fira Code", monospace';
 
@@ -1499,35 +1776,59 @@ function drawMatrix() {
     const x = i * fontSize;
     const y = drops[i] * fontSize;
 
-    if (Math.random() > 0.85) {
-      ctx.fillStyle = 'rgba(200, 151, 62, 0.25)';
-    } else {
-      ctx.fillStyle = 'rgba(0, 255, 65, 0.12)';
-    }
+    ctx.fillStyle = Math.random() > 0.88
+      ? 'rgba(200, 151, 62, 0.2)'
+      : 'rgba(0, 255, 65, 0.08)';
 
     ctx.fillText(char, x, y);
 
-    if (y > canvas.height && Math.random() > 0.98) {
-      drops[i] = 0;
-    }
+    if (y > canvas.height && Math.random() > 0.985) drops[i] = 0;
     drops[i]++;
   }
 }
 
-setInterval(drawMatrix, 80);
+setInterval(drawMatrix, 85);
 
 window.addEventListener('resize', () => {
   columns = Math.floor(canvas.width / fontSize);
   drops = Array(columns).fill(1);
 });
 
-// ========== NAVBAR SCROLL ==========
+// ========== PORTRAIT CODE RAIN ==========
+const codeSnippets = [
+  'const phantom = await init();',
+  'if (target.acquired) { fire(); }',
+  'quantum.encrypt(payload);',
+  'async function breach() {',
+  '  return await exploit(vuln);',
+  '}',
+  'SELECT * FROM targets;',
+  'git push origin --force',
+  'chmod 777 /root/shadow',
+  'nmap -sS -O 10.0.0.1',
+  'openssl enc -aes-256-cbc',
+  'ssh phantom@darknet.io',
+  'while(true) { hunt(); }',
+  'import tensorflow as tf',
+  'model.fit(X_train, epochs=100)',
+  '// by order of the phantom',
+];
+
+const portraitEl = document.getElementById('portraitCode');
+if (portraitEl) {
+  let codeText = '';
+  for (let i = 0; i < 30; i++) {
+    codeText += codeSnippets[Math.floor(Math.random() * codeSnippets.length)] + '\n';
+  }
+  portraitEl.textContent = codeText;
+}
+
+// ========== NAVBAR ==========
 window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  nav.classList.toggle('scrolled', window.scrollY > 50);
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// ========== HAMBURGER MENU ==========
+// ========== HAMBURGER ==========
 function toggleMenu() {
   document.getElementById('hamburger').classList.toggle('active');
   document.getElementById('navLinks').classList.toggle('open');
@@ -1540,6 +1841,25 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   });
 });
 
+// ========== MUSIC ==========
+const music = document.getElementById('bgMusic');
+const bars = document.getElementById('musicBars');
+const musicLabel = document.getElementById('musicLabel');
+let isPlaying = false;
+
+function toggleMusic() {
+  if (isPlaying) {
+    music.pause();
+    bars.classList.remove('playing');
+    musicLabel.textContent = 'Play Soundscape';
+  } else {
+    music.play().catch(() => {});
+    bars.classList.add('playing');
+    musicLabel.textContent = 'Playing';
+  }
+  isPlaying = !isPlaying;
+}
+
 // ========== CONTACT MODAL ==========
 function openContact() {
   document.getElementById('contactOverlay').classList.add('active');
@@ -1551,56 +1871,48 @@ function closeContact() {
   document.body.style.overflow = '';
 }
 
-// Close on overlay click (not on modal itself)
 document.getElementById('contactOverlay').addEventListener('click', function(e) {
   if (e.target === this) closeContact();
 });
 
-// Close on Escape key
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeContact();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContact(); });
 
-// ========== PROJECT / RESEARCH CARD TOGGLE ==========
-function toggleCard(card) {
-  // Close all other open cards first
-  document.querySelectorAll('.pr-card.expanded').forEach(c => {
-    if (c !== card) c.classList.remove('expanded');
+// ========== HOLDINGS / PROJECT TOGGLE ==========
+function toggleHolding(card) {
+  const wasExpanded = card.classList.contains('expanded');
+  // Close all in same section
+  card.closest('.holdings-grid').querySelectorAll('.holding-card.expanded').forEach(c => {
+    c.classList.remove('expanded');
   });
-  card.classList.toggle('expanded');
+  if (!wasExpanded) card.classList.add('expanded');
 }
 
 // ========== SCROLL REVEAL ==========
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, index) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, index * 100);
+      entry.target.classList.add('visible');
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
 
 // ========== SMOOTH SCROLL ==========
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// ========== ACTIVE NAV HIGHLIGHT ==========
-const sections = document.querySelectorAll('section[id]');
+// ========== ACTIVE NAV ==========
+const allSections = document.querySelectorAll('section[id]');
 window.addEventListener('scroll', () => {
   let current = '';
-  sections.forEach(section => {
-    const top = section.offsetTop - 100;
-    if (scrollY >= top) current = section.getAttribute('id');
+  allSections.forEach(s => {
+    if (scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
   });
   document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
     a.classList.remove('active');
