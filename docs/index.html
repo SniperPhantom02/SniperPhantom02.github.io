@@ -1146,7 +1146,7 @@ footer {
 </div>
 <!-- 
 -->
-<audio id="bgMusic" loop preload="auto" autoplay muted>
+<audio id="bgMusic" loop preload="auto">
   <source src="./music.mp3" type="audio/mp3">
 </audio>
 
@@ -1747,43 +1747,38 @@ footer {
 // ========== LOADER ==========
 // Unmute and play on first user interaction
 // ========== LOADER + AUTOPLAY ==========
-window.addEventListener('load', () => {
-  // Dismiss loader after 2.2s
-  setTimeout(() => {
-    document.getElementById('loader').classList.add('done');
-  }, 2200);
+// ========== MUSIC ==========
+const music = document.getElementById('bgMusic');
+const bars = document.getElementById('musicBars');
+const musicLabel = document.getElementById('musicLabel');
+let isPlaying = false;
 
-  // Attempt music autoplay after loader finishes
-  setTimeout(() => {
-    music.muted = false;
-    music.play().then(() => {
-      isPlaying = true;
-      bars.classList.add('playing');
-      musicLabel.textContent = 'Playing';
-    }).catch(() => {
-      music.muted = true;
-      music.play().catch(() => {});
+function startMusic() {
+  if (isPlaying) return;
+  music.muted = false;
+  music.volume = 1;
+  music.play().then(() => {
+    isPlaying = true;
+    bars.classList.add('playing');
+    musicLabel.textContent = 'Playing';
+  }).catch(() => {});
+}
 
-      function unmute() {
-        music.muted = false;
-        music.currentTime = 0;
-        music.play().then(() => {
-          isPlaying = true;
-          bars.classList.add('playing');
-          musicLabel.textContent = 'Playing';
-        }).catch(() => {});
-        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
-          document.removeEventListener(evt, unmute)
-        );
-      }
+function toggleMusic() {
+  if (isPlaying) {
+    music.pause();
+    bars.classList.remove('playing');
+    musicLabel.textContent = 'Play Soundscape';
+    isPlaying = false;
+  } else {
+    startMusic();
+  }
+}
 
-      ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
-        document.addEventListener(evt, unmute, { once: true })
-      );
-    });
-  }, 2500);
+// Auto-start music on ANY user interaction
+['click', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(evt => {
+  document.addEventListener(evt, startMusic, { once: true });
 });
-
 // ========== MATRIX RAIN ==========
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
