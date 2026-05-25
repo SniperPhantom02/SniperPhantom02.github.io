@@ -1746,19 +1746,24 @@ footer {
 <script>
 // ========== LOADER ==========
 // Unmute and play on first user interaction
+// ========== LOADER + AUTOPLAY ==========
 window.addEventListener('load', () => {
+  // Dismiss loader after 2.2s
   setTimeout(() => {
-    // Try unmuted autoplay first (will fail in most browsers)
+    document.getElementById('loader').classList.add('done');
+  }, 2200);
+
+  // Attempt music autoplay after loader finishes
+  setTimeout(() => {
     music.muted = false;
     music.play().then(() => {
       isPlaying = true;
       bars.classList.add('playing');
       musicLabel.textContent = 'Playing';
     }).catch(() => {
-      // Muted autoplay is already running — unmute on first interaction
       music.muted = true;
       music.play().catch(() => {});
-      
+
       function unmute() {
         music.muted = false;
         music.currentTime = 0;
@@ -1771,7 +1776,7 @@ window.addEventListener('load', () => {
           document.removeEventListener(evt, unmute)
         );
       }
-      
+
       ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt =>
         document.addEventListener(evt, unmute, { once: true })
       );
